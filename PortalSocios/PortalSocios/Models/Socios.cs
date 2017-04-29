@@ -42,7 +42,8 @@ namespace PortalSocios.Models {
         public string CodPostal { get; set; }
 
         [Required]
-        public char Genero { get; set; }
+        [StringLength(1)]
+        public string Genero { get; set; }
 
         [Required]
         [Column(TypeName = "date")]
