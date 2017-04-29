@@ -25,7 +25,7 @@ namespace PortalSocios.Migrations
                 new Categorias {CategoriaID = 1, Nome = "Sénior", FaixaEtaria = "Maiores de 18", NumQuotasAnuais = 12, ValorMensal = 12},
                 new Categorias {CategoriaID = 2, Nome = "Juvenil", FaixaEtaria = "Entre 12 e 17", NumQuotasAnuais = 12, ValorMensal = 6},
                 new Categorias {CategoriaID = 3, Nome = "Infantil", FaixaEtaria = "Entre 0 e 11", NumQuotasAnuais = 12, ValorMensal = 3},
-            };
+             };
 
             categorias.ForEach(cc => context.Categorias.AddOrUpdate(c => c.Nome, cc));
             context.SaveChanges();
@@ -44,7 +44,28 @@ namespace PortalSocios.Migrations
 
             socios.ForEach(ss => context.Socios.AddOrUpdate(s => s.Nome, ss));
             context.SaveChanges();
-            
+
+
+            // ###########################################################
+            // adiciona Quotas
+            var quotas = new List<Quotas> {
+                new Quotas {QuotaID = 1, Montante = 12, RefMultibanco = "620832411", Ano = 2017, Periodicidade = "Mensal", CategoriaFK = 1},
+                new Quotas {QuotaID = 2, Montante = 12, RefMultibanco = "620832412", Ano = 2017, Periodicidade = "Mensal", CategoriaFK = 1},
+                new Quotas {QuotaID = 3, Montante = 12, RefMultibanco = "620832413", Ano = 2017, Periodicidade = "Mensal", CategoriaFK = 1},
+                new Quotas {QuotaID = 4, Montante = 12, RefMultibanco = "620832414", Ano = 2017, Periodicidade = "Mensal", CategoriaFK = 1},
+                new Quotas {QuotaID = 5, Montante = 12, RefMultibanco = "620832415", Ano = 2017, Periodicidade = "Mensal", CategoriaFK = 1},
+                new Quotas {QuotaID = 6, Montante = 12, RefMultibanco = "620832416", Ano = 2017, Periodicidade = "Mensal", CategoriaFK = 1},
+                new Quotas {QuotaID = 7, Montante = 12, RefMultibanco = "620832417", Ano = 2017, Periodicidade = "Mensal", CategoriaFK = 1},
+                new Quotas {QuotaID = 8, Montante = 12, RefMultibanco = "620832418", Ano = 2017, Periodicidade = "Mensal", CategoriaFK = 1},
+                new Quotas {QuotaID = 9, Montante = 12, RefMultibanco = "620832419", Ano = 2017, Periodicidade = "Mensal", CategoriaFK = 1},
+                new Quotas {QuotaID = 10, Montante = 12, RefMultibanco = "620832420", Ano = 2017, Periodicidade = "Mensal", CategoriaFK = 1},
+                new Quotas {QuotaID = 11, Montante = 12, RefMultibanco = "620832421", Ano = 2017, Periodicidade = "Mensal", CategoriaFK = 1},
+                new Quotas {QuotaID = 12, Montante = 12, RefMultibanco = "620832422", Ano = 2017, Periodicidade = "Mensal", CategoriaFK = 1},
+            };
+
+            quotas.ForEach(qq => context.Quotas.AddOrUpdate(q => q.RefMultibanco, qq));
+            context.SaveChanges();
+
 
             // ###########################################################
             // adiciona Funcionarios
@@ -56,6 +77,42 @@ namespace PortalSocios.Migrations
 
             funcionarios.ForEach(ff => context.Funcionarios.AddOrUpdate(f => f.Nome, ff));
             context.SaveChanges();
+
+
+            // ###########################################################
+            // adiciona Pagamentos
+            var pagamentos = new List<Pagamentos> {
+                new Pagamentos {PagamentoID = 1, Montante = 12, DataPagam = new DateTime(2017,1,18), DataPrevPagam = new DateTime(2017,1,24), QuotaFK = 1, SocioFK = 1, FuncionarioFK = 2},
+                new Pagamentos {PagamentoID = 2, Montante = 12, DataPagam = new DateTime(2017,2,15), DataPrevPagam = new DateTime(2017,2,24), QuotaFK = 2, SocioFK = 1, FuncionarioFK = 2},
+                new Pagamentos {PagamentoID = 3, Montante = 12, DataPagam = new DateTime(2017,3,23), DataPrevPagam = new DateTime(2017,3,24), QuotaFK = 3, SocioFK = 1, FuncionarioFK = 2},
+                new Pagamentos {PagamentoID = 4, Montante = 12, DataPagam = new DateTime(2017,4,22), DataPrevPagam = new DateTime(2017,4,24), QuotaFK = 4, SocioFK = 1, FuncionarioFK = 2},
+                new Pagamentos {PagamentoID = 5, Montante = 12, DataPrevPagam = new DateTime(2017,5,24), QuotaFK = 5, SocioFK = 1, FuncionarioFK = 2},
+                new Pagamentos {PagamentoID = 6, Montante = 12, DataPrevPagam = new DateTime(2017,6,24), QuotaFK = 6, SocioFK = 1, FuncionarioFK = 2},
+                new Pagamentos {PagamentoID = 7, Montante = 12, DataPrevPagam = new DateTime(2017,7,24), QuotaFK = 7, SocioFK = 1, FuncionarioFK = 2},
+                new Pagamentos {PagamentoID = 8, Montante = 12, DataPrevPagam = new DateTime(2017,8,24), QuotaFK = 8, SocioFK = 1, FuncionarioFK = 2},
+                new Pagamentos {PagamentoID = 9, Montante = 12, DataPrevPagam = new DateTime(2017,9,24), QuotaFK = 9, SocioFK = 1, FuncionarioFK = 2},
+                new Pagamentos {PagamentoID = 10, Montante = 12, DataPrevPagam = new DateTime(2017,10,24), QuotaFK = 10, SocioFK = 1, FuncionarioFK = 2},
+                new Pagamentos {PagamentoID = 11, Montante = 12, DataPrevPagam = new DateTime(2017,11,24), QuotaFK = 11, SocioFK = 1, FuncionarioFK = 2},
+                new Pagamentos {PagamentoID = 12, Montante = 12, DataPrevPagam = new DateTime(2017,12,24), QuotaFK = 12, SocioFK = 1, FuncionarioFK = 2}
+            };
+
+            pagamentos.ForEach(ff => context.Pagamentos.Add(ff));
+            context.SaveChanges();
+
+
+            // ###########################################################
+            // adiciona Beneficios
+            var beneficios = new List<Beneficios> {
+                new Beneficios {BeneficioID = 1, Descricao = "Desconto imediato de 10% na loja do clube", EntidRespons = "Clube"},
+                new Beneficios {BeneficioID = 2, Descricao = "Oferta de visita ao estádio", EntidRespons = "Clube"},
+                new Beneficios {BeneficioID = 3, Descricao = "Descontos até 5% no Gás Natural e 6% na electricidade", EntidRespons = "Empresa de Eletricidade"},
+                new Beneficios {BeneficioID = 4, Descricao = "Descontos na bilhética nos jogos realizados no estádio do clube", EntidRespons = "Clube"},
+                new Beneficios {BeneficioID = 5, Descricao = "Desconto 5% em todos os produtos da loja de desporto", EntidRespons = "Loja de Desporto"},
+                new Beneficios {BeneficioID = 6, Descricao = "Oferta da revista do clube", EntidRespons = "Clube"}
+            };
+
+            beneficios.ForEach(bb => context.Beneficios.AddOrUpdate(b => b.Descricao, bb));
+            context.SaveChanges();            
         }
     }
 }

@@ -17,7 +17,7 @@ namespace PortalSocios.Models {
         public string Descricao { get; set; }
 
         [Required]
-        [StringLength(20)]
+        [StringLength(50)]
         public string EntidRespons { get; set; }
 
         // um beneficio tem uma coleção de categorias
