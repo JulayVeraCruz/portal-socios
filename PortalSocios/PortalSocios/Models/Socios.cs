@@ -25,9 +25,9 @@ namespace PortalSocios.Models {
         //[StringLength(2)]
         //public string DocIdent { get; set; }
 
-        [Required]
-        [StringLength(9)]
-        public string NumDocIdent { get; set; }
+        //[Required]
+        //[StringLength(9)]
+        //public string NumDocIdent { get; set; }
 
         [Required]
         [StringLength(9)]
@@ -41,9 +41,9 @@ namespace PortalSocios.Models {
         [StringLength(30)]
         public string CodPostal { get; set; }
 
-        [Required]
-        [StringLength(1)]
-        public string Genero { get; set; }
+        //[Required]
+        //[StringLength(1)]
+        //public string Genero { get; set; }
 
         [Required]
         [Column(TypeName = "date")]
