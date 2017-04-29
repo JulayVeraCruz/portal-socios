@@ -47,7 +47,7 @@ namespace PortalSocios.Models {
 
         [Required]
         [Column(TypeName = "date")]
-        public DateTime DataNascimento { get; set; }
+        public DateTime DataNasc { get; set; }
 
         [Required]
         [StringLength(9)]
@@ -63,7 +63,7 @@ namespace PortalSocios.Models {
 
         [Required]
         [Column(TypeName = "date")]
-        public DateTime DataInscricao { get; set; }
+        public DateTime DataInscr { get; set; }
 
         // um sócio tem uma coleção de pagamentos
         public virtual ICollection<Pagamentos> ListaPagamentos { get; set; }

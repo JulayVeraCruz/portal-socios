@@ -25,7 +25,7 @@ namespace PortalSocios.Models {
         public string FaixaEtaria { get; set; }
 
         [Required]
-        public int NumQuotas { get; set; }
+        public int NumQuotasAnuais { get; set; }
 
         [Required]
         public float ValorMensal { get; set; }

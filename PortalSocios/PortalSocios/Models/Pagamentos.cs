@@ -12,7 +12,7 @@ namespace PortalSocios.Models {
         public float Montante { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime? DataPagamento { get; set; }
+        public DateTime? DataPagam { get; set; }
 
         [Required]
         [Column(TypeName = "date")]
