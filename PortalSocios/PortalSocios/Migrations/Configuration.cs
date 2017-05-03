@@ -19,7 +19,6 @@ namespace PortalSocios.Migrations
             // Seed para as tabelas Socios, Pagamentos, Quotas, Categorias,
             // Beneficios, Funcionarios e CategoriasBeneficios
 
-            // ###########################################################
             // adiciona Categorias
             var categorias = new List<Categorias> {
                 new Categorias {CategoriaID = 1, Nome = "Sénior", FaixaEtaria = "Maiores de 18", NumQuotasAnuais = 12, ValorMensal = 12},
@@ -29,9 +28,7 @@ namespace PortalSocios.Migrations
 
             categorias.ForEach(cc => context.Categorias.AddOrUpdate(c => c.Nome, cc));
             context.SaveChanges();
-
-
-            // ###########################################################
+            
             // adiciona Socios
             var socios = new List<Socios> {
                 new Socios {SocioID = 1, NumSocio = 1, Nome = "Simão Alvito Modesto", NIF = "172596295", Morada = "Rua dos Armazéns N.º 40", CodPostal = "5743-247 Torres Novas", DataNasc = new DateTime(1962,2,6), Telemovel = "913567285", Email = "simao_modesto@gmail.com", Fotografia = "./fotos/samodesto.jpg", DataInscr = new DateTime(2016,10,4), CategoriaFK = 1},
@@ -45,8 +42,6 @@ namespace PortalSocios.Migrations
             socios.ForEach(ss => context.Socios.AddOrUpdate(s => s.Nome, ss));
             context.SaveChanges();
 
-
-            // ###########################################################
             // adiciona Quotas
             var quotas = new List<Quotas> {
                 new Quotas {QuotaID = 1, Montante = 12, RefMultibanco = "620832411", Ano = 2017, Periodicidade = "Mensal", CategoriaFK = 1},
@@ -65,9 +60,7 @@ namespace PortalSocios.Migrations
 
             quotas.ForEach(qq => context.Quotas.AddOrUpdate(q => q.RefMultibanco, qq));
             context.SaveChanges();
-
-
-            // ###########################################################
+            
             // adiciona Funcionarios
             var funcionarios = new List<Funcionarios> {
                 new Funcionarios {FuncionarioID = 1, Nome = "David Alves", NIF = "628438592", Morada = "Rua das Oliveirinhas N.º 32", CodPostal = "2835-852 Ourém", Telemovel = "916732583", DataEntrClube = new DateTime(2016,8,12)},
@@ -77,42 +70,38 @@ namespace PortalSocios.Migrations
 
             funcionarios.ForEach(ff => context.Funcionarios.AddOrUpdate(f => f.Nome, ff));
             context.SaveChanges();
-
-
-            // ###########################################################
+            
             // adiciona Pagamentos
             var pagamentos = new List<Pagamentos> {
-                new Pagamentos {PagamentoID = 1, Montante = 12, DataPagam = new DateTime(2017,1,18), DataPrevPagam = new DateTime(2017,1,24), QuotaFK = 1, SocioFK = 1, FuncionarioFK = 2},
-                new Pagamentos {PagamentoID = 2, Montante = 12, DataPagam = new DateTime(2017,2,15), DataPrevPagam = new DateTime(2017,2,24), QuotaFK = 2, SocioFK = 1, FuncionarioFK = 2},
-                new Pagamentos {PagamentoID = 3, Montante = 12, DataPagam = new DateTime(2017,3,23), DataPrevPagam = new DateTime(2017,3,24), QuotaFK = 3, SocioFK = 1, FuncionarioFK = 2},
-                new Pagamentos {PagamentoID = 4, Montante = 12, DataPagam = new DateTime(2017,4,22), DataPrevPagam = new DateTime(2017,4,24), QuotaFK = 4, SocioFK = 1, FuncionarioFK = 2},
-                new Pagamentos {PagamentoID = 5, Montante = 12, DataPrevPagam = new DateTime(2017,5,24), QuotaFK = 5, SocioFK = 1, FuncionarioFK = 2},
-                new Pagamentos {PagamentoID = 6, Montante = 12, DataPrevPagam = new DateTime(2017,6,24), QuotaFK = 6, SocioFK = 1, FuncionarioFK = 2},
-                new Pagamentos {PagamentoID = 7, Montante = 12, DataPrevPagam = new DateTime(2017,7,24), QuotaFK = 7, SocioFK = 1, FuncionarioFK = 2},
-                new Pagamentos {PagamentoID = 8, Montante = 12, DataPrevPagam = new DateTime(2017,8,24), QuotaFK = 8, SocioFK = 1, FuncionarioFK = 2},
-                new Pagamentos {PagamentoID = 9, Montante = 12, DataPrevPagam = new DateTime(2017,9,24), QuotaFK = 9, SocioFK = 1, FuncionarioFK = 2},
-                new Pagamentos {PagamentoID = 10, Montante = 12, DataPrevPagam = new DateTime(2017,10,24), QuotaFK = 10, SocioFK = 1, FuncionarioFK = 2},
-                new Pagamentos {PagamentoID = 11, Montante = 12, DataPrevPagam = new DateTime(2017,11,24), QuotaFK = 11, SocioFK = 1, FuncionarioFK = 2},
-                new Pagamentos {PagamentoID = 12, Montante = 12, DataPrevPagam = new DateTime(2017,12,24), QuotaFK = 12, SocioFK = 1, FuncionarioFK = 2}
+                new Pagamentos {PagamentoID = 1, Montante = 12, DataPagam = new DateTime(2017,1,18), DataPrevPagam = new DateTime(2017,1,24), QuotaFK = 1, SocioFK = 1, FuncionarioFK = 1},
+                new Pagamentos {PagamentoID = 2, Montante = 12, DataPagam = new DateTime(2017,2,15), DataPrevPagam = new DateTime(2017,2,24), QuotaFK = 2, SocioFK = 1, FuncionarioFK = 1},
+                new Pagamentos {PagamentoID = 3, Montante = 12, DataPagam = new DateTime(2017,3,23), DataPrevPagam = new DateTime(2017,3,24), QuotaFK = 3, SocioFK = 1, FuncionarioFK = 1},
+                new Pagamentos {PagamentoID = 4, Montante = 12, DataPagam = new DateTime(2017,4,22), DataPrevPagam = new DateTime(2017,4,24), QuotaFK = 4, SocioFK = 1, FuncionarioFK = 1},
+                new Pagamentos {PagamentoID = 5, Montante = 12, DataPrevPagam = new DateTime(2017,5,24), QuotaFK = 5, SocioFK = 1, FuncionarioFK = 1},
+                new Pagamentos {PagamentoID = 6, Montante = 12, DataPrevPagam = new DateTime(2017,6,24), QuotaFK = 6, SocioFK = 1, FuncionarioFK = 1},
+                new Pagamentos {PagamentoID = 7, Montante = 12, DataPrevPagam = new DateTime(2017,7,24), QuotaFK = 7, SocioFK = 1, FuncionarioFK = 1},
+                new Pagamentos {PagamentoID = 8, Montante = 12, DataPrevPagam = new DateTime(2017,8,24), QuotaFK = 8, SocioFK = 1, FuncionarioFK = 1},
+                new Pagamentos {PagamentoID = 9, Montante = 12, DataPrevPagam = new DateTime(2017,9,24), QuotaFK = 9, SocioFK = 1, FuncionarioFK = 1},
+                new Pagamentos {PagamentoID = 10, Montante = 12, DataPrevPagam = new DateTime(2017,10,24), QuotaFK = 10, SocioFK = 1, FuncionarioFK = 1},
+                new Pagamentos {PagamentoID = 11, Montante = 12, DataPrevPagam = new DateTime(2017,11,24), QuotaFK = 11, SocioFK = 1, FuncionarioFK = 1},
+                new Pagamentos {PagamentoID = 12, Montante = 12, DataPrevPagam = new DateTime(2017,12,24), QuotaFK = 12, SocioFK = 1, FuncionarioFK = 1}
             };
 
             pagamentos.ForEach(ff => context.Pagamentos.Add(ff));
             context.SaveChanges();
 
-
-            // ###########################################################
             // adiciona Beneficios
             var beneficios = new List<Beneficios> {
-                new Beneficios {BeneficioID = 1, Descricao = "Desconto imediato de 10% na loja do clube", EntidRespons = "Clube"},
-                new Beneficios {BeneficioID = 2, Descricao = "Oferta de visita ao estádio", EntidRespons = "Clube"},
-                new Beneficios {BeneficioID = 3, Descricao = "Descontos até 5% no Gás Natural e 6% na electricidade", EntidRespons = "Empresa de Eletricidade"},
-                new Beneficios {BeneficioID = 4, Descricao = "Descontos na bilhética nos jogos realizados no estádio do clube", EntidRespons = "Clube"},
-                new Beneficios {BeneficioID = 5, Descricao = "Desconto 5% em todos os produtos da loja de desporto", EntidRespons = "Loja de Desporto"},
-                new Beneficios {BeneficioID = 6, Descricao = "Oferta da revista do clube", EntidRespons = "Clube"}
+                new Beneficios {BeneficioID = 1, Descricao = "Desconto imediato de 10% na loja do clube", EntidRespons = "Clube", ListaCategorias = new List<Categorias> {categorias[0], categorias[1], categorias[2]}},
+                new Beneficios {BeneficioID = 2, Descricao = "Oferta de visita ao estádio", EntidRespons = "Clube", ListaCategorias = new List<Categorias> {categorias[0], categorias[1], categorias[2]}},
+                new Beneficios {BeneficioID = 3, Descricao = "Descontos até 5% no Gás Natural e 6% na electricidade", EntidRespons = "Empresa de eletricidade", ListaCategorias = new List<Categorias> {categorias[0]}},
+                new Beneficios {BeneficioID = 4, Descricao = "Descontos na bilhética nos jogos realizados no estádio do clube", EntidRespons = "Clube", ListaCategorias = new List<Categorias> {categorias[0], categorias[1], categorias[2]}},
+                new Beneficios {BeneficioID = 5, Descricao = "Desconto 5% em todos os produtos da loja de desporto", EntidRespons = "Loja de desporto", ListaCategorias = new List<Categorias> {categorias[0], categorias[1], categorias[2]}},
+                new Beneficios {BeneficioID = 6, Descricao = "Oferta da revista do clube", EntidRespons = "Clube", ListaCategorias = new List<Categorias> {categorias[0], categorias[1]}}
             };
 
             beneficios.ForEach(bb => context.Beneficios.AddOrUpdate(b => b.Descricao, bb));
-            context.SaveChanges();            
+            context.SaveChanges();
         }
     }
 }
