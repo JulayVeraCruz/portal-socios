@@ -9,6 +9,10 @@ namespace PortalSocios.Models {
         public int PagamentoID { get; set; }
 
         [Required]
+        [StringLength(9)]
+        public string RefMultibanco { get; set; }
+
+        [Required]
         public float Montante { get; set; }
 
         [Column(TypeName = "date")]

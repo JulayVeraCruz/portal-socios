@@ -15,11 +15,7 @@ namespace PortalSocios.Models {
 
         [Required]
         public float Montante { get; set; }
-
-        [Required]
-        [StringLength(9)]
-        public string RefMultibanco { get; set; }
-
+        
         [Required]
         public int Ano { get; set; }
 
