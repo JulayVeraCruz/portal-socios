@@ -22,7 +22,7 @@ namespace PortalSocios.Models {
         public string Nome { get; set; }
 
         [Required]
-        [StringLength(9)]
+        [StringLength(8)]
         public string BI { get; set; }
 
         [Required]
