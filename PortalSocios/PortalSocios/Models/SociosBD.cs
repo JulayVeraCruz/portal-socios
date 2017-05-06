@@ -13,7 +13,7 @@ namespace PortalSocios.Models {
         public virtual DbSet<Funcionarios> Funcionarios { get; set; }
 
         // especificação de onde será criada a BD
-        public SociosBD() : base("LocalizacaoBD") { }
+        public SociosBD() : base("AppBD") { }
 
         // remove os 'on delete cascade' associados às chaves forasteiras
         protected override void OnModelCreating(DbModelBuilder modelBuilder) {

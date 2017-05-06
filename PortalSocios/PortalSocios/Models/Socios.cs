@@ -23,7 +23,23 @@ namespace PortalSocios.Models {
 
         [Required]
         [StringLength(9)]
+        public string BI { get; set; }
+
+        [Required]
+        [StringLength(9)]
         public string NIF { get; set; }
+
+        [Required]
+        [Column(TypeName = "date")]
+        public DateTime DataNasc { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string Email { get; set; }
+
+        [Required]
+        [StringLength(9)]
+        public string Telemovel { get; set; }
 
         [Required]
         [StringLength(80)]
@@ -32,18 +48,6 @@ namespace PortalSocios.Models {
         [Required]
         [StringLength(30)]
         public string CodPostal { get; set; }
-
-        [Required]
-        [Column(TypeName = "date")]
-        public DateTime DataNasc { get; set; }
-
-        [Required]
-        [StringLength(9)]
-        public string Telemovel { get; set; }
-
-        [Required]
-        [StringLength(50)]
-        public string Email { get; set; }
 
         [Required]
         [StringLength(255)]

@@ -30,15 +30,15 @@ namespace PortalSocios.Migrations {
             // ############################################################################################
             // adiciona Socios
             var socios = new List<Socios> {
-                new Socios {SocioID = 1, NumSocio = 1, Nome = "Simão Alvito Modesto", NIF = "172596295", Morada = "Rua dos Armazéns N.º 40", CodPostal = "5743-247 TORRES NOVAS", DataNasc = new DateTime(1962,2,6), Telemovel = "913567285", Email = "simao_modesto@gmail.com", Fotografia = "samodesto.jpg", DataInscr = new DateTime(2017,1,6), CategoriaFK = 1},
-                new Socios {SocioID = 2, NumSocio = 2, Nome = "Maria Gonçalves Sousa", NIF = "498953925", Morada = "Rua 1º de Dezembro N.º 2 - 3 Esq.", CodPostal = "2485-632 TOMAR", DataNasc = new DateTime(1991,8,24), Telemovel = "916258358", Email = "maria_sousa@gmail.com", Fotografia = "mgsousa.jpg", DataInscr = new DateTime(2017,1,10), CategoriaFK = 1},
-                new Socios {SocioID = 3, NumSocio = 3, Nome = "Miguel Alves Almeida", NIF = "632158329", Morada = "Rua Vale Miguel N.º 10", CodPostal = "2485-215 TOMAR", DataNasc = new DateTime(2002,10,30), Telemovel = "914752861", Email = "miguelaalmeida@outlook.com", Fotografia = "maalmeida.jpg", DataInscr = new DateTime(2017,1,19), CategoriaFK = 2},
-                new Socios {SocioID = 4, NumSocio = 4, Nome = "Manuela Silva Rocha", NIF = "628102144", Morada = "Travessa do Parque N.º 88", CodPostal = "4257-156 LISBOA", DataNasc = new DateTime(2006,5,13), Telemovel = "961471852", Email = "manuela_rocha@hotmail.com", Fotografia = "msrocha.jpg", DataInscr = new DateTime(2017,1,28), CategoriaFK = 3},
-                new Socios {SocioID = 5, NumSocio = 5, Nome = "André Filipe Melo Barbosa", NIF = "294953732", Morada = "Rua do Pelourinho N.º 1 - 2 Dir.", CodPostal = "4257-742 LISBOA", DataNasc = new DateTime(1982,12,12), Telemovel = "962148215", Email = "andrefm.barbosa@gmail.com", Fotografia = "afmbarbosa.jpg", DataInscr = new DateTime(2017,2,3), CategoriaFK = 1},
-                new Socios {SocioID = 6, NumSocio = 6, Nome = "Ana Lima Rocha Fernandes", NIF = "613103285", Morada = "Rua dos Combatentes N.º 17", CodPostal = "6759-022 ENTRONCAMENTO", DataNasc = new DateTime(2004,5,28), Telemovel = "915372758", Email = "analrfernandes@outlook.com", Fotografia = "alrfernandes.jpg", DataInscr = new DateTime(2017,2,8), CategoriaFK = 2}
+                new Socios {SocioID = 1, NumSocio = 1, Nome = "Simão Alvito Modesto", BI = "103257828", NIF = "172596295", DataNasc = new DateTime(1962,2,6), Email = "simao_modesto@gmail.com", Telemovel = "913567285", Morada = "Rua dos Armazéns N.º 40", CodPostal = "5743-247 TORRES NOVAS", Fotografia = "samodesto.jpg", DataInscr = new DateTime(2017,1,6), CategoriaFK = 1},
+                new Socios {SocioID = 2, NumSocio = 2, Nome = "Maria Gonçalves Sousa", BI = "137285869", NIF = "498953925", DataNasc = new DateTime(1991,8,24), Email = "maria_sousa@gmail.com", Telemovel = "916258358", Morada = "Rua 1º de Dezembro N.º 2 - 3 Esq.", CodPostal = "2485-632 TOMAR", Fotografia = "mgsousa.jpg", DataInscr = new DateTime(2017,1,10), CategoriaFK = 1},
+                new Socios {SocioID = 3, NumSocio = 3, Nome = "Miguel Alves Almeida", BI = "162592329", NIF = "632158329", DataNasc = new DateTime(2002,10,30), Email = "miguelaalmeida@outlook.com", Telemovel = "914752861", Morada = "Rua Vale Miguel N.º 10", CodPostal = "2485-215 TOMAR", Fotografia = "maalmeida.jpg", DataInscr = new DateTime(2017,1,19), CategoriaFK = 2},
+                new Socios {SocioID = 4, NumSocio = 4, Nome = "Manuela Silva Rocha", BI = "183250252", NIF = "628102144", DataNasc = new DateTime(2006,5,13), Email = "manuela_rocha@hotmail.com", Telemovel = "961471852", Morada = "Travessa do Parque N.º 88", CodPostal = "4257-156 LISBOA", Fotografia = "msrocha.jpg", DataInscr = new DateTime(2017,1,28), CategoriaFK = 3},
+                new Socios {SocioID = 5, NumSocio = 5, Nome = "André Filipe Melo Barbosa", BI = "118235827", NIF = "294953732", DataNasc = new DateTime(1982,12,12), Email = "andrefm.barbosa@gmail.com", Telemovel = "962148215", Morada = "Rua do Pelourinho N.º 1 - 2 Dir.", CodPostal = "4257-742 LISBOA", Fotografia = "afmbarbosa.jpg", DataInscr = new DateTime(2017,2,3), CategoriaFK = 1},
+                new Socios {SocioID = 6, NumSocio = 6, Nome = "Ana Lima Rocha Fernandes", BI = "175493031", NIF = "613103285", DataNasc = new DateTime(2004,5,28), Email = "analrfernandes@outlook.com", Telemovel = "915372758", Morada = "Rua dos Combatentes N.º 17", CodPostal = "6759-022 ENTRONCAMENTO", Fotografia = "alrfernandes.jpg", DataInscr = new DateTime(2017,2,8), CategoriaFK = 2}
             };
 
-            socios.ForEach(ss => context.Socios.AddOrUpdate(s => s.NIF, ss));
+            socios.ForEach(ss => context.Socios.AddOrUpdate(s => s.BI, ss));
             context.SaveChanges();
 
             // ############################################################################################
@@ -88,9 +88,9 @@ namespace PortalSocios.Migrations {
             // ############################################################################################
             // adiciona Funcionarios
             var funcionarios = new List<Funcionarios> {
-                new Funcionarios {FuncionarioID = 1, Nome = "David Alves", NIF = "628438592", Morada = "Rua das Oliveirinhas N.º 32", CodPostal = "2835-852 OURÉM", Telemovel = "916732583", DataEntrClube = new DateTime(2016,11,26)},
-                new Funcionarios {FuncionarioID = 2, Nome = "Alice Azevedo", NIF = "832652957", Morada = "Avenida da Praia N.º 4 - 3 Esq.", CodPostal = "2485-024 TOMAR", Telemovel = "915285673", DataEntrClube = new DateTime(2016,12,10)},
-                new Funcionarios {FuncionarioID = 3, Nome = "Rebeca Ferreira", NIF = "721864159", Morada = "Rua da Tradição N.º 12", CodPostal = "2485-145 TOMAR", Telemovel = "919528259", DataEntrClube = new DateTime(2016,12,17)}
+                new Funcionarios {FuncionarioID = 1, Nome = "David Alves", NIF = "628438592", Telemovel = "916732583", Morada = "Rua das Oliveirinhas N.º 32", CodPostal = "2835-852 OURÉM", DataEntrClube = new DateTime(2016,11,26)},
+                new Funcionarios {FuncionarioID = 2, Nome = "Alice Azevedo", NIF = "832652957", Telemovel = "915285673", Morada = "Avenida da Praia N.º 4 - 3 Esq.", CodPostal = "2485-024 TOMAR", DataEntrClube = new DateTime(2016,12,10)},
+                new Funcionarios {FuncionarioID = 3, Nome = "Rebeca Ferreira", NIF = "721864159", Telemovel = "919528259", Morada = "Rua da Tradição N.º 12", CodPostal = "2485-145 TOMAR", DataEntrClube = new DateTime(2016,12,17)}
             };
 
             funcionarios.ForEach(ff => context.Funcionarios.AddOrUpdate(f => f.NIF, ff));

@@ -23,6 +23,10 @@ namespace PortalSocios.Models {
         public string NIF { get; set; }
 
         [Required]
+        [StringLength(9)]
+        public string Telemovel { get; set; }
+
+        [Required]
         [StringLength(80)]
         public string Morada { get; set; }
 
@@ -30,10 +34,6 @@ namespace PortalSocios.Models {
         [StringLength(30)]
         public string CodPostal { get; set; }
         
-        [Required]
-        [StringLength(9)]
-        public string Telemovel { get; set; }
-
         [Required]
         [Column(TypeName = "date")]
         public DateTime DataEntrClube { get; set; }
