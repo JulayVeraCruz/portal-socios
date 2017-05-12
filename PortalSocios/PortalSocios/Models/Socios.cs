@@ -15,38 +15,47 @@ namespace PortalSocios.Models {
         public int SocioID { get; set; }
 
         [Required]
+        [Display(Name = "Número de sócio")]
         public int NumSocio { get; set; }
 
         [Required]
         [StringLength(50)]
+        [Display(Name = "Nome Completo")]
         public string Nome { get; set; }
 
         [Required]
         [StringLength(8)]
+        [Display(Name = "BI / CC")]
         public string BI { get; set; }
 
-        [Required]
+        [Required]        
         [StringLength(9)]
+        [Display(Name = "NIF")]
         public string NIF { get; set; }
 
-        [Required]
+        [Required]        
         [Column(TypeName = "date")]
+        [Display(Name = "Data de Nascimento")]
         public DateTime DataNasc { get; set; }
 
         [Required]
         [StringLength(50)]
+        [Display(Name = "E-mail")]
         public string Email { get; set; }
 
         [Required]
         [StringLength(9)]
+        [Display(Name = "Telemóvel")]
         public string Telemovel { get; set; }
 
         [Required]
         [StringLength(80)]
+        [Display(Name = "Morada Completa")]
         public string Morada { get; set; }
 
         [Required]
         [StringLength(30)]
+        [Display(Name = "Código Postal")]
         public string CodPostal { get; set; }
 
         [Required]
@@ -55,6 +64,7 @@ namespace PortalSocios.Models {
 
         [Required]
         [Column(TypeName = "date")]
+        [Display(Name = "Data de Inscrição")]
         public DateTime DataInscr { get; set; }
 
         // um sócio tem uma coleção de pagamentos
