@@ -14,58 +14,65 @@ namespace PortalSocios.Models {
         [Key]
         public int SocioID { get; set; }
 
-        [Required]
         [Display(Name = "Número de sócio")]
-        public int NumSocio { get; set; }
+        public int? NumSocio { get; set; }
 
-        [Required]
         [StringLength(50)]
+        [Required(ErrorMessage = "Este campo é obrigatório!")]
         [Display(Name = "Nome Completo")]
         public string Nome { get; set; }
 
-        [Required]
+        [Index(IsUnique = true)]
+        [RegularExpression("[0-9]{8}", ErrorMessage = "Introduza 8 caracteres numéricos.")]
         [StringLength(8)]
+        [Required(ErrorMessage = "Este campo é obrigatório!")]
         [Display(Name = "BI / CC")]
         public string BI { get; set; }
 
-        [Required]        
+        [Index(IsUnique = true)]
+        [RegularExpression("[0-9]{9}", ErrorMessage = "Introduza 9 caracteres numéricos.")]
         [StringLength(9)]
+        [Required(ErrorMessage = "Este campo é obrigatório!")]
         [Display(Name = "NIF")]
         public string NIF { get; set; }
 
-        [Required]        
         [Column(TypeName = "date")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+        [Required(ErrorMessage = "Este campo é obrigatório!")]
         [Display(Name = "Data de Nascimento")]
         public DateTime DataNasc { get; set; }
 
-        [Required]
         [StringLength(50)]
+        [EmailAddress(ErrorMessage = "E-mail inválido!")]
+        [Required(ErrorMessage = "Este campo é obrigatório!")]
         [Display(Name = "E-mail")]
         public string Email { get; set; }
 
-        [Required]
         [StringLength(9)]
+        [RegularExpression("[0-9]{9}", ErrorMessage = "Introduza 9 caracteres numéricos.")]
+        [Required(ErrorMessage = "Este campo é obrigatório!")]
         [Display(Name = "Telemóvel")]
         public string Telemovel { get; set; }
 
-        [Required]
         [StringLength(80)]
+        [Required(ErrorMessage = "Este campo é obrigatório!")]
         [Display(Name = "Morada Completa")]
         public string Morada { get; set; }
 
-        [Required]
         [StringLength(30)]
+        [RegularExpression("[0-9]{4}-[0-9]{3} [A-ZÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇ]+((-| )?[A-ZÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇ]+)*", ErrorMessage = "Introduza o código postal no formato 0000-000 XXXXX.")]
+        [Required(ErrorMessage = "Este campo é obrigatório!")]
         [Display(Name = "Código Postal")]
         public string CodPostal { get; set; }
 
-        [Required]
         [StringLength(255)]
+        [Required(ErrorMessage = "Este campo é obrigatório!")]
         public string Fotografia { get; set; }
 
-        [Required]
         [Column(TypeName = "date")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         [Display(Name = "Data de Inscrição")]
-        public DateTime DataInscr { get; set; }
+        public DateTime? DataInscr { get; set; }
 
         // um sócio tem uma coleção de pagamentos
         public virtual ICollection<Pagamentos> ListaPagamentos { get; set; }

@@ -4,12 +4,9 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Lista de sócios</h2>
 
-<p>
-    @Html.ActionLink("Criar Novo Sócio", "Create")
-</p>
-<table class="table">
+<table class="table" style="width:2000px;">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.NumSocio)
@@ -91,9 +88,13 @@
         <td>
             @Html.ActionLink("Editar", "Edit", new { id=item.SocioID }) |
             @Html.ActionLink("Detalhes", "Details", new { id=item.SocioID }) |
-            @Html.ActionLink("Apagar", "Delete", new { id=item.SocioID })
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.SocioID })
         </td>
     </tr>
 }
 
 </table>
+<p>
+    @Html.ActionLink("Adicionar novo sócio", "Create")
+</p>
+

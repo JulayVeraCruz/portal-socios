@@ -21,12 +21,12 @@ namespace PortalSocios.Controllers {
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index");
             }
             Socios socios = db.Socios.Find(id);
             if (socios == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index");
             }
             return View(socios);
         }
@@ -61,12 +61,12 @@ namespace PortalSocios.Controllers {
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index");
             }
             Socios socios = db.Socios.Find(id);
             if (socios == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index");
             }
             ViewBag.CategoriaFK = new SelectList(db.Categorias, "CategoriaID", "Nome", socios.CategoriaFK);
             return View(socios);
@@ -94,12 +94,12 @@ namespace PortalSocios.Controllers {
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index");
             }
             Socios socios = db.Socios.Find(id);
             if (socios == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index");
             }
             return View(socios);
         }
