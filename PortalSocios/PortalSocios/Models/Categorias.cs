@@ -18,16 +18,20 @@ namespace PortalSocios.Models {
 
         [Required]
         [StringLength(30)]
+        [Display(Name = "Categoria")]
         public string Nome { get; set; }
 
         [Required]
         [StringLength(20)]
+        [Display(Name = "Faixa Etária")]
         public string FaixaEtaria { get; set; }
 
         [Required]
+        [Display(Name = "N.º Quotas Anuais")]
         public int NumQuotasAnuais { get; set; }
 
         [Required]
+        [Display(Name = "Valor Mensal")]
         public float ValorMensal { get; set; }
 
         // uma categoria tem uma coleção de sócios

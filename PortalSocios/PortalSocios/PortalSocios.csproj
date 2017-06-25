@@ -97,6 +97,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap.rcarrao.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
@@ -120,6 +121,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BeneficiosController.cs" />
+    <Compile Include="Controllers\CategoriasController.cs" />
+    <Compile Include="Controllers\FuncionariosController.cs" />
+    <Compile Include="Controllers\PagamentosController.cs" />
+    <Compile Include="Controllers\QuotasController.cs" />
     <Compile Include="Controllers\SociosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -145,6 +151,31 @@
     <Content Include="Views\Socios\Edit.cshtml" />
     <Content Include="Views\Socios\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Beneficios\Create.cshtml" />
+    <Content Include="Views\Beneficios\Delete.cshtml" />
+    <Content Include="Views\Beneficios\Details.cshtml" />
+    <Content Include="Views\Beneficios\Edit.cshtml" />
+    <Content Include="Views\Beneficios\Index.cshtml" />
+    <Content Include="Views\Categorias\Create.cshtml" />
+    <Content Include="Views\Categorias\Delete.cshtml" />
+    <Content Include="Views\Categorias\Details.cshtml" />
+    <Content Include="Views\Categorias\Edit.cshtml" />
+    <Content Include="Views\Categorias\Index.cshtml" />
+    <Content Include="Views\Funcionarios\Create.cshtml" />
+    <Content Include="Views\Funcionarios\Delete.cshtml" />
+    <Content Include="Views\Funcionarios\Details.cshtml" />
+    <Content Include="Views\Funcionarios\Edit.cshtml" />
+    <Content Include="Views\Funcionarios\Index.cshtml" />
+    <Content Include="Views\Pagamentos\Create.cshtml" />
+    <Content Include="Views\Pagamentos\Delete.cshtml" />
+    <Content Include="Views\Pagamentos\Details.cshtml" />
+    <Content Include="Views\Pagamentos\Edit.cshtml" />
+    <Content Include="Views\Pagamentos\Index.cshtml" />
+    <Content Include="Views\Quotas\Create.cshtml" />
+    <Content Include="Views\Quotas\Delete.cshtml" />
+    <Content Include="Views\Quotas\Details.cshtml" />
+    <Content Include="Views\Quotas\Edit.cshtml" />
+    <Content Include="Views\Quotas\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

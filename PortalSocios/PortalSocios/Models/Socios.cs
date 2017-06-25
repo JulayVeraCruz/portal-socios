@@ -14,7 +14,7 @@ namespace PortalSocios.Models {
         [Key]
         public int SocioID { get; set; }
 
-        [Display(Name = "Número de sócio")]
+        [Display(Name = "N.º de Sócio")]
         public int? NumSocio { get; set; }
 
         [StringLength(50)]
@@ -33,11 +33,10 @@ namespace PortalSocios.Models {
         [RegularExpression("[0-9]{9}", ErrorMessage = "Introduza 9 caracteres numéricos.")]
         [StringLength(9)]
         [Required(ErrorMessage = "Este campo é obrigatório!")]
-        [Display(Name = "NIF")]
         public string NIF { get; set; }
 
         [Column(TypeName = "date")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         [Required(ErrorMessage = "Este campo é obrigatório!")]
         [Display(Name = "Data de Nascimento")]
         public DateTime DataNasc { get; set; }
@@ -56,7 +55,6 @@ namespace PortalSocios.Models {
 
         [StringLength(80)]
         [Required(ErrorMessage = "Este campo é obrigatório!")]
-        [Display(Name = "Morada Completa")]
         public string Morada { get; set; }
 
         [StringLength(30)]
@@ -70,7 +68,7 @@ namespace PortalSocios.Models {
         public string Fotografia { get; set; }
 
         [Column(TypeName = "date")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         [Display(Name = "Data de Inscrição")]
         public DateTime? DataInscr { get; set; }
 

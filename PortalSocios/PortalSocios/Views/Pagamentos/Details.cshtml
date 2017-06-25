@@ -1,0 +1,82 @@
+﻿@model PortalSocios.Models.Pagamentos
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Pagamentos</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Funcionario.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Funcionario.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Quota.Periodicidade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quota.Periodicidade)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Socio.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Socio.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RefMultibanco)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RefMultibanco)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Montante)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Montante)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataPagam)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataPagam)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataPrevPagam)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataPrevPagam)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Multa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Multa)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PagamentoID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

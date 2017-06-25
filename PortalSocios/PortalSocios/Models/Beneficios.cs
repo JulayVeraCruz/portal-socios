@@ -14,10 +14,12 @@ namespace PortalSocios.Models {
 
         [Required]
         [StringLength(255)]
+        [Display(Name = "Benefício")]
         public string Descricao { get; set; }
 
         [Required]
         [StringLength(50)]
+        [Display(Name = "Entidade Responsável")]
         public string EntidRespons { get; set; }
 
         // um beneficio tem uma coleção de categorias

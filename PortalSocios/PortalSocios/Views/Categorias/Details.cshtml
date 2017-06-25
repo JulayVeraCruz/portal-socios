@@ -1,0 +1,50 @@
+﻿@model PortalSocios.Models.Categorias
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Categorias</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FaixaEtaria)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FaixaEtaria)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumQuotasAnuais)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumQuotasAnuais)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorMensal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValorMensal)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CategoriaID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

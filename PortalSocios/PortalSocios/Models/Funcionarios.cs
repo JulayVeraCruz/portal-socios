@@ -16,14 +16,17 @@ namespace PortalSocios.Models {
 
         [Required]
         [StringLength(50)]
+        [Display(Name = "Funcionário")]
         public string Nome { get; set; }
 
+        [Index(IsUnique = true)]
         [Required]
         [StringLength(9)]
         public string NIF { get; set; }
 
         [Required]
         [StringLength(9)]
+        [Display(Name = "Telemóvel")]
         public string Telemovel { get; set; }
 
         [Required]
@@ -32,10 +35,13 @@ namespace PortalSocios.Models {
 
         [Required]
         [StringLength(30)]
+        [Display(Name = "Código Postal")]
         public string CodPostal { get; set; }
         
         [Required]
         [Column(TypeName = "date")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [Display(Name = "Data de Entrada")]
         public DateTime DataEntrClube { get; set; }
 
         // um funcionário tem uma coleção de pagamentos
