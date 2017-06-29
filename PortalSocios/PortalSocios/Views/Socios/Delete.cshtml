@@ -4,9 +4,9 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Eliminar sócio</h2>
+<h3>Eliminar Sócio</h3>
 
-<h3>Tem a certeza que deseja eliminar este sócio?</h3>
+<h4>Tem a certeza que deseja eliminar este sócio?</h4>
 <div>
     <hr />
     <dl class="dl-horizontal">
@@ -112,8 +112,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Sim" class="btn btn-default" /> |
-            @Html.ActionLink("Voltar à lista", "Index")
+            @Html.ActionLink("Voltar à lista", "Index") |
+            <input type="submit" value="Sim" class="btn btn-danger" />
         </div>
     }
 </div>

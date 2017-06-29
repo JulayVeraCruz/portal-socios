@@ -4,19 +4,11 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Detalhes do sócio</h2>
+<h3>Detalhes do Sócio</h3>
 
 <div>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Categoria.Nome)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Categoria.Nome)
-        </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.NumSocio)
         </dt>
@@ -105,9 +97,17 @@
             @Html.DisplayFor(model => model.DataInscr)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Categoria.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Categoria.Nome)
+        </dd>
+
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.SocioID }) |
-    @Html.ActionLink("Voltar à lista", "Index")
+    @Html.ActionLink("Voltar à lista", "Index") |
+    @Html.ActionLink("Editar", "Edit", new { id = Model.SocioID })
 </p>

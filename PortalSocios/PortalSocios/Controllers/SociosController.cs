@@ -1,39 +1,36 @@
 ﻿using System.Data.Entity;
 using System.Linq;
-using System.Net;
 using System.Web.Mvc;
 using PortalSocios.Models;
 
 namespace PortalSocios.Controllers {
-    public class SociosController : Controller
-    {
+    public class SociosController : Controller {
         private SociosBD db = new SociosBD();
 
         // GET: Socios
-        public ActionResult Index()
-        {
+        public ActionResult Index() {
             var socios = db.Socios.Include(s => s.Categoria);
             return View(socios.ToList());
         }
 
         // GET: Socios/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
+        public ActionResult Details(int? id) {
+            // caso não seja indicado o id
+            if (id == null) {
+                // redireciona para o Index
                 return RedirectToAction("Index");
             }
             Socios socios = db.Socios.Find(id);
-            if (socios == null)
-            {
+            // caso não exista o id indicado
+            if (socios == null) {
+                // redireciona para o Index
                 return RedirectToAction("Index");
             }
             return View(socios);
         }
 
         // GET: Socios/Create
-        public ActionResult Create()
-        {
+        public ActionResult Create() {
             ViewBag.CategoriaFK = new SelectList(db.Categorias, "CategoriaID", "Nome");
             return View();
         }
@@ -43,10 +40,8 @@ namespace PortalSocios.Controllers {
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "SocioID,NumSocio,Nome,BI,NIF,DataNasc,Email,Telemovel,Morada,CodPostal,Fotografia,DataInscr,CategoriaFK")] Socios socios)
-        {
-            if (ModelState.IsValid)
-            {
+        public ActionResult Create([Bind(Include = "SocioID,NumSocio,Nome,BI,NIF,DataNasc,Email,Telemovel,Morada,CodPostal,Fotografia,DataInscr,CategoriaFK")] Socios socios) {
+            if (ModelState.IsValid) {
                 db.Socios.Add(socios);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -57,15 +52,16 @@ namespace PortalSocios.Controllers {
         }
 
         // GET: Socios/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
+        public ActionResult Edit(int? id) {
+            // caso não seja indicado o id
+            if (id == null) {
+                // redireciona para o Index
                 return RedirectToAction("Index");
             }
             Socios socios = db.Socios.Find(id);
-            if (socios == null)
-            {
+            // caso não exista o id indicado
+            if (socios == null) {
+                // redireciona para o Index
                 return RedirectToAction("Index");
             }
             ViewBag.CategoriaFK = new SelectList(db.Categorias, "CategoriaID", "Nome", socios.CategoriaFK);
@@ -77,10 +73,8 @@ namespace PortalSocios.Controllers {
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SocioID,NumSocio,Nome,BI,NIF,DataNasc,Email,Telemovel,Morada,CodPostal,Fotografia,DataInscr,CategoriaFK")] Socios socios)
-        {
-            if (ModelState.IsValid)
-            {
+        public ActionResult Edit([Bind(Include = "SocioID,NumSocio,Nome,BI,NIF,DataNasc,Email,Telemovel,Morada,CodPostal,Fotografia,DataInscr,CategoriaFK")] Socios socios) {
+            if (ModelState.IsValid) {
                 db.Entry(socios).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -90,15 +84,16 @@ namespace PortalSocios.Controllers {
         }
 
         // GET: Socios/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
+        public ActionResult Delete(int? id) {
+            // caso não seja indicado o id
+            if (id == null) {
+                // redireciona para o Index
                 return RedirectToAction("Index");
             }
             Socios socios = db.Socios.Find(id);
-            if (socios == null)
-            {
+            // caso não exista o id indicado
+            if (socios == null) {
+                // redireciona para o Index
                 return RedirectToAction("Index");
             }
             return View(socios);
@@ -107,18 +102,15 @@ namespace PortalSocios.Controllers {
         // POST: Socios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
+        public ActionResult DeleteConfirmed(int id) {
             Socios socios = db.Socios.Find(id);
             db.Socios.Remove(socios);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing) {
                 db.Dispose();
             }
             base.Dispose(disposing);

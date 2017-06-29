@@ -4,12 +4,12 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h3>Lista de Quotas</h3>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Criar Nova Quota", "Create")
 </p>
-<table class="table">
+<table class="table table-striped">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Categoria.Nome)
@@ -41,9 +41,9 @@
             @Html.DisplayFor(modelItem => item.Periodicidade)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.QuotaID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.QuotaID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.QuotaID })
+            @Html.ActionLink("Editar", "Edit", new { id=item.QuotaID }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.QuotaID }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.QuotaID })
         </td>
     </tr>
 }

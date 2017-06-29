@@ -312,7 +312,7 @@ html {
 
 body {
   font-family: "Segoe UI", Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1.428571429;
   color: #333333;
   background-color: #ffffff;
@@ -401,7 +401,7 @@ hr {
 }
 
 p {
-  margin: 0 0 10px;
+  margin: 10px 0 10px;
 }
 
 .lead {
@@ -612,6 +612,7 @@ dd {
   .dl-horizontal dt {
     float: left;
     width: 160px;
+    height: 30px;
     overflow: hidden;
     clear: left;
     text-align: right;
@@ -761,8 +762,6 @@ pre code {
   padding-left: 30px; 
   margin-right: auto;
   margin-left: auto;
-
-
 }
 
 .container:before,
@@ -1410,6 +1409,7 @@ table {
   max-width: 100%;
   background-color: transparent;
   white-space: nowrap;
+  font-size: 12px;
 }
 
 th {
@@ -4026,9 +4026,10 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .navbar {
   position: relative;
   z-index: 1000;
-  min-height: 50px;
+  min-height: 40px;
   margin-bottom: 20px;
   border: 1px solid transparent;
+  height: 40px;
 }
 
 .navbar:before,
@@ -4194,9 +4195,9 @@ textarea.input-group-sm > .input-group-btn > .btn {
 
 .navbar-brand {
   float: left;
-  padding: 15px 15px;
-  font-size: 18px;
-  line-height: 20px;
+  padding: 0px 12px;
+  font-size: 16px;
+  line-height: 40px;
 }
 
 .navbar-brand:hover,
@@ -4244,9 +4245,9 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-nav > li > a {
-  padding-top: 10px;
-  padding-bottom: 10px;
-  line-height: 20px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  line-height: 40px;
 }
 
 @media (max-width: 767px) {

@@ -36,7 +36,7 @@ namespace PortalSocios.Models {
         public string NIF { get; set; }
 
         [Column(TypeName = "date")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "Este campo é obrigatório!")]
         [Display(Name = "Data de Nascimento")]
         public DateTime DataNasc { get; set; }
@@ -68,7 +68,7 @@ namespace PortalSocios.Models {
         public string Fotografia { get; set; }
 
         [Column(TypeName = "date")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Data de Inscrição")]
         public DateTime? DataInscr { get; set; }
 

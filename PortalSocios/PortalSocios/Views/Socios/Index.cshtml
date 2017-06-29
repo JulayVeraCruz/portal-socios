@@ -4,10 +4,13 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Lista de sócios</h2>
+<h3>Lista de Sócios</h3>
 
+<p>
+    @Html.ActionLink("Adicionar novo sócio", "Create")
+</p>
 <div style="overflow-x: auto;">
-    <table class="table">
+    <table class="table table-striped">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.NumSocio)
@@ -96,10 +99,4 @@
 
     </table>
 </div>
-
-<p>
-    @Html.ActionLink("Adicionar novo sócio", "Create")
-</p>
-
-
 
