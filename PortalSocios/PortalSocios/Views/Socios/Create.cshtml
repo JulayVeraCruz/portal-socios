@@ -4,7 +4,7 @@
     ViewBag.Title = "Create";
 }
 
-<h3>Adicionar Novo Sócio</h3>
+<h3>Criar Novo Sócio</h3>
 
 
 @using (Html.BeginForm()) 
@@ -17,7 +17,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.NumSocio, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.NumSocio, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.NumSocio, new { htmlAttributes = new { @class = "form-control", @min = "1" } })
                 @Html.ValidationMessageFor(model => model.NumSocio, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -81,7 +81,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CodPostal, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CodPostal, new { htmlAttributes = new { @class = "form-control", @maxlength = "30" } })
+                @Html.EditorFor(model => model.CodPostal, new { htmlAttributes = new { @class = "form-control", @maxlength = "50" } })
                 @Html.ValidationMessageFor(model => model.CodPostal, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -89,7 +89,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Fotografia, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Fotografia, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Fotografia, new { htmlAttributes = new { @class = "form-control", @maxlength = "30" } })
                 @Html.ValidationMessageFor(model => model.Fotografia, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -112,7 +112,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Adicionar" class="btn btn-danger" />
+                <input type="submit" value="Criar" class="btn btn-danger" />
             </div>
         </div>
     </div>
@@ -123,5 +123,6 @@
 </div>
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.rcarrao.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script>jQuery.validator.methods["date"] = function (value, element) { return true; }</script>

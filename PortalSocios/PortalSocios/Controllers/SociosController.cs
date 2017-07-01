@@ -9,8 +9,8 @@ namespace PortalSocios.Controllers {
 
         // GET: Socios
         public ActionResult Index() {
-            var socios = db.Socios.Include(s => s.Categoria);
-            return View(socios.ToList());
+            // ordena a lista de sócios pelo número de sócio
+            return View(db.Socios.OrderBy(s => s.NumSocio).ToList());
         }
 
         // GET: Socios/Details/5
@@ -20,13 +20,13 @@ namespace PortalSocios.Controllers {
                 // redireciona para o Index
                 return RedirectToAction("Index");
             }
-            Socios socios = db.Socios.Find(id);
+            Socios socio = db.Socios.Find(id);
             // caso não exista o id indicado
-            if (socios == null) {
+            if (socio == null) {
                 // redireciona para o Index
                 return RedirectToAction("Index");
             }
-            return View(socios);
+            return View(socio);
         }
 
         // GET: Socios/Create
@@ -40,15 +40,15 @@ namespace PortalSocios.Controllers {
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "SocioID,NumSocio,Nome,BI,NIF,DataNasc,Email,Telemovel,Morada,CodPostal,Fotografia,DataInscr,CategoriaFK")] Socios socios) {
+        public ActionResult Create([Bind(Include = "SocioID,NumSocio,Nome,BI,NIF,DataNasc,Email,Telemovel,Morada,CodPostal,Fotografia,DataInscr,CategoriaFK")] Socios socio) {
             if (ModelState.IsValid) {
-                db.Socios.Add(socios);
+                db.Socios.Add(socio);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CategoriaFK = new SelectList(db.Categorias, "CategoriaID", "Nome", socios.CategoriaFK);
-            return View(socios);
+            ViewBag.CategoriaFK = new SelectList(db.Categorias, "CategoriaID", "Nome", socio.CategoriaFK);
+            return View(socio);
         }
 
         // GET: Socios/Edit/5
@@ -58,14 +58,14 @@ namespace PortalSocios.Controllers {
                 // redireciona para o Index
                 return RedirectToAction("Index");
             }
-            Socios socios = db.Socios.Find(id);
+            Socios socio = db.Socios.Find(id);
             // caso não exista o id indicado
-            if (socios == null) {
+            if (socio == null) {
                 // redireciona para o Index
                 return RedirectToAction("Index");
             }
-            ViewBag.CategoriaFK = new SelectList(db.Categorias, "CategoriaID", "Nome", socios.CategoriaFK);
-            return View(socios);
+            ViewBag.CategoriaFK = new SelectList(db.Categorias, "CategoriaID", "Nome", socio.CategoriaFK);
+            return View(socio);
         }
 
         // POST: Socios/Edit/5
@@ -73,14 +73,14 @@ namespace PortalSocios.Controllers {
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SocioID,NumSocio,Nome,BI,NIF,DataNasc,Email,Telemovel,Morada,CodPostal,Fotografia,DataInscr,CategoriaFK")] Socios socios) {
+        public ActionResult Edit([Bind(Include = "SocioID,NumSocio,Nome,BI,NIF,DataNasc,Email,Telemovel,Morada,CodPostal,Fotografia,DataInscr,CategoriaFK")] Socios socio) {
             if (ModelState.IsValid) {
-                db.Entry(socios).State = EntityState.Modified;
+                db.Entry(socio).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CategoriaFK = new SelectList(db.Categorias, "CategoriaID", "Nome", socios.CategoriaFK);
-            return View(socios);
+            ViewBag.CategoriaFK = new SelectList(db.Categorias, "CategoriaID", "Nome", socio.CategoriaFK);
+            return View(socio);
         }
 
         // GET: Socios/Delete/5
@@ -90,21 +90,21 @@ namespace PortalSocios.Controllers {
                 // redireciona para o Index
                 return RedirectToAction("Index");
             }
-            Socios socios = db.Socios.Find(id);
+            Socios socio = db.Socios.Find(id);
             // caso não exista o id indicado
-            if (socios == null) {
+            if (socio == null) {
                 // redireciona para o Index
                 return RedirectToAction("Index");
             }
-            return View(socios);
+            return View(socio);
         }
 
         // POST: Socios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id) {
-            Socios socios = db.Socios.Find(id);
-            db.Socios.Remove(socios);
+            Socios socio = db.Socios.Find(id);
+            db.Socios.Remove(socio);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

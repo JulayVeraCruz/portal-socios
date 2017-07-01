@@ -14,57 +14,59 @@ namespace PortalSocios.Models {
         [Key]
         public int SocioID { get; set; }
 
+        [Index(IsUnique = true)]
         [Display(Name = "N.º de Sócio")]
         public int? NumSocio { get; set; }
 
         [StringLength(50)]
-        [Required(ErrorMessage = "Este campo é obrigatório!")]
+        [RegularExpression("[A-ZÁÂÉÍÓÚ][a-záàâãäèéêëìíîïòóôõöùúûüç]+((-| )((da|de|do|das|dos) )?[A-ZÁÂÉÍÓÚ][a-záàâãäèéêëìíîïòóôõöùúûüç]+)+", ErrorMessage = "Introduza apenas letras. O nome começa, obrigatoriamente, por uma maiúscula.")]
+        [Required(ErrorMessage = "O nome é obrigatório!")]
         [Display(Name = "Nome Completo")]
         public string Nome { get; set; }
 
-        [Index(IsUnique = true)]
-        [RegularExpression("[0-9]{8}", ErrorMessage = "Introduza 8 caracteres numéricos.")]
         [StringLength(8)]
-        [Required(ErrorMessage = "Este campo é obrigatório!")]
+        [Index(IsUnique = true)]
+        [RegularExpression("[0-9]{8}", ErrorMessage = "Introduza 8 caracteres numéricos.")]        
+        [Required(ErrorMessage = "O {0} é obrigatório!")]
         [Display(Name = "BI / CC")]
         public string BI { get; set; }
 
-        [Index(IsUnique = true)]
-        [RegularExpression("[0-9]{9}", ErrorMessage = "Introduza 9 caracteres numéricos.")]
         [StringLength(9)]
-        [Required(ErrorMessage = "Este campo é obrigatório!")]
+        [Index(IsUnique = true)]
+        [RegularExpression("[0-9]{9}", ErrorMessage = "Introduza 9 caracteres numéricos.")]        
+        [Required(ErrorMessage = "O {0} é obrigatório!")]
         public string NIF { get; set; }
 
-        [Column(TypeName = "date")]
+        [Column(TypeName = "date")]        
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        [Required(ErrorMessage = "Este campo é obrigatório!")]
+        [Required(ErrorMessage = "A data de nascimento é obrigatória!")]
         [Display(Name = "Data de Nascimento")]
         public DateTime DataNasc { get; set; }
 
         [StringLength(50)]
-        [EmailAddress(ErrorMessage = "E-mail inválido!")]
-        [Required(ErrorMessage = "Este campo é obrigatório!")]
+        [EmailAddress(ErrorMessage = "Introduza um e-mail válido!")]
+        [Required(ErrorMessage = "O e-mail é obrigatório!")]
         [Display(Name = "E-mail")]
         public string Email { get; set; }
 
         [StringLength(9)]
         [RegularExpression("[0-9]{9}", ErrorMessage = "Introduza 9 caracteres numéricos.")]
-        [Required(ErrorMessage = "Este campo é obrigatório!")]
+        [Required(ErrorMessage = "O telemóvel é obrigatório!")]
         [Display(Name = "Telemóvel")]
         public string Telemovel { get; set; }
 
         [StringLength(80)]
-        [Required(ErrorMessage = "Este campo é obrigatório!")]
+        [Required(ErrorMessage = "A morada é obrigatória!")]
         public string Morada { get; set; }
 
-        [StringLength(30)]
-        [RegularExpression("[0-9]{4}-[0-9]{3} [A-ZÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇ]+((-| )?[A-ZÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇ]+)*", ErrorMessage = "Introduza o código postal no formato 0000-000 XXXXX.")]
-        [Required(ErrorMessage = "Este campo é obrigatório!")]
+        [StringLength(50)]
+        [RegularExpression("[0-9]{4}-[0-9]{3}( [A-ZÁÂÃÉÊÍÎÓÔÕÚÛÇ.-]+)+", ErrorMessage = "Introduza o código postal no formato 0000-000 XXXXX.")]
+        [Required(ErrorMessage = "O código postal é obrigatório!")]
         [Display(Name = "Código Postal")]
         public string CodPostal { get; set; }
 
-        [StringLength(255)]
-        [Required(ErrorMessage = "Este campo é obrigatório!")]
+        [StringLength(30)]
+        [Required(ErrorMessage = "A fotografia é obrigatória!")]
         public string Fotografia { get; set; }
 
         [Column(TypeName = "date")]

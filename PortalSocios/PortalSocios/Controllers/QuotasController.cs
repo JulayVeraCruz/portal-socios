@@ -1,44 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using PortalSocios.Models;
 
-namespace PortalSocios.Controllers
-{
+namespace PortalSocios.Controllers {
     public class QuotasController : Controller
     {
         private SociosBD db = new SociosBD();
 
         // GET: Quotas
-        public ActionResult Index()
-        {
-            var quotas = db.Quotas.Include(q => q.Categoria);
-            return View(quotas.ToList());
+        public ActionResult Index() {
+            // ordena a lista de quotas pelo ano e depois pelo montante
+            return View(db.Quotas.OrderBy(q => q.Ano).ThenBy(q => q.Montante).ToList());
         }
 
         // GET: Quotas/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        public ActionResult Details(int? id) {
+            // caso não seja indicado o id
+            if (id == null) {
+                // redireciona para o Index
+                return RedirectToAction("Index");
             }
-            Quotas quotas = db.Quotas.Find(id);
-            if (quotas == null)
-            {
-                return HttpNotFound();
+            Quotas quota = db.Quotas.Find(id);
+            // caso não exista o id indicado
+            if (quota == null) {
+                // redireciona para o Index
+                return RedirectToAction("Index");
             }
-            return View(quotas);
+            return View(quota);
         }
 
         // GET: Quotas/Create
-        public ActionResult Create()
-        {
+        public ActionResult Create() {
             ViewBag.CategoriaFK = new SelectList(db.Categorias, "CategoriaID", "Nome");
             return View();
         }
@@ -48,33 +42,32 @@ namespace PortalSocios.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "QuotaID,Montante,Ano,Periodicidade,CategoriaFK")] Quotas quotas)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Quotas.Add(quotas);
+        public ActionResult Create([Bind(Include = "QuotaID,Montante,Ano,Periodicidade,CategoriaFK")] Quotas quota) {
+            if (ModelState.IsValid) {
+                db.Quotas.Add(quota);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CategoriaFK = new SelectList(db.Categorias, "CategoriaID", "Nome", quotas.CategoriaFK);
-            return View(quotas);
+            ViewBag.CategoriaFK = new SelectList(db.Categorias, "CategoriaID", "Nome", quota.CategoriaFK);
+            return View(quota);
         }
 
         // GET: Quotas/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        public ActionResult Edit(int? id) {
+            // caso não seja indicado o id
+            if (id == null) {
+                // redireciona para o Index
+                return RedirectToAction("Index");
             }
-            Quotas quotas = db.Quotas.Find(id);
-            if (quotas == null)
-            {
-                return HttpNotFound();
+            Quotas quota = db.Quotas.Find(id);
+            // caso não exista o id indicado
+            if (quota == null) {
+                // redireciona para o Index
+                return RedirectToAction("Index");
             }
-            ViewBag.CategoriaFK = new SelectList(db.Categorias, "CategoriaID", "Nome", quotas.CategoriaFK);
-            return View(quotas);
+            ViewBag.CategoriaFK = new SelectList(db.Categorias, "CategoriaID", "Nome", quota.CategoriaFK);
+            return View(quota);
         }
 
         // POST: Quotas/Edit/5
@@ -82,48 +75,44 @@ namespace PortalSocios.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "QuotaID,Montante,Ano,Periodicidade,CategoriaFK")] Quotas quotas)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(quotas).State = EntityState.Modified;
+        public ActionResult Edit([Bind(Include = "QuotaID,Montante,Ano,Periodicidade,CategoriaFK")] Quotas quota) {
+            if (ModelState.IsValid) {
+                db.Entry(quota).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CategoriaFK = new SelectList(db.Categorias, "CategoriaID", "Nome", quotas.CategoriaFK);
-            return View(quotas);
+            ViewBag.CategoriaFK = new SelectList(db.Categorias, "CategoriaID", "Nome", quota.CategoriaFK);
+            return View(quota);
         }
 
         // GET: Quotas/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        public ActionResult Delete(int? id) {
+            // caso não seja indicado o id
+            if (id == null) {
+                // redireciona para o Index
+                return RedirectToAction("Index");
             }
-            Quotas quotas = db.Quotas.Find(id);
-            if (quotas == null)
-            {
-                return HttpNotFound();
+            Quotas quota = db.Quotas.Find(id);
+            // caso não exista o id indicado
+            if (quota == null) {
+                // redireciona para o Index
+                return RedirectToAction("Index");
             }
-            return View(quotas);
+            return View(quota);
         }
 
         // POST: Quotas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Quotas quotas = db.Quotas.Find(id);
-            db.Quotas.Remove(quotas);
+        public ActionResult DeleteConfirmed(int id) {
+            Quotas quota = db.Quotas.Find(id);
+            db.Quotas.Remove(quota);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing) {
                 db.Dispose();
             }
             base.Dispose(disposing);

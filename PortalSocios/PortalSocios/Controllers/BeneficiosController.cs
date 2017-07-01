@@ -1,43 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using PortalSocios.Models;
 
-namespace PortalSocios.Controllers
-{
+namespace PortalSocios.Controllers {
     public class BeneficiosController : Controller
     {
         private SociosBD db = new SociosBD();
 
         // GET: Beneficios
-        public ActionResult Index()
-        {
-            return View(db.Beneficios.ToList());
+        public ActionResult Index() {
+            // ordena a lista de benefícios pela descrição
+            return View(db.Beneficios.OrderBy(b => b.Descricao).ToList());
         }
 
         // GET: Beneficios/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        public ActionResult Details(int? id) {
+            // caso não seja indicado o id
+            if (id == null) {
+                // redireciona para o Index
+                return RedirectToAction("Index");
             }
-            Beneficios beneficios = db.Beneficios.Find(id);
-            if (beneficios == null)
-            {
-                return HttpNotFound();
+            Beneficios beneficio = db.Beneficios.Find(id);
+            // caso não exista o id indicado
+            if (beneficio == null) {
+                // redireciona para o Index
+                return RedirectToAction("Index");
             }
-            return View(beneficios);
+            return View(beneficio);
         }
 
         // GET: Beneficios/Create
-        public ActionResult Create()
-        {
+        public ActionResult Create() {
             return View();
         }
 
@@ -46,31 +41,30 @@ namespace PortalSocios.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "BeneficioID,Descricao,EntidRespons")] Beneficios beneficios)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Beneficios.Add(beneficios);
+        public ActionResult Create([Bind(Include = "BeneficioID,Descricao,EntidRespons")] Beneficios beneficio) {
+            if (ModelState.IsValid) {
+                db.Beneficios.Add(beneficio);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(beneficios);
+            return View(beneficio);
         }
 
         // GET: Beneficios/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        public ActionResult Edit(int? id) {
+            // caso não seja indicado o id
+            if (id == null) {
+                // redireciona para o Index
+                return RedirectToAction("Index");
             }
-            Beneficios beneficios = db.Beneficios.Find(id);
-            if (beneficios == null)
-            {
-                return HttpNotFound();
+            Beneficios beneficio = db.Beneficios.Find(id);
+            // caso não exista o id indicado
+            if (beneficio == null) {
+                // redireciona para o Index
+                return RedirectToAction("Index");
             }
-            return View(beneficios);
+            return View(beneficio);
         }
 
         // POST: Beneficios/Edit/5
@@ -78,47 +72,43 @@ namespace PortalSocios.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "BeneficioID,Descricao,EntidRespons")] Beneficios beneficios)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(beneficios).State = EntityState.Modified;
+        public ActionResult Edit([Bind(Include = "BeneficioID,Descricao,EntidRespons")] Beneficios beneficio) {
+            if (ModelState.IsValid) {
+                db.Entry(beneficio).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(beneficios);
+            return View(beneficio);
         }
 
         // GET: Beneficios/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        public ActionResult Delete(int? id) {
+            // caso não seja indicado o id
+            if (id == null) {
+                // redireciona para o Index
+                return RedirectToAction("Index");
             }
-            Beneficios beneficios = db.Beneficios.Find(id);
-            if (beneficios == null)
-            {
-                return HttpNotFound();
+            Beneficios beneficio = db.Beneficios.Find(id);
+            // caso não exista o id indicado
+            if (beneficio == null) {
+                // redireciona para o Index
+                return RedirectToAction("Index");
             }
-            return View(beneficios);
+            return View(beneficio);
         }
 
         // POST: Beneficios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Beneficios beneficios = db.Beneficios.Find(id);
-            db.Beneficios.Remove(beneficios);
+        public ActionResult DeleteConfirmed(int id) {
+            Beneficios beneficio = db.Beneficios.Find(id);
+            db.Beneficios.Remove(beneficio);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing) {
                 db.Dispose();
             }
             base.Dispose(disposing);

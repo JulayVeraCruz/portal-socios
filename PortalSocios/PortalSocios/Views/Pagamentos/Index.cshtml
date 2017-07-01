@@ -4,12 +4,12 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h3>Lista de Pagamentos</h3>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Criar novo pagamento", "Create")
 </p>
-<table class="table">
+<table class="table table-striped">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Socio.Nome)
@@ -65,9 +65,9 @@
             @Html.DisplayFor(modelItem => item.Funcionario.Nome)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.PagamentoID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.PagamentoID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.PagamentoID })
+            @Html.ActionLink("Editar", "Edit", new { id=item.PagamentoID }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.PagamentoID }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.PagamentoID })
         </td>
     </tr>
 }

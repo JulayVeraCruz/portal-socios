@@ -13,14 +13,16 @@ namespace PortalSocios.Models {
         [Key]
         public int QuotaID { get; set; }
 
-        [Required]
+        [RegularExpression("[0-9]{1,4}(,[0-9]{1,2})?", ErrorMessage = "Introduza um valor inteiro ou decimal.")]
+        [Required(ErrorMessage = "O montante é obrigatório!")]
         public float Montante { get; set; }
-        
-        [Required]
+
+        [Required(ErrorMessage = "O ano é obrigatório!")]
         public int Ano { get; set; }
 
-        [Required]
         [StringLength(15)]
+        [RegularExpression("[A-Z][a-z]+", ErrorMessage = "Introduza apenas letras. A periodicidade começa, obrigatoriamente, por uma maiúscula.")]
+        [Required(ErrorMessage = "A periodicidade é obrigatória!")]        
         public string Periodicidade { get; set; }
 
         // uma quota tem uma coleção de pagamentos
