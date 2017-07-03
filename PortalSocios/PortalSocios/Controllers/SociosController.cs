@@ -6,11 +6,13 @@ using System;
 
 namespace PortalSocios.Controllers {
     public class SociosController : Controller {
-        private SociosBD db = new SociosBD();
 
+        // cria um novo objeto que representa a BD
+        private SociosBD db = new SociosBD();
+      
         // GET: Socios
         public ActionResult Index() {
-            // permite incluir os dados das categorias na View dos 'Socios'
+            // inclui os dados das categorias na VIEW dos 'Socios'
             var socios = db.Socios.Include(s => s.Categoria);
             // ordena a lista de sócios pelo número de sócio
             return View(socios.OrderBy(s => s.NumSocio).ToList());
@@ -18,17 +20,19 @@ namespace PortalSocios.Controllers {
 
         // GET: Socios/Details/5
         public ActionResult Details(int? id) {
-            // caso não seja indicado o id
+            // caso não se indique um id
             if (id == null) {
-                // redireciona para a página inicial
+                // redireciona para a lista de sócios
                 return RedirectToAction("Index");
             }
+            // procura o sócio com o id indicado
             Socios socio = db.Socios.Find(id);
-            // caso não exista o id indicado
+            // caso não exista o sócio
             if (socio == null) {
-                // redireciona para a página inicial
+                // redireciona para a lista de sócios
                 return RedirectToAction("Index");
             }
+            // vai para a VIEW dos detalhes do sócio
             return View(socio);
         }
 
@@ -45,53 +49,41 @@ namespace PortalSocios.Controllers {
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "SocioID,NumSocio,Nome,BI,NIF,DataNasc,Email,Telemovel,Morada,CodPostal,Fotografia,DataInscr,CategoriaFK")] Socios socio) {
             try {
-                // caso os dados a ser introduzidos estejam consistentes com o Model
+                // caso os dados introduzidos estejam consistentes com o MODEL
                 if (ModelState.IsValid) {
                     // adiciona um novo sócio
                     db.Socios.Add(socio);
                     // guarda as alterações
                     db.SaveChanges();
-                    // redireciona para a página inicial
+                    // redireciona para a lista de sócios
                     return RedirectToAction("Index");
-                }
-                else {
-                    // ref: http://www.iminfo.in/post/change-message-the-value-is-not-valid-for-number-mvc-workarond
-                    // caso a 'DataNasc' tenha um erro com o conteúdo indicado
-                    if (ModelState["DataNasc"].Errors.Count == 1 && ModelState["DataNasc"].Errors[0].ErrorMessage.Contains("is not valid for")) {
-                        // limpa as mensagens de erro
-                        ModelState["DataNasc"].Errors.Clear();
-                        // adiciona uma nova mensagem de erro
-                        ModelState["DataNasc"].Errors.Add("Introduza uma data de nascimento válida!");
-                    }
-                    if (ModelState["DataInscr"].Errors.Count == 1 && ModelState["DataInscr"].Errors[0].ErrorMessage.Contains("is not valid for")) {
-                        ModelState["DataInscr"].Errors.Clear();
-                        ModelState["DataInscr"].Errors.Add("Introduza uma data de inscrição válida!");
-                    }
-
                 }
             }
             catch (Exception) {
                 // cria uma mensagem de erro a ser apresentada ao utilizador
-                ModelState.AddModelError("", string.Format("Ocorreu um erro na criação do novo sócio. Verifique o N.º de Sócio, o BI / CC e o NIF.", socio.NumSocio));
+                ModelState.AddModelError("", string.Format("Ocorreu um erro na criação de um novo sócio. Verifique o N.º de Sócio, o BI/CC e o NIF."));
             }
             ViewBag.CategoriaFK = new SelectList(db.Categorias, "CategoriaID", "Nome", socio.CategoriaFK);
+            // volta para a VIEW da criação do sócio
             return View(socio);
         }
 
         // GET: Socios/Edit/5
         public ActionResult Edit(int? id) {
-            // caso não seja indicado o id
+            // caso não se indique um id
             if (id == null) {
-                // redireciona para o Index
+                // redireciona para a lista de sócios
                 return RedirectToAction("Index");
             }
+            // procura o sócio com o id indicado
             Socios socio = db.Socios.Find(id);
-            // caso não exista o id indicado
+            // caso não exista o sócio
             if (socio == null) {
-                // redireciona para o Index
+                // redireciona para a lista de sócios
                 return RedirectToAction("Index");
             }
             ViewBag.CategoriaFK = new SelectList(db.Categorias, "CategoriaID", "Nome", socio.CategoriaFK);
+            // vai para a VIEW da edição do sócio
             return View(socio);
         }
 
@@ -102,44 +94,40 @@ namespace PortalSocios.Controllers {
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "SocioID,NumSocio,Nome,BI,NIF,DataNasc,Email,Telemovel,Morada,CodPostal,Fotografia,DataInscr,CategoriaFK")] Socios socio) {
             try {
+                // caso os dados introduzidos estejam consistentes com o MODEL
                 if (ModelState.IsValid) {
+                    // altera os dados do sócio
                     db.Entry(socio).State = EntityState.Modified;
+                    // guarda as alterações
                     db.SaveChanges();
+                    // redireciona para a lista de sócios
                     return RedirectToAction("Index");
-                }
-                else {
-                    // ref: http://www.iminfo.in/post/change-message-the-value-is-not-valid-for-number-mvc-workarond
-                    if (ModelState["DataNasc"].Errors.Count == 1 && ModelState["DataNasc"].Errors[0].ErrorMessage.Contains("is not valid for")) {
-                        ModelState["DataNasc"].Errors.Clear();
-                        ModelState["DataNasc"].Errors.Add("Introduza uma data de nascimento válida!");
-                    }
-                    if (ModelState["DataInscr"].Errors.Count == 1 && ModelState["DataInscr"].Errors[0].ErrorMessage.Contains("is not valid for")) {
-                        ModelState["DataInscr"].Errors.Clear();
-                        ModelState["DataInscr"].Errors.Add("Introduza uma data de inscrição válida!");
-                    }
                 }
             }
             catch (Exception) {
                 // cria uma mensagem de erro a ser apresentada ao utilizador
-                ModelState.AddModelError("", string.Format("Ocorreu um erro na edição do sócio. Verifique o N.º de Sócio, o BI / CC e o NIF.", socio.NumSocio));
+                ModelState.AddModelError("", string.Format("Ocorreu um erro na edição do sócio. Verifique o N.º de Sócio, o BI/CC e o NIF."));
             }
             ViewBag.CategoriaFK = new SelectList(db.Categorias, "CategoriaID", "Nome", socio.CategoriaFK);
+            // volta para a VIEW da edição do sócio
             return View(socio);
         }
-
+        
         // GET: Socios/Delete/5
         public ActionResult Delete(int? id) {
-            // caso não seja indicado o id
+            // caso não se indique um id
             if (id == null) {
-                // redireciona para o Index
+                // redireciona para a lista de sócios
                 return RedirectToAction("Index");
             }
+            // procura o sócio com o id indicado
             Socios socio = db.Socios.Find(id);
-            // caso não exista o id indicado
+            // caso não exista o sócio
             if (socio == null) {
-                // redireciona para o Index
+                // redireciona para a lista de sócios
                 return RedirectToAction("Index");
             }
+            // vai para a VIEW de eliminação do sócio
             return View(socio);
         }
 
@@ -147,17 +135,22 @@ namespace PortalSocios.Controllers {
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id) {
+            // procura o sócio com o id indicado
             Socios socio = db.Socios.Find(id);
-            try {                
+            try {
+                // remove o sócio
                 db.Socios.Remove(socio);
+                // guarda as alterações
                 db.SaveChanges();
+                // redireciona para a lista de sócios
                 return RedirectToAction("Index");
             }
             catch (Exception) {
                 // cria uma mensagem de erro a ser apresentada ao utilizador
                 ModelState.AddModelError("", string.Format("Ocorreu um erro na eliminação do sócio com N.º de Sócio = {0}.", socio.NumSocio));
-                return View(socio);
-            }            
+            }
+            // volta para a VIEW de eliminação do sócio
+            return View(socio);
         }
 
         protected override void Dispose(bool disposing) {

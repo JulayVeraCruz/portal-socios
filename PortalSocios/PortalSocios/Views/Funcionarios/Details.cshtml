@@ -26,6 +26,14 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.Telemovel)
         </dt>
 
@@ -59,7 +67,7 @@
 
     </dl>
 </div>
-<p>
+<p>    
     @Html.ActionLink("Voltar à lista", "Index") |
-    @Html.ActionLink("Editar", "Edit", new { id = Model.FuncionarioID })    
+    @Html.ActionLink("Editar", "Edit", new { id = Model.FuncionarioID })
 </p>

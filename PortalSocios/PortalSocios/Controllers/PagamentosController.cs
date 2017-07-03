@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using PortalSocios.Models;
+using System;
 
 namespace PortalSocios.Controllers {
     public class PagamentosController : Controller
@@ -10,23 +11,17 @@ namespace PortalSocios.Controllers {
 
         // GET: Pagamentos
         public ActionResult Index() {
-            // permite incluir os dados dos funcionários, das quotas e dos sócios na View dos 'Pagamentos'
             var pagamentos = db.Pagamentos.Include(p => p.Funcionario).Include(p => p.Quota).Include(p => p.Socio);
-            // ordena a lista dos pagamentos pelo nome do sócio e depois pela data prevista de pagamento
             return View(pagamentos.OrderBy(p => p.Socio.Nome).ThenBy(p => p.DataPrevPagam).ToList());
         }
 
         // GET: Pagamentos/Details/5
         public ActionResult Details(int? id) {
-            // caso não seja indicado o id
             if (id == null) {
-                // redireciona para o Index
                 return RedirectToAction("Index");
             }
             Pagamentos pagamento = db.Pagamentos.Find(id);
-            // caso não exista o id indicado
             if (pagamento == null) {
-                // redireciona para o Index
                 return RedirectToAction("Index");
             }
             return View(pagamento);
@@ -46,12 +41,16 @@ namespace PortalSocios.Controllers {
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "PagamentoID,RefMultibanco,Montante,DataPagam,DataPrevPagam,Multa,QuotaFK,SocioFK,FuncionarioFK")] Pagamentos pagamento) {
-            if (ModelState.IsValid) {
-                db.Pagamentos.Add(pagamento);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+            try {
+                if (ModelState.IsValid) {
+                    db.Pagamentos.Add(pagamento);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
-
+            catch (Exception) {
+                ModelState.AddModelError("", string.Format("Ocorreu um erro na criação de um novo pagamento. Verifique a referência multibanco."));
+            }
             ViewBag.FuncionarioFK = new SelectList(db.Funcionarios, "FuncionarioID", "Nome", pagamento.FuncionarioFK);
             ViewBag.QuotaFK = new SelectList(db.Quotas, "QuotaID", "Referencia", pagamento.QuotaFK);
             ViewBag.SocioFK = new SelectList(db.Socios, "SocioID", "Nome", pagamento.SocioFK);
@@ -60,15 +59,11 @@ namespace PortalSocios.Controllers {
 
         // GET: Pagamentos/Edit/5
         public ActionResult Edit(int? id) {
-            // caso não seja indicado o id
             if (id == null) {
-                // redireciona para o Index
                 return RedirectToAction("Index");
             }
             Pagamentos pagamento = db.Pagamentos.Find(id);
-            // caso não exista o id indicado
             if (pagamento == null) {
-                // redireciona para o Index
                 return RedirectToAction("Index");
             }
             ViewBag.FuncionarioFK = new SelectList(db.Funcionarios, "FuncionarioID", "Nome", pagamento.FuncionarioFK);
@@ -83,10 +78,15 @@ namespace PortalSocios.Controllers {
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "PagamentoID,RefMultibanco,Montante,DataPagam,DataPrevPagam,Multa,QuotaFK,SocioFK,FuncionarioFK")] Pagamentos pagamento) {
-            if (ModelState.IsValid) {
-                db.Entry(pagamento).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+            try {
+                if (ModelState.IsValid) {
+                    db.Entry(pagamento).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception) {
+                ModelState.AddModelError("", string.Format("Ocorreu um erro na edição do pagamento. Verifique a referência multibanco."));
             }
             ViewBag.FuncionarioFK = new SelectList(db.Funcionarios, "FuncionarioID", "Nome", pagamento.FuncionarioFK);
             ViewBag.QuotaFK = new SelectList(db.Quotas, "QuotaID", "Referencia", pagamento.QuotaFK);
@@ -96,15 +96,11 @@ namespace PortalSocios.Controllers {
 
         // GET: Pagamentos/Delete/5
         public ActionResult Delete(int? id) {
-            // caso não seja indicado o id
             if (id == null) {
-                // redireciona para o Index
                 return RedirectToAction("Index");
             }
             Pagamentos pagamento = db.Pagamentos.Find(id);
-            // caso não exista o id indicado
             if (pagamento == null) {
-                // redireciona para o Index
                 return RedirectToAction("Index");
             }
             return View(pagamento);
@@ -115,9 +111,15 @@ namespace PortalSocios.Controllers {
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id) {
             Pagamentos pagamento = db.Pagamentos.Find(id);
-            db.Pagamentos.Remove(pagamento);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try {
+                db.Pagamentos.Remove(pagamento);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception) {
+                ModelState.AddModelError("", string.Format("Ocorreu um erro na eliminação do pagamento com Referência Multibanco = {0}.", pagamento.RefMultibanco));
+            }
+            return View(pagamento);
         }
 
         protected override void Dispose(bool disposing) {

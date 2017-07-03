@@ -7,7 +7,7 @@
 <h3>Lista de Funcionários</h3>
 
 <p>
-    @Html.ActionLink("Criar novo funcionário", "Create")
+    @Html.ActionLink("Criar Novo Funcionário", "Create")
 </p>
 <table class="table table-striped">
     <tr>
@@ -16,6 +16,9 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.NIF)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Telemovel)
@@ -39,6 +42,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.NIF)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Telemovel)

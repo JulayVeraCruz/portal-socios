@@ -8,14 +8,15 @@ namespace PortalSocios.Models {
         [Key]
         public int PagamentoID { get; set; }
 
-        [StringLength(9)]        
+        [StringLength(9)]
+        [Index(IsUnique = true)]
         [RegularExpression("[0-9]{9}", ErrorMessage = "Introduza 9 caracteres numéricos.")]
         [Required(ErrorMessage = "A {0} é obrigatória!")]
         [Display(Name = "Referência Multibanco")]
         public string RefMultibanco { get; set; }
 
         [DataType(DataType.Currency)]
-        [RegularExpression("[0-9]+(,[0-9]{1,2})?", ErrorMessage = "Introduza um valor inteiro ou decimal.")]
+        [RegularExpression("[0-9]+(,[0-9]{1,2})?", ErrorMessage = "Introduza um valor inteiro ou decimal, no formato 0,00.")]
         [Required(ErrorMessage = "O {0} é obrigatório!")]
         public decimal Montante { get; set; }
 
@@ -31,7 +32,7 @@ namespace PortalSocios.Models {
         public DateTime DataPrevPagam { get; set; }
 
         [DataType(DataType.Currency)]
-        [RegularExpression("[0-9]+(,[0-9]{1,2})?", ErrorMessage = "Introduza um valor inteiro ou decimal.")]
+        [RegularExpression("[0-9]+(,[0-9]{1,2})?", ErrorMessage = "Introduza um valor inteiro ou decimal, no formato 0,00.")]
         public decimal? Multa { get; set; }
 
         // criação das chaves forasteiras

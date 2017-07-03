@@ -113,7 +113,6 @@
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.rcarrao.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
@@ -162,11 +161,6 @@
     <Content Include="Views\Categorias\Details.cshtml" />
     <Content Include="Views\Categorias\Edit.cshtml" />
     <Content Include="Views\Categorias\Index.cshtml" />
-    <Content Include="Views\Funcionarios\Create.cshtml" />
-    <Content Include="Views\Funcionarios\Delete.cshtml" />
-    <Content Include="Views\Funcionarios\Details.cshtml" />
-    <Content Include="Views\Funcionarios\Edit.cshtml" />
-    <Content Include="Views\Funcionarios\Index.cshtml" />
     <Content Include="Views\Pagamentos\Create.cshtml" />
     <Content Include="Views\Pagamentos\Delete.cshtml" />
     <Content Include="Views\Pagamentos\Details.cshtml" />
@@ -177,6 +171,11 @@
     <Content Include="Views\Quotas\Details.cshtml" />
     <Content Include="Views\Quotas\Edit.cshtml" />
     <Content Include="Views\Quotas\Index.cshtml" />
+    <Content Include="Views\Funcionarios\Create.cshtml" />
+    <Content Include="Views\Funcionarios\Delete.cshtml" />
+    <Content Include="Views\Funcionarios\Details.cshtml" />
+    <Content Include="Views\Funcionarios\Edit.cshtml" />
+    <Content Include="Views\Funcionarios\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

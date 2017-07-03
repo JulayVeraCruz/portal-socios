@@ -26,6 +26,13 @@ namespace PortalSocios.Models {
         [Required(ErrorMessage = "O {0} é obrigatório!")]
         public string NIF { get; set; }
 
+        [StringLength(50)]
+        [EmailAddress(ErrorMessage = "Introduza um {0} válido!")]
+        [RegularExpression("[a-z]+@cdcb.pt", ErrorMessage = "Introduza o {0} no formato nome@cdcb.pt")]
+        [Required(ErrorMessage = "O {0} é obrigatório!")]
+        [Display(Name = "E-mail")]
+        public string Email { get; set; }
+
         [StringLength(9)]
         [RegularExpression("[0-9]{9}", ErrorMessage = "Introduza 9 caracteres numéricos.")]
         [Required(ErrorMessage = "O {0} é obrigatório!")]

@@ -26,6 +26,14 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.Telemovel)
         </dt>
 
@@ -64,9 +72,9 @@
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
+        <div class="form-actions no-color">            
             @Html.ActionLink("Voltar à lista", "Index") |
-            <input type="submit" value="Sim" class="btn btn-danger" />            
+            <input type="submit" value="Delete" class="btn btn-danger" />
         </div>
     }
 </div>

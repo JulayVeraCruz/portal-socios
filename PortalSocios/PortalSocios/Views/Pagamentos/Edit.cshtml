@@ -25,14 +25,6 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.QuotaFK, "Quota", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("QuotaFK", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.QuotaFK, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
             @Html.LabelFor(model => model.RefMultibanco, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.RefMultibanco, new { htmlAttributes = new { @class = "form-control", @maxlength = "9" } })
@@ -43,7 +35,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Montante, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Montante, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Montante, new { htmlAttributes = new { @class = "form-control", @maxlength = "10" } })
                 @Html.ValidationMessageFor(model => model.Montante, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -51,7 +43,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.DataPagam, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DataPagam, new { htmlAttributes = new { @class = "form-control", @maxlength = "10" } })
+                @Html.EditorFor(model => model.DataPagam, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.DataPagam, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -59,7 +51,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.DataPrevPagam, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DataPrevPagam, new { htmlAttributes = new { @class = "form-control", @maxlength = "10" } })
+                @Html.EditorFor(model => model.DataPrevPagam, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.DataPrevPagam, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -67,8 +59,16 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Multa, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Multa, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Multa, new { htmlAttributes = new { @class = "form-control", @maxlength = "10" } })
                 @Html.ValidationMessageFor(model => model.Multa, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.QuotaFK, "Quota", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("QuotaFK", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.QuotaFK, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -93,5 +93,5 @@
 </div>
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.rcarrao.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

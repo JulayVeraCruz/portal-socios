@@ -1,8 +1,8 @@
 ﻿using System.Data.Entity;
 using System.Linq;
-using System.Net;
 using System.Web.Mvc;
 using PortalSocios.Models;
+using System;
 
 namespace PortalSocios.Controllers {
     public class BeneficiosController : Controller
@@ -11,21 +11,16 @@ namespace PortalSocios.Controllers {
 
         // GET: Beneficios
         public ActionResult Index() {
-            // ordena a lista de benefícios pela descrição
             return View(db.Beneficios.OrderBy(b => b.Descricao).ToList());
         }
 
         // GET: Beneficios/Details/5
         public ActionResult Details(int? id) {
-            // caso não seja indicado o id
             if (id == null) {
-                // redireciona para o Index
                 return RedirectToAction("Index");
             }
             Beneficios beneficio = db.Beneficios.Find(id);
-            // caso não exista o id indicado
             if (beneficio == null) {
-                // redireciona para o Index
                 return RedirectToAction("Index");
             }
             return View(beneficio);
@@ -42,26 +37,26 @@ namespace PortalSocios.Controllers {
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "BeneficioID,Descricao,EntidRespons")] Beneficios beneficio) {
-            if (ModelState.IsValid) {
-                db.Beneficios.Add(beneficio);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+            try {
+                if (ModelState.IsValid) {
+                    db.Beneficios.Add(beneficio);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
-
+            catch (Exception) {
+                ModelState.AddModelError("", string.Format("Ocorreu um erro na criação de um novo benefício."));
+            }
             return View(beneficio);
         }
 
         // GET: Beneficios/Edit/5
         public ActionResult Edit(int? id) {
-            // caso não seja indicado o id
             if (id == null) {
-                // redireciona para o Index
                 return RedirectToAction("Index");
             }
             Beneficios beneficio = db.Beneficios.Find(id);
-            // caso não exista o id indicado
             if (beneficio == null) {
-                // redireciona para o Index
                 return RedirectToAction("Index");
             }
             return View(beneficio);
@@ -73,25 +68,26 @@ namespace PortalSocios.Controllers {
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "BeneficioID,Descricao,EntidRespons")] Beneficios beneficio) {
-            if (ModelState.IsValid) {
-                db.Entry(beneficio).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+            try {
+                if (ModelState.IsValid) {
+                    db.Entry(beneficio).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception) {
+                ModelState.AddModelError("", string.Format("Ocorreu um erro na edição do benefício."));
             }
             return View(beneficio);
         }
 
         // GET: Beneficios/Delete/5
         public ActionResult Delete(int? id) {
-            // caso não seja indicado o id
             if (id == null) {
-                // redireciona para o Index
                 return RedirectToAction("Index");
             }
             Beneficios beneficio = db.Beneficios.Find(id);
-            // caso não exista o id indicado
             if (beneficio == null) {
-                // redireciona para o Index
                 return RedirectToAction("Index");
             }
             return View(beneficio);
@@ -102,9 +98,15 @@ namespace PortalSocios.Controllers {
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id) {
             Beneficios beneficio = db.Beneficios.Find(id);
-            db.Beneficios.Remove(beneficio);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try {
+                db.Beneficios.Remove(beneficio);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception) {
+                ModelState.AddModelError("", string.Format("Ocorreu um erro na eliminação do benefício com ID = {0}.", beneficio.BeneficioID));
+            }
+            return View(beneficio);
         }
 
         protected override void Dispose(bool disposing) {

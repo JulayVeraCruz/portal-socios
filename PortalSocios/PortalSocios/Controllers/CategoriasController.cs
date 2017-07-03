@@ -1,8 +1,8 @@
 ﻿using System.Data.Entity;
 using System.Linq;
-using System.Net;
 using System.Web.Mvc;
 using PortalSocios.Models;
+using System;
 
 namespace PortalSocios.Controllers {
     public class CategoriasController : Controller
@@ -11,21 +11,16 @@ namespace PortalSocios.Controllers {
 
         // GET: Categorias
         public ActionResult Index() {
-            // ordena a lista de categorias pelo valor mensal
             return View(db.Categorias.OrderBy(c => c.ValorMensal).ToList());
         }
 
         // GET: Categorias/Details/5
         public ActionResult Details(int? id) {
-            // caso não seja indicado o id
             if (id == null) {
-                // redireciona para o Index
                 return RedirectToAction("Index");
             }
             Categorias categoria = db.Categorias.Find(id);
-            // caso não exista o id indicado
             if (categoria == null) {
-                // redireciona para o Index
                 return RedirectToAction("Index");
             }
             return View(categoria);
@@ -42,26 +37,26 @@ namespace PortalSocios.Controllers {
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CategoriaID,Nome,FaixaEtaria,NumQuotasAnuais,ValorMensal")] Categorias categoria) {
-            if (ModelState.IsValid) {
-                db.Categorias.Add(categoria);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+            try {
+                if (ModelState.IsValid) {
+                    db.Categorias.Add(categoria);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
-
+            catch (Exception) {
+                ModelState.AddModelError("", string.Format("Ocorreu um erro na criação de uma nova categoria."));
+            }
             return View(categoria);
         }
 
         // GET: Categorias/Edit/5
         public ActionResult Edit(int? id) {
-            // caso não seja indicado o id
             if (id == null) {
-                // redireciona para o Index
                 return RedirectToAction("Index");
             }
             Categorias categoria = db.Categorias.Find(id);
-            // caso não exista o id indicado
             if (categoria == null) {
-                // redireciona para o Index
                 return RedirectToAction("Index");
             }
             return View(categoria);
@@ -73,25 +68,26 @@ namespace PortalSocios.Controllers {
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "CategoriaID,Nome,FaixaEtaria,NumQuotasAnuais,ValorMensal")] Categorias categoria) {
-            if (ModelState.IsValid) {
-                db.Entry(categoria).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+            try {
+                if (ModelState.IsValid) {
+                    db.Entry(categoria).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception) {
+                ModelState.AddModelError("", string.Format("Ocorreu um erro na edição da categoria."));
             }
             return View(categoria);
         }
 
         // GET: Categorias/Delete/5
         public ActionResult Delete(int? id) {
-            // caso não seja indicado o id
             if (id == null) {
-                // redireciona para o Index
                 return RedirectToAction("Index");
             }
             Categorias categoria = db.Categorias.Find(id);
-            // caso não exista o id indicado
             if (categoria == null) {
-                // redireciona para o Index
                 return RedirectToAction("Index");
             }
             return View(categoria);
@@ -102,9 +98,15 @@ namespace PortalSocios.Controllers {
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id) {
             Categorias categoria = db.Categorias.Find(id);
-            db.Categorias.Remove(categoria);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try {
+                db.Categorias.Remove(categoria);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception) {
+                ModelState.AddModelError("", string.Format("Ocorreu um erro na eliminação da categoria com ID = {0}.", categoria.CategoriaID));
+            }
+            return View(categoria);
         }
 
         protected override void Dispose(bool disposing) {

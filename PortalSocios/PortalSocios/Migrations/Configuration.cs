@@ -55,9 +55,9 @@ namespace PortalSocios.Migrations {
             // ############################################################################################
             // adiciona Funcionarios
             var funcionarios = new List<Funcionarios> {
-                new Funcionarios {FuncionarioID = 1, Nome = "David Alves", NIF = "628438592", Telemovel = "916732583", Morada = "Rua das Oliveirinhas N.º 32", CodPostal = "2835-852 OURÉM", DataEntrClube = new DateTime(2016,11,26)},
-                new Funcionarios {FuncionarioID = 2, Nome = "Alice Azevedo", NIF = "832652957", Telemovel = "915285673", Morada = "Avenida da Praia N.º 4 - 3 Esq.", CodPostal = "2485-024 TOMAR", DataEntrClube = new DateTime(2016,12,10)},
-                new Funcionarios {FuncionarioID = 3, Nome = "Rebeca Ferreira", NIF = "721864159", Telemovel = "919528259", Morada = "Rua da Tradição N.º 12", CodPostal = "2485-145 TOMAR", DataEntrClube = new DateTime(2016,12,17)}
+                new Funcionarios {FuncionarioID = 1, Nome = "David Alves", NIF = "628438592", Email = "dalves@cdcb.pt", Telemovel = "916732583", Morada = "Rua das Oliveirinhas N.º 32", CodPostal = "2835-852 OURÉM", DataEntrClube = new DateTime(2016,11,26)},
+                new Funcionarios {FuncionarioID = 2, Nome = "Alice Azevedo", NIF = "832652957", Email = "aazevedo@cdcb.pt", Telemovel = "915285673", Morada = "Avenida da Praia N.º 4 - 3 Esq.", CodPostal = "2485-024 TOMAR", DataEntrClube = new DateTime(2016,12,10)},
+                new Funcionarios {FuncionarioID = 3, Nome = "Rebeca Ferreira", NIF = "721864159", Email = "rferreira@cdcb.pt", Telemovel = "919528259", Morada = "Rua da Tradição N.º 12", CodPostal = "2485-145 TOMAR", DataEntrClube = new DateTime(2016,12,17)}
             };
 
             funcionarios.ForEach(ff => context.Funcionarios.AddOrUpdate(f => f.NIF, ff));
