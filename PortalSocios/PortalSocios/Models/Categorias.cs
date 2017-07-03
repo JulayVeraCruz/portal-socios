@@ -16,23 +16,24 @@ namespace PortalSocios.Models {
         [Key]
         public int CategoriaID { get; set; }
 
-        [Required]
         [StringLength(30)]
-        [Display(Name = "Categoria")]
+        [Required(ErrorMessage = "O {0} é obrigatório!")]
         public string Nome { get; set; }
 
-        [Required]
         [StringLength(20)]
+        [Required(ErrorMessage = "A {0} é obrigatória!")]
         [Display(Name = "Faixa Etária")]
         public string FaixaEtaria { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "O {0} é obrigatório!")]
         [Display(Name = "N.º Quotas Anuais")]
         public int NumQuotasAnuais { get; set; }
 
-        [Required]
+        [DataType(DataType.Currency)]
+        [RegularExpression("[0-9]+(,[0-9]{1,2})?", ErrorMessage = "Introduza um valor inteiro ou decimal.")]
+        [Required(ErrorMessage = "O {0} é obrigatório!")]
         [Display(Name = "Valor Mensal")]
-        public float ValorMensal { get; set; }
+        public decimal ValorMensal { get; set; }
 
         // uma categoria tem uma coleção de sócios
         public virtual ICollection<Socios> ListaSocios { get; set; }

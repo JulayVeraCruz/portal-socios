@@ -1,6 +1,5 @@
 ﻿using System.Data.Entity;
 using System.Linq;
-using System.Net;
 using System.Web.Mvc;
 using PortalSocios.Models;
 
@@ -36,7 +35,7 @@ namespace PortalSocios.Controllers {
         // GET: Pagamentos/Create
         public ActionResult Create() {
             ViewBag.FuncionarioFK = new SelectList(db.Funcionarios, "FuncionarioID", "Nome");
-            ViewBag.QuotaFK = new SelectList(db.Quotas, "QuotaID", "Periodicidade");
+            ViewBag.QuotaFK = new SelectList(db.Quotas, "QuotaID", "Referencia");
             ViewBag.SocioFK = new SelectList(db.Socios, "SocioID", "Nome");
             return View();
         }
@@ -54,7 +53,7 @@ namespace PortalSocios.Controllers {
             }
 
             ViewBag.FuncionarioFK = new SelectList(db.Funcionarios, "FuncionarioID", "Nome", pagamento.FuncionarioFK);
-            ViewBag.QuotaFK = new SelectList(db.Quotas, "QuotaID", "Periodicidade", pagamento.QuotaFK);
+            ViewBag.QuotaFK = new SelectList(db.Quotas, "QuotaID", "Referencia", pagamento.QuotaFK);
             ViewBag.SocioFK = new SelectList(db.Socios, "SocioID", "Nome", pagamento.SocioFK);
             return View(pagamento);
         }
@@ -73,7 +72,7 @@ namespace PortalSocios.Controllers {
                 return RedirectToAction("Index");
             }
             ViewBag.FuncionarioFK = new SelectList(db.Funcionarios, "FuncionarioID", "Nome", pagamento.FuncionarioFK);
-            ViewBag.QuotaFK = new SelectList(db.Quotas, "QuotaID", "Periodicidade", pagamento.QuotaFK);
+            ViewBag.QuotaFK = new SelectList(db.Quotas, "QuotaID", "Referencia", pagamento.QuotaFK);
             ViewBag.SocioFK = new SelectList(db.Socios, "SocioID", "Nome", pagamento.SocioFK);
             return View(pagamento);
         }
@@ -90,7 +89,7 @@ namespace PortalSocios.Controllers {
                 return RedirectToAction("Index");
             }
             ViewBag.FuncionarioFK = new SelectList(db.Funcionarios, "FuncionarioID", "Nome", pagamento.FuncionarioFK);
-            ViewBag.QuotaFK = new SelectList(db.Quotas, "QuotaID", "Periodicidade", pagamento.QuotaFK);
+            ViewBag.QuotaFK = new SelectList(db.Quotas, "QuotaID", "Referencia", pagamento.QuotaFK);
             ViewBag.SocioFK = new SelectList(db.Socios, "SocioID", "Nome", pagamento.SocioFK);
             return View(pagamento);
         }

@@ -19,7 +19,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.NumSocio, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.NumSocio, new { htmlAttributes = new { @class = "form-control", @min = "1" } })
+                @Html.EditorFor(model => model.NumSocio, new { htmlAttributes = new { @class = "form-control", @min = "1", @max = "999999999" } })
                 @Html.ValidationMessageFor(model => model.NumSocio, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -51,7 +51,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.DataNasc, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DataNasc, new { htmlAttributes = new { @class = "form-control", @maxlength = "10" } })
+                @Html.EditorFor(model => model.DataNasc, new { htmlAttributes = new { @class = "form-control", data_val_date = "Introduza uma data de nascimento no formato aaaa/mm/dd." } })
                 @Html.ValidationMessageFor(model => model.DataNasc, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -99,7 +99,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.DataInscr, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DataInscr, new { htmlAttributes = new { @class = "form-control", @maxlength = "10" } })
+                @Html.EditorFor(model => model.DataInscr, new { htmlAttributes = new { @class = "form-control", data_val_date = "Introduza uma data de inscrição no formato aaaa/mm/dd." } })
                 @Html.ValidationMessageFor(model => model.DataInscr, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -125,6 +125,5 @@
 </div>
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/jquery.validate.rcarrao.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-<script>jQuery.validator.methods["date"] = function (value, element) { return true; }</script>

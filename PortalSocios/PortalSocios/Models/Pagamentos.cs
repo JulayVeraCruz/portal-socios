@@ -8,38 +8,43 @@ namespace PortalSocios.Models {
         [Key]
         public int PagamentoID { get; set; }
 
-        [Required]
-        [StringLength(9)]
+        [StringLength(9)]        
+        [RegularExpression("[0-9]{9}", ErrorMessage = "Introduza 9 caracteres numéricos.")]
+        [Required(ErrorMessage = "A {0} é obrigatória!")]
         [Display(Name = "Referência Multibanco")]
         public string RefMultibanco { get; set; }
 
-        [Required]
-        public float Montante { get; set; }
+        [DataType(DataType.Currency)]
+        [RegularExpression("[0-9]+(,[0-9]{1,2})?", ErrorMessage = "Introduza um valor inteiro ou decimal.")]
+        [Required(ErrorMessage = "O {0} é obrigatório!")]
+        public decimal Montante { get; set; }
 
-        [Column(TypeName = "date")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Data de Pagamento")]
         public DateTime? DataPagam { get; set; }
 
-        [Required]
-        [Column(TypeName = "date")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Required(ErrorMessage = "A {0} é obrigatória!")]
         [Display(Name = "Data Prevista de Pagamento")]
         public DateTime DataPrevPagam { get; set; }
 
-        public float? Multa { get; set; }
+        [DataType(DataType.Currency)]
+        [RegularExpression("[0-9]+(,[0-9]{1,2})?", ErrorMessage = "Introduza um valor inteiro ou decimal.")]
+        public decimal? Multa { get; set; }
 
         // criação das chaves forasteiras
         [ForeignKey("Quota")]
         public int QuotaFK { get; set; }
-        public Quotas Quota { get; set; }
+        public virtual Quotas Quota { get; set; }
         
         [ForeignKey("Socio")]
         public int SocioFK { get; set; }
-        public Socios Socio { get; set; }
-        
+        public virtual Socios Socio { get; set; }
+
         [ForeignKey("Funcionario")]
         public int FuncionarioFK { get; set; }
-        public Funcionarios Funcionario { get; set; }        
+        public virtual Funcionarios Funcionario { get; set; }        
     }
 }

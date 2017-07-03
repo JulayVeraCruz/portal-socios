@@ -18,6 +18,14 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.Referencia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Referencia)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.Montante)
         </dt>
 
@@ -43,7 +51,7 @@
 
     </dl>
 </div>
-<p>    
+<p>
     @Html.ActionLink("Voltar à lista", "Index") |
     @Html.ActionLink("Editar", "Edit", new { id = Model.QuotaID })
 </p>

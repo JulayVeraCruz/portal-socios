@@ -7,12 +7,15 @@
 <h3>Lista de Quotas</h3>
 
 <p>
-    @Html.ActionLink("Criar nova quota", "Create")
+    @Html.ActionLink("Criar Nova Quota", "Create")
 </p>
 <table class="table table-striped">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Categoria.Nome)
+            @Html.DisplayName("Categoria")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Referencia)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Montante)
@@ -30,6 +33,9 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Categoria.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Referencia)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Montante)

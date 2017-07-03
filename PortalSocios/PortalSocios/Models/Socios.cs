@@ -17,13 +17,13 @@ namespace PortalSocios.Models {
         [Index(IsUnique = true)]
         [Display(Name = "N.º de Sócio")]
         public int? NumSocio { get; set; }
-
+        
         [StringLength(50)]
-        [RegularExpression("[A-ZÁÂÉÍÓÚ][a-záàâãäèéêëìíîïòóôõöùúûüç]+((-| )((da|de|do|das|dos) )?[A-ZÁÂÉÍÓÚ][a-záàâãäèéêëìíîïòóôõöùúûüç]+)+", ErrorMessage = "Introduza apenas letras. O nome começa, obrigatoriamente, por uma maiúscula.")]
-        [Required(ErrorMessage = "O nome é obrigatório!")]
+        [RegularExpression("[A-ZÁÂÉÍÓÚ][a-záàâãäèéêëìíîïòóôõöùúûüç]+((-| )((da|de|do|das|dos) )?[A-ZÁÂÉÍÓÚ][a-záàâãäèéêëìíîïòóôõöùúûüç]+)+", ErrorMessage = "Introduza apenas letras. O {0} começa obrigatoriamente por uma maiúscula.")]
+        [Required(ErrorMessage = "O {0} é obrigatório!")]
         [Display(Name = "Nome Completo")]
         public string Nome { get; set; }
-
+        
         [StringLength(8)]
         [Index(IsUnique = true)]
         [RegularExpression("[0-9]{8}", ErrorMessage = "Introduza 8 caracteres numéricos.")]        
@@ -37,40 +37,40 @@ namespace PortalSocios.Models {
         [Required(ErrorMessage = "O {0} é obrigatório!")]
         public string NIF { get; set; }
 
-        [Column(TypeName = "date")]        
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        [Required(ErrorMessage = "A data de nascimento é obrigatória!")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Required(ErrorMessage = "A {0} é obrigatória!")]
         [Display(Name = "Data de Nascimento")]
         public DateTime DataNasc { get; set; }
 
         [StringLength(50)]
-        [EmailAddress(ErrorMessage = "Introduza um e-mail válido!")]
-        [Required(ErrorMessage = "O e-mail é obrigatório!")]
+        [EmailAddress(ErrorMessage = "Introduza um {0} válido!")]
+        [Required(ErrorMessage = "O {0} é obrigatório!")]
         [Display(Name = "E-mail")]
         public string Email { get; set; }
 
         [StringLength(9)]
         [RegularExpression("[0-9]{9}", ErrorMessage = "Introduza 9 caracteres numéricos.")]
-        [Required(ErrorMessage = "O telemóvel é obrigatório!")]
+        [Required(ErrorMessage = "O {0} é obrigatório!")]
         [Display(Name = "Telemóvel")]
         public string Telemovel { get; set; }
 
         [StringLength(80)]
-        [Required(ErrorMessage = "A morada é obrigatória!")]
+        [Required(ErrorMessage = "A {0} é obrigatória!")]
         public string Morada { get; set; }
 
         [StringLength(50)]
-        [RegularExpression("[0-9]{4}-[0-9]{3}( [A-ZÁÂÃÉÊÍÎÓÔÕÚÛÇ.-]+)+", ErrorMessage = "Introduza o código postal no formato 0000-000 XXXXX.")]
-        [Required(ErrorMessage = "O código postal é obrigatório!")]
+        [RegularExpression("[0-9]{4}-[0-9]{3}( [A-ZÁÂÃÉÊÍÎÓÔÕÚÛÇ.-]+)+", ErrorMessage = "Introduza o {0} no formato 0000-000 LOCALIDADE.")]
+        [Required(ErrorMessage = "O {0} é obrigatório!")]
         [Display(Name = "Código Postal")]
         public string CodPostal { get; set; }
 
         [StringLength(30)]
-        [Required(ErrorMessage = "A fotografia é obrigatória!")]
+        [Required(ErrorMessage = "A {0} é obrigatória!")]
         public string Fotografia { get; set; }
 
-        [Column(TypeName = "date")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Data de Inscrição")]
         public DateTime? DataInscr { get; set; }
 

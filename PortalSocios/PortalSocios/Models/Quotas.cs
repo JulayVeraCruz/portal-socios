@@ -13,16 +13,22 @@ namespace PortalSocios.Models {
         [Key]
         public int QuotaID { get; set; }
 
-        [RegularExpression("[0-9]{1,4}(,[0-9]{1,2})?", ErrorMessage = "Introduza um valor inteiro ou decimal.")]
-        [Required(ErrorMessage = "O montante é obrigatório!")]
-        public float Montante { get; set; }
+        [Index(IsUnique = true)]        
+        [Required(ErrorMessage = "A {0} é obrigatória!")]
+        [Display(Name = "Referência")]
+        public int Referencia { get; set; }
 
-        [Required(ErrorMessage = "O ano é obrigatório!")]
+        [DataType(DataType.Currency)]
+        [RegularExpression("[0-9]+(,[0-9]{1,2})?", ErrorMessage = "Introduza um valor inteiro ou decimal.")]
+        [Required(ErrorMessage = "O {0} é obrigatório!")]
+        public decimal Montante { get; set; }
+
+        [Required(ErrorMessage = "O {0} é obrigatório!")]
         public int Ano { get; set; }
 
         [StringLength(15)]
-        [RegularExpression("[A-Z][a-z]+", ErrorMessage = "Introduza apenas letras. A periodicidade começa, obrigatoriamente, por uma maiúscula.")]
-        [Required(ErrorMessage = "A periodicidade é obrigatória!")]        
+        [RegularExpression("[A-Z][a-z]+", ErrorMessage = "Introduza apenas letras. A {0} começa obrigatoriamente por uma maiúscula.")]
+        [Required(ErrorMessage = "A {0} é obrigatória!")]        
         public string Periodicidade { get; set; }
 
         // uma quota tem uma coleção de pagamentos

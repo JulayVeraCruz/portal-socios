@@ -14,33 +14,37 @@ namespace PortalSocios.Models {
         [Key]
         public int FuncionarioID { get; set; }
 
-        [Required]
         [StringLength(50)]
-        [Display(Name = "Funcionário")]
+        [RegularExpression("[A-ZÁÂÉÍÓÚ][a-záàâãäèéêëìíîïòóôõöùúûüç]+(-| )((da|de|do|das|dos) )?[A-ZÁÂÉÍÓÚ][a-záàâãäèéêëìíîïòóôõöùúûüç]+", ErrorMessage = "Introduza apenas letras. O {0} começa obrigatoriamente por uma maiúscula.")]
+        [Required(ErrorMessage = "O {0} é obrigatório!")]
+        [Display(Name = "Nome")]
         public string Nome { get; set; }
 
-        [Index(IsUnique = true)]
-        [Required]
         [StringLength(9)]
+        [Index(IsUnique = true)]
+        [RegularExpression("[0-9]{9}", ErrorMessage = "Introduza 9 caracteres numéricos.")]
+        [Required(ErrorMessage = "O {0} é obrigatório!")]
         public string NIF { get; set; }
 
-        [Required]
         [StringLength(9)]
+        [RegularExpression("[0-9]{9}", ErrorMessage = "Introduza 9 caracteres numéricos.")]
+        [Required(ErrorMessage = "O {0} é obrigatório!")]
         [Display(Name = "Telemóvel")]
         public string Telemovel { get; set; }
 
-        [Required]
         [StringLength(80)]
+        [Required(ErrorMessage = "A {0} é obrigatória!")]
         public string Morada { get; set; }
 
-        [Required]
-        [StringLength(30)]
+        [StringLength(50)]
+        [RegularExpression("[0-9]{4}-[0-9]{3}( [A-ZÁÂÃÉÊÍÎÓÔÕÚÛÇ.-]+)+", ErrorMessage = "Introduza o {0} no formato 0000-000 LOCALIDADE.")]
+        [Required(ErrorMessage = "O {0} é obrigatório!")]
         [Display(Name = "Código Postal")]
         public string CodPostal { get; set; }
-        
-        [Required]
-        [Column(TypeName = "date")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Required(ErrorMessage = "A {0} é obrigatória!")]
         [Display(Name = "Data de Entrada")]
         public DateTime DataEntrClube { get; set; }
 

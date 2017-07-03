@@ -12,10 +12,7 @@
 <table class="table table-striped">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Socio.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Quota.Periodicidade)
+            @Html.DisplayName("Sócio")
         </th>
         <th>
             @Html.DisplayNameFor(model => model.RefMultibanco)
@@ -33,7 +30,10 @@
             @Html.DisplayNameFor(model => model.Multa)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Funcionario.Nome)
+            @Html.DisplayName("Quota")
+        </th>
+        <th>
+            @Html.DisplayName("Funcionário")
         </th>
         <th></th>
     </tr>
@@ -42,9 +42,6 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Socio.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Quota.Periodicidade)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.RefMultibanco)
@@ -60,6 +57,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Multa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Quota.Referencia)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Funcionario.Nome)

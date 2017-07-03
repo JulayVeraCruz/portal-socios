@@ -44,9 +44,9 @@ namespace PortalSocios.Migrations {
             // ############################################################################################
             // adiciona Quotas
             var quotas = new List<Quotas> {
-                new Quotas {QuotaID = 1, Montante = 12, Ano = 2017, Periodicidade = "Mensal", CategoriaFK = 1},
-                new Quotas {QuotaID = 2, Montante = 6, Ano = 2017, Periodicidade = "Mensal", CategoriaFK = 2},
-                new Quotas {QuotaID = 3, Montante = 3, Ano = 2017, Periodicidade = "Mensal", CategoriaFK = 3}
+                new Quotas {QuotaID = 1, Referencia = 1, Montante = 12, Ano = 2017, Periodicidade = "Mensal", CategoriaFK = 1},
+                new Quotas {QuotaID = 2, Referencia = 2, Montante = 6, Ano = 2017, Periodicidade = "Mensal", CategoriaFK = 2},
+                new Quotas {QuotaID = 3, Referencia = 3, Montante = 3, Ano = 2017, Periodicidade = "Mensal", CategoriaFK = 3}
             };
 
             quotas.ForEach(qq => context.Quotas.AddOrUpdate(q => q.QuotaID, qq));

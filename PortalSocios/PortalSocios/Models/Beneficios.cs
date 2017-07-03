@@ -11,14 +11,14 @@ namespace PortalSocios.Models {
 
         [Key]
         public int BeneficioID { get; set; }
-
-        [Required]
-        [StringLength(255)]
-        [Display(Name = "Benefício")]
+        
+        [StringLength(100)]        
+        [Required(ErrorMessage = "A {0} é obrigatória!")]
+        [Display(Name = "Descrição")]
         public string Descricao { get; set; }
 
-        [Required]
         [StringLength(50)]
+        [Required(ErrorMessage = "A {0} é obrigatória!")]
         [Display(Name = "Entidade Responsável")]
         public string EntidRespons { get; set; }
 

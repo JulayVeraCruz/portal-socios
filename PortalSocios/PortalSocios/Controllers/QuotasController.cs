@@ -1,18 +1,20 @@
-﻿using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 using PortalSocios.Models;
+using System;
 
 namespace PortalSocios.Controllers {
-    public class QuotasController : Controller
-    {
+    public class QuotasController : Controller {
         private SociosBD db = new SociosBD();
 
         // GET: Quotas
         public ActionResult Index() {
-            // ordena a lista de quotas pelo ano e depois pelo montante
-            return View(db.Quotas.OrderBy(q => q.Ano).ThenBy(q => q.Montante).ToList());
+            // permite incluir os dados das categorias na View dos 'Quotas'
+            var quotas = db.Quotas.Include(s => s.Categoria);
+            // ordena a lista de sócios pelo número de sócio
+            return View(quotas.OrderBy(q => q.Referencia).ToList());
         }
 
         // GET: Quotas/Details/5
@@ -42,13 +44,27 @@ namespace PortalSocios.Controllers {
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "QuotaID,Montante,Ano,Periodicidade,CategoriaFK")] Quotas quota) {
-            if (ModelState.IsValid) {
-                db.Quotas.Add(quota);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+        public ActionResult Create([Bind(Include = "QuotaID,Referencia,Montante,Ano,Periodicidade,CategoriaFK")] Quotas quota) {
+            try {
+                if (ModelState.IsValid) {
+                    db.Quotas.Add(quota);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else {
+                    //
+                    if (ModelState["Montante"].Errors.Count == 1 && ModelState["Montante"].Errors[0].ErrorMessage.Contains("is not valid for")) {
+                        //
+                        ModelState["Montante"].Errors.Clear();
+                        //
+                        ModelState["Montante"].Errors.Add("Introduza um valor inteiro ou decimal, no formato 0,00.");
+                    }
+                }
             }
-
+            catch (Exception ex) {
+                // cria uma mensagem de erro a ser apresentada ao utilizador
+                ModelState.AddModelError("", string.Format("Ocorreu um erro na criação de uma nova quota."));
+            }
             ViewBag.CategoriaFK = new SelectList(db.Categorias, "CategoriaID", "Nome", quota.CategoriaFK);
             return View(quota);
         }
@@ -75,12 +91,21 @@ namespace PortalSocios.Controllers {
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "QuotaID,Montante,Ano,Periodicidade,CategoriaFK")] Quotas quota) {
+        public ActionResult Edit([Bind(Include = "QuotaID,Referencia,Montante,Ano,Periodicidade,CategoriaFK")] Quotas quota) {
             if (ModelState.IsValid) {
                 db.Entry(quota).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
+            } else {
+                //
+                if (ModelState["Montante"].Errors.Count == 1 && ModelState["Montante"].Errors[0].ErrorMessage.Contains("is not valid for")) {
+                    //
+                    ModelState["Montante"].Errors.Clear();
+                    //
+                    ModelState["Montante"].Errors.Add("Introduza um valor inteiro ou decimal, no formato 0,00.");
+                }
             }
+
             ViewBag.CategoriaFK = new SelectList(db.Categorias, "CategoriaID", "Nome", quota.CategoriaFK);
             return View(quota);
         }
