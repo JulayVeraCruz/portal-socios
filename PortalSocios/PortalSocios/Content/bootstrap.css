@@ -314,10 +314,11 @@ body {
   font-family: "Segoe UI", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.428571429;
-  color: #ffffff;
   background-image: url("/Content/Images/socios.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
+  background-size: 100%;
+  color: #ffffff;
 }
 
 input,
@@ -343,7 +344,7 @@ a {
 
 a:hover,
 a:focus {
-  color: #2a6496;
+  color: #eea236;
   text-decoration: underline;
 }
 
@@ -1408,9 +1409,10 @@ pre code {
 
 table {
   max-width: 100%;
-  background-color: transparent;
+  background-color: rgba(255, 255, 255, 0.3);
   white-space: nowrap;
   font-size: 14px;
+  color: #000000;
 }
 
 th {

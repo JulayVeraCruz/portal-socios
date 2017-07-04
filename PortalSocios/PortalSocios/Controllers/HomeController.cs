@@ -1,18 +1,23 @@
 ﻿using System.Web.Mvc;
+using PortalSocios.Models;
+using System.Linq;
 
 namespace PortalSocios.Controllers
 {
     public class HomeController : Controller {
+
+        private SociosBD db = new SociosBD();
+
         public ActionResult Index() {
             return View();
         }
 
-        public ActionResult About() {
+        public ActionResult Sobre() {
             return View();
         }
 
-        public ActionResult Contact() {
-            return View();
+        public ActionResult Vantagens() {
+            return View(db.Beneficios.ToList());
         }
     }
 }

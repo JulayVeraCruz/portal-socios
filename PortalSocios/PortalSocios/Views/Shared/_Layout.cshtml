@@ -1,9 +1,10 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="pt">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal dos Sócios do Clube Desportivo Coxos da Bola</title>
+    <link rel="icon" type="image/png" href="~/Content/Images/relvado.png" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -21,10 +22,9 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Sobre", "About", "Home")</li>
-                    <li>@Html.ActionLink("Vantagens", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Parcerias", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Contactos", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Sobre", "Sobre", "Home")</li>
+                    <li>@Html.ActionLink("Vantagens", "Vantagens", "Home")</li>
+                    <li>@Html.ActionLink("Quotas", "Index", "Home")</li>
 
                     @if (User.IsInRole("Funcionario")) {
                         <li class="dropdown">
@@ -54,8 +54,8 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Clube Desportivo Coxos da Bola</p>
+        <footer style="text-align:center;">
+            <p>Clube Desportivo Coxos da Bola &copy; @DateTime.Now.Year</p>
         </footer>
     </div>
 

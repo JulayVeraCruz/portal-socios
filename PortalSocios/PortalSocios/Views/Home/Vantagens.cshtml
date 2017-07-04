@@ -1,0 +1,31 @@
+﻿@model IEnumerable<PortalSocios.Models.Beneficios>
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8" />
+    <style>
+        .imagem {
+            border:1px solid #ffffff;
+        }
+    </style>
+    <script>
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="page-header">Vantagens</h2>
+            </div>
+
+            @foreach (var item in Model) {
+                <div class="col-lg-2 text-center">
+                    <img class="img-circle img-responsive img-center imagem" src="http://placehold.it/200x200" />
+                    <h4>@Html.DisplayFor(modelItem => item.Descricao)</h4>
+                </div>
+            }
+        </div>
+    </div>
+</body>
+</html>

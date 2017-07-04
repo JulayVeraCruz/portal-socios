@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8" />
+    <script>
+        // altera a foto do autor para o logo do curso
+        function alterElems() {
+            var foto;
+            foto = document.getElementById("foto");
+            foto.addEventListener("mouseover", function () {
+                this.src = "/Content/Images/fotolei.png";
+            });
+            foto.addEventListener("mouseout", function () {
+                this.src = "/Content/Images/fotorc.jpg";
+            });
+        }
+    </script>
+</head>
+<body>
+    <h2>Sobre</h2>
+    <hr />
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2>Tecnologias da Internet II - 2016/2017</h2>
+                <h4>Aluno n.º 15233 - Rodrigo Daniel Nunes Carrão</h4>
+            </div>
+            <div class="col-lg-12 text-center">
+                <br />
+                <img id="foto" class="img-circle img-responsive img-center" src="/Content/Images/fotorc.jpg" />
+                <br />
+                <h3>Utilizadores</h3>
+                <p>Role: Funcionario</p>
+                <p>E-mail: dalves@cdcb.pt</p>
+                <p>Palavra-chave: 123qwe#</p>
+                <br />
+                <p>Role: Socio</p>
+                <p>E-mail: smodesto@gmail.com</p>
+                <p>Palavra-chave: 123qwe#</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        alterElems();
+    </script>
+</body>
+</html>
