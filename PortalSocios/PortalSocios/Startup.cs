@@ -8,11 +8,11 @@ namespace PortalSocios {
         public void Configuration(IAppBuilder app) {
             ConfigureAuth(app);
             // inicializa os ROLES e os utilizadores na BD
-            iniciaAplicacao();
+            inicApp();
         }
 
         // cria, caso não existam, as ROLES de suporte à aplicação, Socios e Funcionarios e os respetivos utilizadores
-        private void iniciaAplicacao() {
+        private void inicApp() {
 
             SociosBD db = new SociosBD();
 
@@ -31,7 +31,7 @@ namespace PortalSocios {
                 var user = new ApplicationUser();
                 user.UserName = "smodesto@gmail.com";
                 user.Email = "smodesto@gmail.com";
-                string userPWD = "123QWE#";
+                string userPWD = "123qwe#";
                 var chkUser = userManager.Create(user, userPWD);
                 
                 // adiciona o utilizador à respetiva ROLE 'Socio'
@@ -50,7 +50,7 @@ namespace PortalSocios {
                 var user = new ApplicationUser();
                 user.UserName = "dalves@cdcb.pt";
                 user.Email = "dalves@cdcb.pt";
-                string userPWD = "123QWE#";
+                string userPWD = "123qwe#";
                 var chkUser = userManager.Create(user, userPWD);
 
                 // adiciona o utilizador à respetiva ROLE 'Funcionario'

@@ -8,7 +8,6 @@ using System.Web;
 using System.Web.Mvc;
 
 namespace PortalSocios.Controllers {
-    [Authorize(Roles = "Admin")]
     public class UsersAdminController : Controller
     {
         public UsersAdminController()

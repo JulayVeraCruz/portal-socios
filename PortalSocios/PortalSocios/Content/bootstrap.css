@@ -314,8 +314,10 @@ body {
   font-family: "Segoe UI", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.428571429;
-  color: #333333;
-  background-color: #ffffff;
+  color: #ffffff;
+  background-image: url("/Content/Images/socios.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 input,
@@ -1408,7 +1410,7 @@ table {
   max-width: 100%;
   background-color: transparent;
   white-space: nowrap;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 th {
@@ -4935,7 +4937,6 @@ a.list-group-item.active > .badge,
   font-weight: 200;
   line-height: 2.1428571435;
   color: inherit;
-  background-color: #eeeeee;
 }
 
 .jumbotron h1 {
