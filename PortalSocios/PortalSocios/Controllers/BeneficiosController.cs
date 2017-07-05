@@ -36,7 +36,7 @@ namespace PortalSocios.Controllers {
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "BeneficioID,Descricao,EntidRespons")] Beneficios beneficio) {
+        public ActionResult Create([Bind(Include = "Descricao,EntidRespons")] Beneficios beneficio) {
             try {
                 if (ModelState.IsValid) {
                     db.Beneficios.Add(beneficio);
@@ -67,7 +67,7 @@ namespace PortalSocios.Controllers {
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "BeneficioID,Descricao,EntidRespons")] Beneficios beneficio) {
+        public ActionResult Edit([Bind(Include = "Descricao,EntidRespons")] Beneficios beneficio) {
             try {
                 if (ModelState.IsValid) {
                     db.Entry(beneficio).State = EntityState.Modified;

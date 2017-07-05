@@ -47,10 +47,22 @@ namespace PortalSocios.Controllers {
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "SocioID,NumSocio,Nome,BI,NIF,DataNasc,Email,Telemovel,Morada,CodPostal,Fotografia,DataInscr,CategoriaFK")] Socios socio) {
+        public ActionResult Create([Bind(Include = "NumSocio,Nome,BI,NIF,DataNasc,Email,Telemovel,Morada,CodPostal,Fotografia,DataInscr,CategoriaFK")] Socios socio) {
+            // determinar o NumSocio a atribuir ao novo 'Socio'
+            int novoNumSocio = 0;
             try {
+                novoNumSocio = db.Socios.Max(s => s.NumSocio) + 1;
+            }
+            catch (Exception) {
+                // caso não existam dados na BD (NULL)
+                novoNumSocio = 1;
+            }
+            // atribuir o novo número de sócio ao 'Socio'
+            socio.NumSocio = novoNumSocio;            
+            try {
+                socio.DataInscr = DateTime.Today;
                 // caso os dados introduzidos estejam consistentes com o MODEL
-                if (ModelState.IsValid) {
+                if (ModelState.IsValid) {                    
                     // adiciona um novo sócio
                     db.Socios.Add(socio);
                     // guarda as alterações
@@ -92,7 +104,7 @@ namespace PortalSocios.Controllers {
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SocioID,NumSocio,Nome,BI,NIF,DataNasc,Email,Telemovel,Morada,CodPostal,Fotografia,DataInscr,CategoriaFK")] Socios socio) {
+        public ActionResult Edit([Bind(Include = "NumSocio,Nome,BI,NIF,DataNasc,Email,Telemovel,Morada,CodPostal,Fotografia,DataInscr,CategoriaFK")] Socios socio) {
             try {
                 // caso os dados introduzidos estejam consistentes com o MODEL
                 if (ModelState.IsValid) {

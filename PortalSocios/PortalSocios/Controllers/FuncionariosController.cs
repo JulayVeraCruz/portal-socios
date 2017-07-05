@@ -35,7 +35,7 @@ namespace PortalSocios.Controllers {
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "FuncionarioID,Nome,NIF,Email,Telemovel,Morada,CodPostal,DataEntrClube")] Funcionarios funcionario) {
+        public ActionResult Create([Bind(Include = "Nome,NIF,Email,Telemovel,Morada,CodPostal,DataEntrClube")] Funcionarios funcionario) {
             try {
                 if (ModelState.IsValid) {
                     db.Funcionarios.Add(funcionario);
@@ -66,7 +66,7 @@ namespace PortalSocios.Controllers {
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "FuncionarioID,Nome,NIF,Email,Telemovel,Morada,CodPostal,DataEntrClube")] Funcionarios funcionario) {
+        public ActionResult Edit([Bind(Include = "Nome,NIF,Email,Telemovel,Morada,CodPostal,DataEntrClube")] Funcionarios funcionario) {
             try {
                 if (ModelState.IsValid) {
                     db.Entry(funcionario).State = EntityState.Modified;

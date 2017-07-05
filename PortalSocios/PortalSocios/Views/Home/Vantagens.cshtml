@@ -6,26 +6,26 @@
     <meta charset="utf-8" />
     <style>
         .imagem {
-            border:1px solid #ffffff;
+            border: 4px solid #ffffff;
         }
     </style>
     <script>
     </script>
 </head>
 <body>
+    <h2>Vantagens</h2>
+    <hr />
     <div class="container">
         <div class="row">
-            <div class="col-lg-12">
-                <h2 class="page-header">Vantagens</h2>
-            </div>
-
             @foreach (var item in Model) {
-                <div class="col-lg-2 text-center">
-                    <img class="img-circle img-responsive img-center imagem" src="http://placehold.it/200x200" />
-                    <h4>@Html.DisplayFor(modelItem => item.Descricao)</h4>
-                </div>
+                if (item.BeneficioID < 7) {
+                    <div class="col-lg-4 col-sm-6 text-center">
+                        <img class="img-circle img-responsive img-center imagem" src="~/Content/Imagens/vantagem@(item.BeneficioID).jpg" />
+                        <h5>@Html.DisplayFor(modelItem => item.Descricao)</h5>
+                    </div>
+                }
             }
         </div>
-    </div>
+    </div>      
 </body>
 </html>

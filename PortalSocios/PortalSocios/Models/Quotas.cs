@@ -13,15 +13,21 @@ namespace PortalSocios.Models {
         [Key]
         public int QuotaID { get; set; }
 
-        [Index(IsUnique = true)]
+       // [Index(IsUnique = true)]
         [Required(ErrorMessage = "A {0} é obrigatória!")]
         [Display(Name = "Referência")]
-        public int Referencia { get; set; }
+        public string Referencia { get; set; }
 
-        [DataType(DataType.Currency)]
-        [RegularExpression("[0-9]+(,[0-9]{1,2})?", ErrorMessage = "Introduza um valor inteiro ou decimal, no formato 0,00.")]
+      //  [DataType(DataType.Currency)]
+       // [RegularExpression("[0-9]+(,[0-9]{1,2})?", ErrorMessage = "Introduza um valor inteiro ou decimal, no formato 0,00.")]
         [Required(ErrorMessage = "O {0} é obrigatório!")]
         public decimal Montante { get; set; }
+
+        [NotMapped]
+        [RegularExpression("[0-9]+(,[0-9]{1,2})?", ErrorMessage = "Introduza um valor inteiro ou decimal, no formato 0,00")]
+        [Required(ErrorMessage = "O {0} é obrigatório!")]
+        [Display(Name = "Montante")]
+        public string AuxMontante { get; set; }
 
         [Required(ErrorMessage = "O {0} é obrigatório!")]
         public int Ano { get; set; }

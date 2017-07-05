@@ -36,7 +36,7 @@ namespace PortalSocios.Controllers {
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CategoriaID,Nome,FaixaEtaria,NumQuotasAnuais,ValorMensal")] Categorias categoria) {
+        public ActionResult Create([Bind(Include = "Nome,FaixaEtaria,NumQuotasAnuais,ValorMensal")] Categorias categoria) {
             try {
                 if (ModelState.IsValid) {
                     db.Categorias.Add(categoria);
@@ -67,7 +67,7 @@ namespace PortalSocios.Controllers {
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CategoriaID,Nome,FaixaEtaria,NumQuotasAnuais,ValorMensal")] Categorias categoria) {
+        public ActionResult Edit([Bind(Include = "Nome,FaixaEtaria,NumQuotasAnuais,ValorMensal")] Categorias categoria) {
             try {
                 if (ModelState.IsValid) {
                     db.Entry(categoria).State = EntityState.Modified;

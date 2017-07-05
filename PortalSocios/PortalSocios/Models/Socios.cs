@@ -16,8 +16,8 @@ namespace PortalSocios.Models {
 
         [Index(IsUnique = true)]
         [Display(Name = "N.º de Sócio")]
-        public int? NumSocio { get; set; }
-        
+        public int NumSocio { get; set; }
+
         [StringLength(50)]
         [RegularExpression("[A-ZÁÂÉÍÓÚ][a-záàâãäèéêëìíîïòóôõöùúûüç]+((-| )((da|de|do|das|dos) )?[A-ZÁÂÉÍÓÚ][a-záàâãäèéêëìíîïòóôõöùúûüç]+)+", ErrorMessage = "Introduza apenas letras. O {0} começa obrigatoriamente por uma maiúscula.")]
         [Required(ErrorMessage = "O {0} é obrigatório!")]
@@ -37,7 +37,6 @@ namespace PortalSocios.Models {
         [Required(ErrorMessage = "O {0} é obrigatório!")]
         public string NIF { get; set; }
 
-        [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "A {0} é obrigatória!")]
         [Display(Name = "Data de Nascimento")]
@@ -69,10 +68,9 @@ namespace PortalSocios.Models {
         [Required(ErrorMessage = "A {0} é obrigatória!")]
         public string Fotografia { get; set; }
 
-        [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Data de Inscrição")]
-        public DateTime? DataInscr { get; set; }
+        public DateTime DataInscr { get; set; }
 
         // criação de um atributo para ligar este atributo à BD de autenticação
         public string UserName { get; set; } // corresponde ao LOGIN 

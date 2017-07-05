@@ -168,11 +168,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-datepicker3.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Images\fotolei.png" />
-    <Content Include="Content\Images\fotorc.jpg" />
-    <Content Include="Content\Images\relvado.png" />
+    <Content Include="Content\Imagens\fotolei.png" />
+    <Content Include="Content\Imagens\fotorc.jpg" />
+    <Content Include="Content\Imagens\relvado.png" />
+    <Content Include="Content\Imagens\vantagem1.jpg" />
+    <Content Include="Content\Imagens\vantagem2.jpg" />
+    <Content Include="Content\Imagens\vantagem3.jpg" />
+    <Content Include="Content\Imagens\vantagem4.jpg" />
+    <Content Include="Content\Imagens\vantagem5.jpg" />
+    <Content Include="Content\Imagens\vantagem6.jpg" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -180,6 +187,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\bootstrap-datepicker.min.js" />
+    <Content Include="Scripts\bootstrap-datepicker.pt.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -192,7 +201,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Content\Images\socios.jpg" />
+    <Content Include="Content\Imagens\socios.jpg" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -300,6 +309,7 @@
     <Content Include="Views\Account\DisplayEmail.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Home\Vantagens.cshtml" />
+    <Content Include="Views\Home\Quotas.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

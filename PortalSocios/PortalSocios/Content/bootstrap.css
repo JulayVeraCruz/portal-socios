@@ -314,10 +314,10 @@ body {
   font-family: "Segoe UI", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.428571429;
-  background-image: url("/Content/Images/socios.jpg");
+  background-image: url("/Content/Imagens/socios.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-size: 100%;
+  background-size: cover;
   color: #ffffff;
 }
 
@@ -1432,7 +1432,7 @@ th {
   padding: 8px;
   line-height: 1.428571429;
   vertical-align: top;
-  border-top: 1px solid #dddddd;
+  border-top: 1px solid #000000;
 }
 
 .table thead > tr > th {

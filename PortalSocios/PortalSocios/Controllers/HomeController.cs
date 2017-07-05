@@ -19,5 +19,9 @@ namespace PortalSocios.Controllers
         public ActionResult Vantagens() {
             return View(db.Beneficios.ToList());
         }
+
+        public ActionResult Quotas() {
+            return View();
+        }
     }
 }

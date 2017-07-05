@@ -40,7 +40,7 @@ namespace PortalSocios.Controllers {
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PagamentoID,RefMultibanco,Montante,DataPagam,DataPrevPagam,Multa,QuotaFK,SocioFK,FuncionarioFK")] Pagamentos pagamento) {
+        public ActionResult Create([Bind(Include = "RefMultibanco,Montante,DataPagam,DataPrevPagam,Multa,QuotaFK,SocioFK,FuncionarioFK")] Pagamentos pagamento) {
             try {
                 if (ModelState.IsValid) {
                     db.Pagamentos.Add(pagamento);
@@ -77,7 +77,7 @@ namespace PortalSocios.Controllers {
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PagamentoID,RefMultibanco,Montante,DataPagam,DataPrevPagam,Multa,QuotaFK,SocioFK,FuncionarioFK")] Pagamentos pagamento) {
+        public ActionResult Edit([Bind(Include = "RefMultibanco,Montante,DataPagam,DataPrevPagam,Multa,QuotaFK,SocioFK,FuncionarioFK")] Pagamentos pagamento) {
             try {
                 if (ModelState.IsValid) {
                     db.Entry(pagamento).State = EntityState.Modified;
