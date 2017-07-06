@@ -21,7 +21,7 @@ namespace PortalSocios.Controllers
         }
 
         public ActionResult Quotas() {
-            return View();
+            return View(db.Categorias.ToList());
         }
     }
 }

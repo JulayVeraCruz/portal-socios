@@ -49,7 +49,6 @@ namespace PortalSocios.Models {
         [Display(Name = "Código Postal")]
         public string CodPostal { get; set; }
 
-        [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "A {0} é obrigatória!")]
         [Display(Name = "Data de Entrada")]

@@ -74,8 +74,12 @@ namespace PortalSocios.Controllers {
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Referencia,Montante,Ano,Periodicidade,CategoriaFK")] Quotas quota) {
+        public ActionResult Edit([Bind(Include = "QuotaID,Referencia,AuxMontante,Ano,Periodicidade,CategoriaFK")] Quotas quota) {
             try {
+                // recuperar, converter e atribuir o valor do Montante da Quota
+                quota.AuxMontante = Convert.ToString(quota.Montante);
+                quota.Montante = Convert.ToDecimal(quota.AuxMontante);
+
                 if (ModelState.IsValid) {
                     db.Entry(quota).State = EntityState.Modified;
                     db.SaveChanges();

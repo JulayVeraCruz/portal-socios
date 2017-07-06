@@ -38,6 +38,9 @@ namespace PortalSocios.Controllers {
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Nome,FaixaEtaria,NumQuotasAnuais,ValorMensal")] Categorias categoria) {
             try {
+                // recuperar, converter e atribuir o Valor Mensal da Categoria
+                categoria.ValorMensal = Convert.ToDecimal(categoria.AuxValorMensal);
+
                 if (ModelState.IsValid) {
                     db.Categorias.Add(categoria);
                     db.SaveChanges();
@@ -67,8 +70,11 @@ namespace PortalSocios.Controllers {
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Nome,FaixaEtaria,NumQuotasAnuais,ValorMensal")] Categorias categoria) {
+        public ActionResult Edit([Bind(Include = "CategoriaID,Nome,FaixaEtaria,NumQuotasAnuais,ValorMensal")] Categorias categoria) {
             try {
+                // recuperar, converter e atribuir o Valor Mensal da Categoria
+                categoria.ValorMensal = Convert.ToDecimal(categoria.AuxValorMensal);
+
                 if (ModelState.IsValid) {
                     db.Entry(categoria).State = EntityState.Modified;
                     db.SaveChanges();

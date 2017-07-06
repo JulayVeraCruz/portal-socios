@@ -48,6 +48,9 @@
             <th>
                 Categoria
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
             <th></th>
         </tr>
 
@@ -88,6 +91,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Categoria.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
                 </td>
                 <td>
                     @Html.ActionLink("Editar", "Edit", new { id = item.SocioID }) |

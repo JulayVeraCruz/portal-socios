@@ -15,25 +15,31 @@ namespace PortalSocios.Models {
         [Display(Name = "Referência Multibanco")]
         public string RefMultibanco { get; set; }
 
-        [DataType(DataType.Currency)]
-        [RegularExpression("[0-9]+(,[0-9]{1,2})?", ErrorMessage = "Introduza um valor inteiro ou decimal, no formato 0,00.")]
-        [Required(ErrorMessage = "O {0} é obrigatório!")]
         public decimal Montante { get; set; }
 
-        [DataType(DataType.Date)]
+        // atributo auxiliar
+        [NotMapped]
+        [RegularExpression("[0-9]+(,[0-9]{1,2})?", ErrorMessage = "Introduza um valor inteiro ou decimal, no formato 0,00")]
+        [Required(ErrorMessage = "O {0} é obrigatório!")]
+        [Display(Name = "Montante")]
+        public string AuxMontante { get; set; }
+
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Data de Pagamento")]
         public DateTime? DataPagam { get; set; }
 
-        [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "A {0} é obrigatória!")]
         [Display(Name = "Data Prevista de Pagamento")]
         public DateTime DataPrevPagam { get; set; }
 
-        [DataType(DataType.Currency)]
-        [RegularExpression("[0-9]+(,[0-9]{1,2})?", ErrorMessage = "Introduza um valor inteiro ou decimal, no formato 0,00.")]
         public decimal? Multa { get; set; }
+
+        // atributo auxiliar
+        [NotMapped]
+        [RegularExpression("[0-9]+(,[0-9]{1,2})?", ErrorMessage = "Introduza um valor inteiro ou decimal, no formato 0,00")]
+        [Display(Name = "Multa")]
+        public string AuxMulta { get; set; }
 
         // criação das chaves forasteiras
         [ForeignKey("Quota")]

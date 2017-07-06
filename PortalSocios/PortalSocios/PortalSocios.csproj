@@ -174,12 +174,6 @@
     <Content Include="Content\Imagens\fotolei.png" />
     <Content Include="Content\Imagens\fotorc.jpg" />
     <Content Include="Content\Imagens\relvado.png" />
-    <Content Include="Content\Imagens\vantagem1.jpg" />
-    <Content Include="Content\Imagens\vantagem2.jpg" />
-    <Content Include="Content\Imagens\vantagem3.jpg" />
-    <Content Include="Content\Imagens\vantagem4.jpg" />
-    <Content Include="Content\Imagens\vantagem5.jpg" />
-    <Content Include="Content\Imagens\vantagem6.jpg" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

@@ -19,9 +19,9 @@ namespace PortalSocios.Migrations {
             // ############################################################################################
             // adiciona Categorias
             var categorias = new List<Categorias> {
-                new Categorias {CategoriaID = 1, Nome = "Sénior", FaixaEtaria = "Maiores de 18", NumQuotasAnuais = 12, ValorMensal = 12},
-                new Categorias {CategoriaID = 2, Nome = "Juvenil", FaixaEtaria = "Entre 12 e 17", NumQuotasAnuais = 12, ValorMensal = 6},
-                new Categorias {CategoriaID = 3, Nome = "Infantil", FaixaEtaria = "Entre 0 e 11", NumQuotasAnuais = 12, ValorMensal = 3}
+                new Categorias {CategoriaID = 1, Nome = "Sénior", FaixaEtaria = "Maiores de 18", NumQuotasAnuais = 12, ValorMensal = 12, AuxValorMensal = "0"},
+                new Categorias {CategoriaID = 2, Nome = "Juvenil", FaixaEtaria = "Entre 12 e 17", NumQuotasAnuais = 12, ValorMensal = 6, AuxValorMensal = "0"},
+                new Categorias {CategoriaID = 3, Nome = "Infantil", FaixaEtaria = "Entre 0 e 11", NumQuotasAnuais = 12, ValorMensal = 3, AuxValorMensal = "0"}
             };
 
             categorias.ForEach(cc => context.Categorias.AddOrUpdate(c => c.Nome, cc));
@@ -44,12 +44,12 @@ namespace PortalSocios.Migrations {
             // ############################################################################################
             // adiciona Quotas
             var quotas = new List<Quotas> {
-                new Quotas {QuotaID = 1, Referencia = "séniores-2017-mensal", AuxMontante = "2", Montante = 12,  Ano = 2017,  Periodicidade = "Mensal", CategoriaFK = 1},
-                new Quotas {QuotaID = 2, Referencia = "séniores-2017-anual",  AuxMontante = "2", Montante = 132, Ano = 2017, Periodicidade = "Anual",  CategoriaFK = 1},
-                new Quotas {QuotaID = 3, Referencia = "juvenil-2017-mensal",  AuxMontante = "2", Montante = 6, Ano = 2017,   Periodicidade = "Mensal", CategoriaFK = 2},
-                new Quotas {QuotaID = 4, Referencia = "juvenil-2017-anual",   AuxMontante = "2", Montante = 66, Ano = 2017,  Periodicidade = "Anual",  CategoriaFK = 2},
-                new Quotas {QuotaID = 5, Referencia = "infantil-2017-mensal", AuxMontante = "2", Montante = 3, Ano = 2017,   Periodicidade = "Mensal", CategoriaFK = 3},
-                new Quotas {QuotaID = 6, Referencia = "infantil-2017-anual",  AuxMontante = "2", Montante = 33, Ano = 2017,  Periodicidade = "Anual",  CategoriaFK = 3}
+                new Quotas {QuotaID = 1, Referencia = "Sénior-2017-Mensal",   Montante = 12,  AuxMontante = "0", Ano = 2017, Periodicidade = "Mensal", CategoriaFK = 1},
+                new Quotas {QuotaID = 2, Referencia = "Sénior-2017-Anual",    Montante = 132, AuxMontante = "0", Ano = 2017, Periodicidade = "Anual",  CategoriaFK = 1},
+                new Quotas {QuotaID = 3, Referencia = "Juvenil-2017-Mensal",  Montante = 6,   AuxMontante = "0", Ano = 2017, Periodicidade = "Mensal", CategoriaFK = 2},
+                new Quotas {QuotaID = 4, Referencia = "Juvenil-2017-Anual",   Montante = 66,  AuxMontante = "0", Ano = 2017, Periodicidade = "Anual",  CategoriaFK = 2},
+                new Quotas {QuotaID = 5, Referencia = "Infantil-2017-Mensal", Montante = 3,   AuxMontante = "0", Ano = 2017, Periodicidade = "Mensal", CategoriaFK = 3},
+                new Quotas {QuotaID = 6, Referencia = "Infantil-2017-Anual",  Montante = 33,  AuxMontante = "0", Ano = 2017, Periodicidade = "Anual",  CategoriaFK = 3}
             };
 
             quotas.ForEach(qq => context.Quotas.AddOrUpdate(q => q.QuotaID, qq));
@@ -69,30 +69,30 @@ namespace PortalSocios.Migrations {
             // ############################################################################################
             // adiciona Pagamentos
             var pagamentos = new List<Pagamentos> {
-                new Pagamentos {PagamentoID = 1, RefMultibanco = "620832401", Montante = 12, DataPagam = new DateTime(2017,1,18), DataPrevPagam = new DateTime(2017,1,24), QuotaFK = 1, SocioFK = 1, FuncionarioFK = 1},
-                new Pagamentos {PagamentoID = 2, RefMultibanco = "620832402", Montante = 12, DataPagam = new DateTime(2017,2,15), DataPrevPagam = new DateTime(2017,2,24), QuotaFK = 1, SocioFK = 1, FuncionarioFK = 1},
-                new Pagamentos {PagamentoID = 3, RefMultibanco = "620832403", Montante = 12, DataPagam = new DateTime(2017,3,23), DataPrevPagam = new DateTime(2017,3,24), QuotaFK = 1, SocioFK = 1, FuncionarioFK = 1},
-                new Pagamentos {PagamentoID = 4, RefMultibanco = "620832404", Montante = 12, DataPagam = new DateTime(2017,4,22), DataPrevPagam = new DateTime(2017,4,24), QuotaFK = 1, SocioFK = 1, FuncionarioFK = 1},
-                new Pagamentos {PagamentoID = 5, RefMultibanco = "620832405", Montante = 12, DataPrevPagam = new DateTime(2017,5,24), QuotaFK = 1, SocioFK = 1, FuncionarioFK = 1},
-                new Pagamentos {PagamentoID = 6, RefMultibanco = "620832406", Montante = 12, DataPrevPagam = new DateTime(2017,6,24), QuotaFK = 1, SocioFK = 1, FuncionarioFK = 1},
-                new Pagamentos {PagamentoID = 7, RefMultibanco = "620832407", Montante = 12, DataPrevPagam = new DateTime(2017,7,24), QuotaFK = 1, SocioFK = 1, FuncionarioFK = 1},
-                new Pagamentos {PagamentoID = 8, RefMultibanco = "620832408", Montante = 12, DataPrevPagam = new DateTime(2017,8,24), QuotaFK = 1, SocioFK = 1, FuncionarioFK = 1},
-                new Pagamentos {PagamentoID = 9, RefMultibanco = "620832409", Montante = 12, DataPrevPagam = new DateTime(2017,9,24), QuotaFK = 1, SocioFK = 1, FuncionarioFK = 1},
-                new Pagamentos {PagamentoID = 10, RefMultibanco = "620832410", Montante = 12, DataPrevPagam = new DateTime(2017,10,24), QuotaFK = 1, SocioFK = 1, FuncionarioFK = 1},
-                new Pagamentos {PagamentoID = 11, RefMultibanco = "620832411", Montante = 12, DataPrevPagam = new DateTime(2017,11,24), QuotaFK = 1, SocioFK = 1, FuncionarioFK = 1},
-                new Pagamentos {PagamentoID = 12, RefMultibanco = "620832412", Montante = 12, DataPrevPagam = new DateTime(2017,12,24), QuotaFK = 1, SocioFK = 1, FuncionarioFK = 1},
-                new Pagamentos {PagamentoID = 13, RefMultibanco = "620832413", Montante = 12, DataPagam = new DateTime(2017,1,21), DataPrevPagam = new DateTime(2017,1,24), QuotaFK = 1, SocioFK = 2, FuncionarioFK = 2},
-                new Pagamentos {PagamentoID = 14, RefMultibanco = "620832414", Montante = 12, DataPagam = new DateTime(2017,2,20), DataPrevPagam = new DateTime(2017,2,24), QuotaFK = 1, SocioFK = 2, FuncionarioFK = 2},
-                new Pagamentos {PagamentoID = 15, RefMultibanco = "620832415", Montante = 12, DataPagam = new DateTime(2017,3,21), DataPrevPagam = new DateTime(2017,3,24), QuotaFK = 1, SocioFK = 2, FuncionarioFK = 2},
-                new Pagamentos {PagamentoID = 16, RefMultibanco = "620832416", Montante = 12, DataPrevPagam = new DateTime(2017,4,24), Multa = 5, QuotaFK = 1, SocioFK = 2, FuncionarioFK = 2},
-                new Pagamentos {PagamentoID = 17, RefMultibanco = "620832417", Montante = 12, DataPrevPagam = new DateTime(2017,5,24), QuotaFK = 1, SocioFK = 2, FuncionarioFK = 2},
-                new Pagamentos {PagamentoID = 18, RefMultibanco = "620832418", Montante = 12, DataPrevPagam = new DateTime(2017,6,24), QuotaFK = 1, SocioFK = 2, FuncionarioFK = 2},
-                new Pagamentos {PagamentoID = 19, RefMultibanco = "620832419", Montante = 12, DataPrevPagam = new DateTime(2017,7,24), QuotaFK = 1, SocioFK = 2, FuncionarioFK = 2},
-                new Pagamentos {PagamentoID = 20, RefMultibanco = "620832420", Montante = 12, DataPrevPagam = new DateTime(2017,8,24), QuotaFK = 1, SocioFK = 2, FuncionarioFK = 2},
-                new Pagamentos {PagamentoID = 21, RefMultibanco = "620832421", Montante = 12, DataPrevPagam = new DateTime(2017,9,24), QuotaFK = 1, SocioFK = 2, FuncionarioFK = 2},
-                new Pagamentos {PagamentoID = 22, RefMultibanco = "620832422", Montante = 12, DataPrevPagam = new DateTime(2017,10,24), QuotaFK = 1, SocioFK = 2, FuncionarioFK = 2},
-                new Pagamentos {PagamentoID = 23, RefMultibanco = "620832423", Montante = 12, DataPrevPagam = new DateTime(2017,11,24), QuotaFK = 1, SocioFK = 2, FuncionarioFK = 2},
-                new Pagamentos {PagamentoID = 24, RefMultibanco = "620832424", Montante = 12, DataPrevPagam = new DateTime(2017,12,24), QuotaFK = 1, SocioFK = 2, FuncionarioFK = 2}
+                new Pagamentos {PagamentoID = 1, RefMultibanco = "620832401", Montante = 12, AuxMontante = "0", DataPagam = new DateTime(2017,1,18), DataPrevPagam = new DateTime(2017,1,24), QuotaFK = 1, SocioFK = 1, FuncionarioFK = 1},
+                new Pagamentos {PagamentoID = 2, RefMultibanco = "620832402", Montante = 12, AuxMontante = "0", DataPagam = new DateTime(2017,2,15), DataPrevPagam = new DateTime(2017,2,24), QuotaFK = 1, SocioFK = 1, FuncionarioFK = 1},
+                new Pagamentos {PagamentoID = 3, RefMultibanco = "620832403", Montante = 12, AuxMontante = "0", DataPagam = new DateTime(2017,3,23), DataPrevPagam = new DateTime(2017,3,24), QuotaFK = 1, SocioFK = 1, FuncionarioFK = 1},
+                new Pagamentos {PagamentoID = 4, RefMultibanco = "620832404", Montante = 12, AuxMontante = "0", DataPagam = new DateTime(2017,4,22), DataPrevPagam = new DateTime(2017,4,24), QuotaFK = 1, SocioFK = 1, FuncionarioFK = 1},
+                new Pagamentos {PagamentoID = 5, RefMultibanco = "620832405", Montante = 12, AuxMontante = "0", DataPrevPagam = new DateTime(2017,5,24), QuotaFK = 1, SocioFK = 1, FuncionarioFK = 1},
+                new Pagamentos {PagamentoID = 6, RefMultibanco = "620832406", Montante = 12, AuxMontante = "0", DataPrevPagam = new DateTime(2017,6,24), QuotaFK = 1, SocioFK = 1, FuncionarioFK = 1},
+                new Pagamentos {PagamentoID = 7, RefMultibanco = "620832407", Montante = 12, AuxMontante = "0", DataPrevPagam = new DateTime(2017,7,24), QuotaFK = 1, SocioFK = 1, FuncionarioFK = 1},
+                new Pagamentos {PagamentoID = 8, RefMultibanco = "620832408", Montante = 12, AuxMontante = "0", DataPrevPagam = new DateTime(2017,8,24), QuotaFK = 1, SocioFK = 1, FuncionarioFK = 1},
+                new Pagamentos {PagamentoID = 9, RefMultibanco = "620832409", Montante = 12, AuxMontante = "0", DataPrevPagam = new DateTime(2017,9,24), QuotaFK = 1, SocioFK = 1, FuncionarioFK = 1},
+                new Pagamentos {PagamentoID = 10, RefMultibanco = "620832410", Montante = 12, AuxMontante = "0", DataPrevPagam = new DateTime(2017,10,24), QuotaFK = 1, SocioFK = 1, FuncionarioFK = 1},
+                new Pagamentos {PagamentoID = 11, RefMultibanco = "620832411", Montante = 12, AuxMontante = "0", DataPrevPagam = new DateTime(2017,11,24), QuotaFK = 1, SocioFK = 1, FuncionarioFK = 1},
+                new Pagamentos {PagamentoID = 12, RefMultibanco = "620832412", Montante = 12, AuxMontante = "0", DataPrevPagam = new DateTime(2017,12,24), QuotaFK = 1, SocioFK = 1, FuncionarioFK = 1},
+                new Pagamentos {PagamentoID = 13, RefMultibanco = "620832413", Montante = 12, AuxMontante = "0", DataPagam = new DateTime(2017,1,21), DataPrevPagam = new DateTime(2017,1,24), QuotaFK = 1, SocioFK = 2, FuncionarioFK = 2},
+                new Pagamentos {PagamentoID = 14, RefMultibanco = "620832414", Montante = 12, AuxMontante = "0", DataPagam = new DateTime(2017,2,20), DataPrevPagam = new DateTime(2017,2,24), QuotaFK = 1, SocioFK = 2, FuncionarioFK = 2},
+                new Pagamentos {PagamentoID = 15, RefMultibanco = "620832415", Montante = 12, AuxMontante = "0", DataPagam = new DateTime(2017,3,21), DataPrevPagam = new DateTime(2017,3,24), QuotaFK = 1, SocioFK = 2, FuncionarioFK = 2},
+                new Pagamentos {PagamentoID = 16, RefMultibanco = "620832416", Montante = 12, AuxMontante = "0", DataPrevPagam = new DateTime(2017,4,24), Multa = 5, AuxMulta = "0", QuotaFK = 1, SocioFK = 2, FuncionarioFK = 2},
+                new Pagamentos {PagamentoID = 17, RefMultibanco = "620832417", Montante = 12, AuxMontante = "0", DataPrevPagam = new DateTime(2017,5,24), QuotaFK = 1, SocioFK = 2, FuncionarioFK = 2},
+                new Pagamentos {PagamentoID = 18, RefMultibanco = "620832418", Montante = 12, AuxMontante = "0", DataPrevPagam = new DateTime(2017,6,24), QuotaFK = 1, SocioFK = 2, FuncionarioFK = 2},
+                new Pagamentos {PagamentoID = 19, RefMultibanco = "620832419", Montante = 12, AuxMontante = "0", DataPrevPagam = new DateTime(2017,7,24), QuotaFK = 1, SocioFK = 2, FuncionarioFK = 2},
+                new Pagamentos {PagamentoID = 20, RefMultibanco = "620832420", Montante = 12, AuxMontante = "0", DataPrevPagam = new DateTime(2017,8,24), QuotaFK = 1, SocioFK = 2, FuncionarioFK = 2},
+                new Pagamentos {PagamentoID = 21, RefMultibanco = "620832421", Montante = 12, AuxMontante = "0", DataPrevPagam = new DateTime(2017,9,24), QuotaFK = 1, SocioFK = 2, FuncionarioFK = 2},
+                new Pagamentos {PagamentoID = 22, RefMultibanco = "620832422", Montante = 12, AuxMontante = "0", DataPrevPagam = new DateTime(2017,10,24), QuotaFK = 1, SocioFK = 2, FuncionarioFK = 2},
+                new Pagamentos {PagamentoID = 23, RefMultibanco = "620832423", Montante = 12, AuxMontante = "0", DataPrevPagam = new DateTime(2017,11,24), QuotaFK = 1, SocioFK = 2, FuncionarioFK = 2},
+                new Pagamentos {PagamentoID = 24, RefMultibanco = "620832424", Montante = 12, AuxMontante = "0", DataPrevPagam = new DateTime(2017,12,24), QuotaFK = 1, SocioFK = 2, FuncionarioFK = 2}
             };
 
             pagamentos.ForEach(pp => context.Pagamentos.AddOrUpdate(p => p.RefMultibanco, pp));

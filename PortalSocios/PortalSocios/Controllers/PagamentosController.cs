@@ -42,6 +42,10 @@ namespace PortalSocios.Controllers {
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "RefMultibanco,Montante,DataPagam,DataPrevPagam,Multa,QuotaFK,SocioFK,FuncionarioFK")] Pagamentos pagamento) {
             try {
+                // recuperar, converter e atribuir o valor do Montante e da Multa do Pagamento
+                pagamento.Montante = Convert.ToDecimal(pagamento.AuxMontante);
+                pagamento.Multa = Convert.ToDecimal(pagamento.AuxMulta);
+
                 if (ModelState.IsValid) {
                     db.Pagamentos.Add(pagamento);
                     db.SaveChanges();
@@ -77,8 +81,12 @@ namespace PortalSocios.Controllers {
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "RefMultibanco,Montante,DataPagam,DataPrevPagam,Multa,QuotaFK,SocioFK,FuncionarioFK")] Pagamentos pagamento) {
+        public ActionResult Edit([Bind(Include = "PagamentoID,RefMultibanco,Montante,DataPagam,DataPrevPagam,Multa,QuotaFK,SocioFK,FuncionarioFK")] Pagamentos pagamento) {
             try {
+                // recuperar, converter e atribuir o valor do Montante e da Multa do Pagamento
+                pagamento.Montante = Convert.ToDecimal(pagamento.AuxMontante);
+                pagamento.Multa = Convert.ToDecimal(pagamento.AuxMulta);
+
                 if (ModelState.IsValid) {
                     db.Entry(pagamento).State = EntityState.Modified;
                     db.SaveChanges();

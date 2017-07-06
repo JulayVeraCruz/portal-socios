@@ -6,11 +6,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System;
 
 namespace PortalSocios.Controllers {
     [Authorize]
-    public class AccountController : Controller
-    {
+    public class AccountController : Controller {
+
+        // cria um novo objeto que representa a BD
+        private SociosBD db = new SociosBD();
+
         public AccountController()
         {
         }
@@ -131,8 +135,8 @@ namespace PortalSocios.Controllers {
         //
         // GET: /Account/Register
         [AllowAnonymous]
-        public ActionResult Register()
-        {
+        public ActionResult Register() {
+            ViewBag.CategoriaFK = new SelectList(db.Categorias, "CategoriaID", "Nome");
             return View();
         }
 
@@ -141,23 +145,51 @@ namespace PortalSocios.Controllers {
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
-                    ViewBag.Link = callbackUrl;
-                    return View("DisplayEmail");
-                }
-                AddErrors(result);
+        public async Task<ActionResult> Register([Bind(Include = "Nome,BI,NIF,DataNasc,Email,Telemovel,Morada,CodPostal,Fotografia,DataInscr,CategoriaFK")] Socios socio, RegisterViewModel model) {
+            // atribui o e-mail do sócio ao e-mail do registo
+            model.Email = socio.Email;
+            // atribui o e-mail ao username do sócio
+            socio.UserName = socio.Email;
+            // atribui uma categoria ao sócio
+            socio.CategoriaFK = Convert.ToInt32(Request.Form["CategoriaFK"]);
+            // determinar o NumSocio a atribuir ao novo 'Socio'
+            int novoNumSocio = 0;
+            try {
+                novoNumSocio = db.Socios.Max(s => s.NumSocio) + 1;
             }
+            catch (Exception) {
+                // caso não existam dados na BD (NULL)
+                novoNumSocio = 1;
+            }
+            // atribui o novo número de sócio ao 'Socio'
+            socio.NumSocio = novoNumSocio;
+            // atribui a data corrente à data de inscrição
+            socio.DataInscr = DateTime.Today;
+            try {
+                // caso os dados introduzidos estejam consistentes com o MODEL
+                if (ModelState.IsValid) {
+                    // adiciona um novo sócio
+                    db.Socios.Add(socio);
+                    // guarda as alterações
+                    db.SaveChanges();
 
+                    var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                    var result = await UserManager.CreateAsync(user, model.Password);
+                    if (result.Succeeded) {
+                        var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
+                        ViewBag.Link = callbackUrl;
+                        return View("DisplayEmail");
+                    }
+                    AddErrors(result);
+                }
+            }
+            catch (Exception) {
+                // cria uma mensagem de erro a ser apresentada ao utilizador
+                ModelState.AddModelError("", string.Format("Ocorreu um erro na criação de um novo sócio."));
+            }
+            ViewBag.CategoriaFK = new SelectList(db.Categorias, "CategoriaID", "Nome", socio.CategoriaFK);
             // If we got this far, something failed, redisplay form
             return View(model);
         }

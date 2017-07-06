@@ -55,13 +55,12 @@ namespace PortalSocios.Models
         [Display(Name = "Palavra-passe")]
         public string Password { get; set; }
 
-        [Display(Name = "Lembra-me?")]
+        [Display(Name = "Manter a sessão iniciada")]
         public bool RememberMe { get; set; }
     }
 
     public class RegisterViewModel
     {
-        [Required]
         [EmailAddress]
         [Display(Name = "E-mail")]
         public string Email { get; set; }
@@ -76,6 +75,8 @@ namespace PortalSocios.Models
         [Display(Name = "Confirmar palavra-chave")]
         [Compare("Password", ErrorMessage = "A palavra-chave e a confirmação da palavra-chave não correspondem.")]
         public string ConfirmPassword { get; set; }
+
+        public Socios Socio { get; set; }
     }
 
     public class ResetPasswordViewModel
