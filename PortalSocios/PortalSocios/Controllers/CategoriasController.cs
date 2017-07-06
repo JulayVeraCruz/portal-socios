@@ -5,6 +5,7 @@ using PortalSocios.Models;
 using System;
 
 namespace PortalSocios.Controllers {
+    [Authorize]
     public class CategoriasController : Controller
     {
         private SociosBD db = new SociosBD();
@@ -36,7 +37,7 @@ namespace PortalSocios.Controllers {
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Nome,FaixaEtaria,NumQuotasAnuais,ValorMensal")] Categorias categoria) {
+        public ActionResult Create([Bind(Include = "Nome,FaixaEtaria,NumQuotasAnuais,AuxValorMensal")] Categorias categoria) {
             try {
                 // recuperar, converter e atribuir o Valor Mensal da Categoria
                 categoria.ValorMensal = Convert.ToDecimal(categoria.AuxValorMensal);
@@ -70,7 +71,7 @@ namespace PortalSocios.Controllers {
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CategoriaID,Nome,FaixaEtaria,NumQuotasAnuais,ValorMensal")] Categorias categoria) {
+        public ActionResult Edit([Bind(Include = "CategoriaID,Nome,FaixaEtaria,NumQuotasAnuais,AuxValorMensal")] Categorias categoria) {
             try {
                 // recuperar, converter e atribuir o Valor Mensal da Categoria
                 categoria.ValorMensal = Convert.ToDecimal(categoria.AuxValorMensal);
@@ -110,7 +111,7 @@ namespace PortalSocios.Controllers {
                 return RedirectToAction("Index");
             }
             catch (Exception) {
-                ModelState.AddModelError("", string.Format("Ocorreu um erro na eliminação da categoria com ID = {0}.", categoria.CategoriaID));
+                ModelState.AddModelError("", string.Format("Não é possível eliminar esta categoria."));
             }
             return View(categoria);
         }

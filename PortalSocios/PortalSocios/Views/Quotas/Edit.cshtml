@@ -27,7 +27,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.AuxMontante, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.AuxMontante, new { htmlAttributes = new { @class = "form-control", @maxlength = "10" } })
+                @Html.EditorFor(model => model.AuxMontante, new { htmlAttributes = new { @class = "form-control", @maxlength = "10", @Value = Model.Montante.ToString() } })
                 @Html.ValidationMessageFor(model => model.AuxMontante, "", new { @class = "text-danger" })
             </div>
         </div>

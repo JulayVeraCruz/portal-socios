@@ -7,7 +7,7 @@ using System;
 namespace PortalSocios.Controllers {
     public class QuotasController : Controller {
 
-        private SociosBD db = new SociosBD();
+        private SociosBD db = new SociosBD();        
 
         // GET: Quotas
         public ActionResult Index() {
@@ -41,8 +41,7 @@ namespace PortalSocios.Controllers {
         public ActionResult Create([Bind(Include = "Referencia,AuxMontante,Ano,Periodicidade,CategoriaFK")] Quotas quota) {
             try {
                 // recuperar, converter e atribuir o valor do Montante da Quota
-                quota.Montante = Convert.ToDecimal(quota.AuxMontante);
-
+                quota.Montante = Convert.ToDecimal(quota.AuxMontante);                
                 if (ModelState.IsValid) {
                     db.Quotas.Add(quota);
                     db.SaveChanges();
@@ -75,11 +74,9 @@ namespace PortalSocios.Controllers {
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "QuotaID,Referencia,AuxMontante,Ano,Periodicidade,CategoriaFK")] Quotas quota) {
+            // recuperar, converter e atribuir o valor do Montante da Quota
+            quota.Montante = Convert.ToDecimal(quota.AuxMontante);
             try {
-                // recuperar, converter e atribuir o valor do Montante da Quota
-                quota.AuxMontante = Convert.ToString(quota.Montante);
-                quota.Montante = Convert.ToDecimal(quota.AuxMontante);
-
                 if (ModelState.IsValid) {
                     db.Entry(quota).State = EntityState.Modified;
                     db.SaveChanges();
@@ -116,7 +113,7 @@ namespace PortalSocios.Controllers {
                 return RedirectToAction("Index");
             }
             catch (Exception) {
-                ModelState.AddModelError("", string.Format("Ocorreu um erro na eliminação da quota com Referência = {0}.", quota.Referencia));
+                ModelState.AddModelError("", string.Format("Não é possível eliminar esta quota."));
             }
             return View(quota);
         }

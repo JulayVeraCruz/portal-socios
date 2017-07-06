@@ -5,6 +5,7 @@ using PortalSocios.Models;
 using System;
 
 namespace PortalSocios.Controllers {
+    [Authorize]
     public class FuncionariosController : Controller {
         private SociosBD db = new SociosBD();
 
@@ -103,7 +104,7 @@ namespace PortalSocios.Controllers {
                 return RedirectToAction("Index");
             }
             catch (Exception) {
-                ModelState.AddModelError("", string.Format("Ocorreu um erro na eliminação do funcionário com NIF = {0}.", funcionario.NIF));
+                ModelState.AddModelError("", string.Format("Não é possível eliminar este funcionário."));
             }
             return View(funcionario);
         }

@@ -37,7 +37,7 @@ namespace PortalSocios.Models {
         [Required(ErrorMessage = "O {0} é obrigatório!")]
         public string NIF { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "A {0} é obrigatória!")]
         [Display(Name = "Data de Nascimento")]
         public DateTime DataNasc { get; set; }
@@ -68,11 +68,12 @@ namespace PortalSocios.Models {
         [Required(ErrorMessage = "A {0} é obrigatória!")]
         public string Fotografia { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Data de Inscrição")]
         public DateTime DataInscr { get; set; }
 
         // criação de um atributo para ligar este atributo à BD de autenticação
+        [Display(Name = "Username")]
         public string UserName { get; set; } // corresponde ao LOGIN 
 
         // um sócio tem uma coleção de pagamentos

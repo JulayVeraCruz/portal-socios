@@ -36,7 +36,7 @@ namespace PortalSocios.Models {
         [NotMapped]
         [RegularExpression("[0-9]+(,[0-9]{1,2})?", ErrorMessage = "Introduza um valor inteiro ou decimal, no formato 0,00")]
         [Required(ErrorMessage = "O {0} é obrigatório!")]
-        [Display(Name = "Montante")]
+        [Display(Name = "Valor Mensal")]
         public string AuxValorMensal { get; set; }
 
         // uma categoria tem uma coleção de sócios

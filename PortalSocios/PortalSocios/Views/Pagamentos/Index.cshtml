@@ -1,78 +1,93 @@
 ﻿@model IEnumerable<PortalSocios.Models.Pagamentos>
 
-@{
-    ViewBag.Title = "Index";
-}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8" />
+    <title>Lista de Pagamentos | Portal dos Sócios do Clube Desportivo Coxos da Bola</title>
+    <style>
+        #titulo{ text-align: center; font-weight: bold; color: #000000;}
+        #lista{ overflow-x: auto; }
+        #tabela{ margin: auto; }
+        .colunas{ text-align: center; }
+        th{ font-size: 15px;}
+    </style>
+</head>
+<body>
+    <div id="titulo"><h2>Lista de Pagamentos</h2></div>
 
-<h3>Lista de Pagamentos</h3>
-
-<p>
-    @Html.ActionLink("Criar novo pagamento", "Create")
-</p>
-<div style="overflow-x: auto;">
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayName("Sócio")
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RefMultibanco)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Montante)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DataPagam)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DataPrevPagam)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Multa)
-            </th>
-            <th>
-                Ref. Quota
-            </th>
-            <th>
-                Funcionário
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model) {
+    @if (User.IsInRole("Funcionario")) {
+        <p>
+            @Html.ActionLink("Criar novo pagamento", "Create")
+        </p>
+    }
+    <div id="lista">
+        <table id="tabela" class="table">
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Socio.Nome)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RefMultibanco)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Montante)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DataPagam)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DataPrevPagam)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Multa)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Quota.Referencia)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Funcionario.Nome)
-                </td>
-                
+                <th class="colunas">
+                    @Html.DisplayName("Sócio")
+                </th>
+                <th class="colunas">
+                    @Html.DisplayNameFor(model => model.RefMultibanco)
+                </th>
+                <th class="colunas">
+                    @Html.DisplayNameFor(model => model.Montante)
+                </th>
+                <th class="colunas">
+                    @Html.DisplayNameFor(model => model.DataPagam)
+                </th>
+                <th class="colunas">
+                    @Html.DisplayNameFor(model => model.DataPrevPagam)
+                </th>
+                <th class="colunas">
+                    @Html.DisplayNameFor(model => model.Multa)
+                </th>
+                <th class="colunas">
+                    Quota
+                </th>
                 @if (User.IsInRole("Funcionario")) {
-                    <td>
-                        @Html.ActionLink("Editar", "Edit", new { id = item.PagamentoID }) |
-                        @Html.ActionLink("Eliminar", "Delete", new { id = item.PagamentoID })
-                    </td>
-                }
+                    <th class="colCentro">
+                        Funcionário
+                    </th>
+                    <th></th>
+                }                
             </tr>
-        }
-    </table>
-</div>
+
+            @foreach (var item in Model) {
+                <tr>
+                    <td class="colunas">
+                        @Html.DisplayFor(modelItem => item.Socio.Nome)
+                    </td>
+                    <td class="colunas">
+                        @Html.DisplayFor(modelItem => item.RefMultibanco)
+                    </td>
+                    <td class="colunas">
+                        @Html.DisplayFor(modelItem => item.Montante) €
+                    </td>
+                    <td class="colunas">
+                        @Html.DisplayFor(modelItem => item.DataPagam)
+                    </td>
+                    <td class="colunas">
+                        @Html.DisplayFor(modelItem => item.DataPrevPagam)
+                    </td>
+                    <td class="colunas">
+                        @Html.DisplayFor(modelItem => item.Multa) €
+                    </td>
+                    <td class="colunas">
+                        @Html.DisplayFor(modelItem => item.Quota.Referencia)
+                    </td>
+                    @if (User.IsInRole("Funcionario")) {
+                        <td class="colunas">
+                            @Html.DisplayFor(modelItem => item.Funcionario.Nome)
+                        </td>
+                        <td class="colunas">
+                            @Html.ActionLink("Editar", "Edit", new { id = item.PagamentoID }) |
+                            @Html.ActionLink("Eliminar", "Delete", new { id = item.PagamentoID })
+                        </td>
+                    }
+                </tr>
+            }
+        </table>
+    </div>
+</body>
+</html>

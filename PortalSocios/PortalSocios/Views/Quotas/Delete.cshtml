@@ -52,6 +52,7 @@
     </dl>
 
     <h4>Tem a certeza de que pretende eliminar esta quota?</h4>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()

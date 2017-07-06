@@ -104,7 +104,7 @@ namespace PortalSocios.Controllers {
                 return RedirectToAction("Index");
             }
             catch (Exception) {
-                ModelState.AddModelError("", string.Format("Ocorreu um erro na eliminação do benefício com ID = {0}.", beneficio.BeneficioID));
+                ModelState.AddModelError("", string.Format("Não é possível eliminar este benefício."));
             }
             return View(beneficio);
         }

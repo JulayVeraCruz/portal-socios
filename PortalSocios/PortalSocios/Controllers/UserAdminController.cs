@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 
 namespace PortalSocios.Controllers {
+    [Authorize]
     public class UsersAdminController : Controller
     {
         public UsersAdminController()

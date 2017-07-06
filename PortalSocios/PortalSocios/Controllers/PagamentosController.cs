@@ -5,6 +5,7 @@ using PortalSocios.Models;
 using System;
 
 namespace PortalSocios.Controllers {
+    [Authorize]
     public class PagamentosController : Controller
     {
         private SociosBD db = new SociosBD();
@@ -40,7 +41,7 @@ namespace PortalSocios.Controllers {
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "RefMultibanco,Montante,DataPagam,DataPrevPagam,Multa,QuotaFK,SocioFK,FuncionarioFK")] Pagamentos pagamento) {
+        public ActionResult Create([Bind(Include = "RefMultibanco,AuxMontante,DataPagam,DataPrevPagam,AuxMulta,QuotaFK,SocioFK,FuncionarioFK")] Pagamentos pagamento) {
             try {
                 // recuperar, converter e atribuir o valor do Montante e da Multa do Pagamento
                 pagamento.Montante = Convert.ToDecimal(pagamento.AuxMontante);
@@ -81,7 +82,7 @@ namespace PortalSocios.Controllers {
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PagamentoID,RefMultibanco,Montante,DataPagam,DataPrevPagam,Multa,QuotaFK,SocioFK,FuncionarioFK")] Pagamentos pagamento) {
+        public ActionResult Edit([Bind(Include = "PagamentoID,RefMultibanco,AuxMontante,DataPagam,DataPrevPagam,AuxMulta,QuotaFK,SocioFK,FuncionarioFK")] Pagamentos pagamento) {
             try {
                 // recuperar, converter e atribuir o valor do Montante e da Multa do Pagamento
                 pagamento.Montante = Convert.ToDecimal(pagamento.AuxMontante);
@@ -125,7 +126,7 @@ namespace PortalSocios.Controllers {
                 return RedirectToAction("Index");
             }
             catch (Exception) {
-                ModelState.AddModelError("", string.Format("Ocorreu um erro na eliminação do pagamento com Referência Multibanco = {0}.", pagamento.RefMultibanco));
+                ModelState.AddModelError("", string.Format("Não é possível eliminar este pagamento."));
             }
             return View(pagamento);
         }

@@ -11,6 +11,7 @@ using System.Collections.Generic;
 
 namespace PortalSocios.Controllers
 {
+    [Authorize]
     public class RolesAdminController : Controller
     {
         public RolesAdminController()
