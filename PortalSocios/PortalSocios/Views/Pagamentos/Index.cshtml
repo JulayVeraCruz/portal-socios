@@ -5,16 +5,10 @@
 <head>
     <meta charset="utf-8" />
     <title>Lista de Pagamentos | Portal dos Sócios do Clube Desportivo Coxos da Bola</title>
-    <style>
-        #titulo{ text-align: center; font-weight: bold; color: #000000;}
-        #lista{ overflow-x: auto; }
-        #tabela{ margin: auto; }
-        .colunas{ text-align: center; }
-        th{ font-size: 15px;}
-    </style>
+    <link rel="stylesheet" href="~/Content/Site.css" />
 </head>
 <body>
-    <div id="titulo"><h2>Lista de Pagamentos</h2></div>
+    <div class="titulo"><h2>Lista de Pagamentos</h2></div>
 
     @if (User.IsInRole("Funcionario")) {
         <p>
@@ -22,7 +16,7 @@
         </p>
     }
     <div id="lista">
-        <table id="tabela" class="table">
+        <table class="table">
             <tr>
                 <th class="colunas">
                     @Html.DisplayName("Sócio")

@@ -43,6 +43,7 @@ namespace PortalSocios.Models {
         public DateTime DataNasc { get; set; }
 
         [StringLength(50)]
+        [Index(IsUnique = true)]
         [EmailAddress(ErrorMessage = "Introduza um {0} válido!")]
         [Required(ErrorMessage = "O {0} é obrigatório!")]
         [Display(Name = "E-mail")]

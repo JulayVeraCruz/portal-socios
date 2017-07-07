@@ -5,15 +5,15 @@
 
         <ul class="nav navbar-nav navbar-right">
             <li>
-                @Html.ActionLink("Bem-vindo " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                @Html.ActionLink("Bem-vindo " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "ligacoes" })
             </li>
-            <li><a href="javascript:document.getElementById('logoutForm').submit()">Sair</a></li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()" class="ligacoes">Sair</a></li>
         </ul>
     }
 }
 else {
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Registar", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Entrar", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+        <li>@Html.ActionLink("Registar", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class="ligacoes" })</li>
+        <li>@Html.ActionLink("Entrar", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class="ligacoes" })</li>
     </ul>
 }

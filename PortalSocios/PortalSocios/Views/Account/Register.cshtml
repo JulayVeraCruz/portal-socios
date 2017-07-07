@@ -1,13 +1,13 @@
 ﻿@model PortalSocios.Models.RegisterViewModel
-@{
-    ViewBag.Title = "Registar";
-}
 
 <!DOCTYPE html>
 <html lang="pt">
 <head>
     <meta charset="utf-8" />
     <title> Registar | Portal dos Sócios do Clube Desportivo Coxos da Bola</title>
+    <style>
+
+    </style>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
@@ -19,51 +19,48 @@
     <link rel="stylesheet" href="~/Content/bootstrap-datepicker3.min.css" />
 </head>
 <body>
-    <h2>@ViewBag.Title</h2>
+    <div class="titulo"><h3>Registo / Inscrição</h3></div>
 
     @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" })) {
         @Html.AntiForgeryToken()
-        <h4>Cria uma conta nova.</h4>
+
+        <div class="titulo"><h4>Cria uma conta nova e inscreve-te como sócio.</h4></div>
         <hr />
-        <div class="form-group form-inline">
-            <div class="col-md-12">
+        <div class="container painel">
+            <div class="form-inline">
                 @Html.EditorFor(m => m.Socio.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "E-mail" } })
                 @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Palavra-passe" })
-                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "Confirmar palavra-passe" })
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "Confirmar palavra-passe" })      
             </div>
         </div>
-
-
-        <h2>Inscrição</h2>
-        <h4>Inscreve-te como sócio.</h4>
         <hr />
-        <div class="form-group form-inline">
-            <div class="col-md-12">
+        <div class="container painel">
+            <div class="col-md-12 form-inline">
                 @Html.EditorFor(m => m.Socio.Nome, new { htmlAttributes = new { @class = "form-control", @maxlength = "50", @placeholder = "Nome" } })
                 @Html.EditorFor(m => m.Socio.BI, new { htmlAttributes = new { @class = "form-control", @maxlength = "8", @placeholder = "BI/CC" } })
                 @Html.EditorFor(m => m.Socio.NIF, new { htmlAttributes = new { @class = "form-control", @maxlength = "9", @placeholder = "NIF" } })
-                @Html.EditorFor(m => m.Socio.DataNasc, new { htmlAttributes = new { @class = "form-control", @placeholder = "Data de Nascimento" } })
-                <br /><br />
-                @Html.EditorFor(m => m.Socio.Telemovel, new { htmlAttributes = new { @class = "form-control", @maxlength = "9", @placeholder = "Telemóvel" } })
-                @Html.EditorFor(m => m.Socio.Morada, new { htmlAttributes = new { @class = "form-control", @maxlength = "80", @placeholder = "Morada" } })
-                @Html.EditorFor(m => m.Socio.CodPostal, new { htmlAttributes = new { @class = "form-control", @maxlength = "50", @placeholder = "Código Postal" } })
-                @Html.DropDownList("CategoriaFK", null, htmlAttributes: new { @class = "form-control" })                
-                <br /><br />
-                @Html.EditorFor(m => m.Socio.Fotografia, new { htmlAttributes = new { @type = "file", @maxlength = "30", @placeholder = "Fotografia" } })
-                <br />
-                @Html.ValidationSummary("", new { @class = "text-danger" })                           
             </div>
-        </div>
-
-        
-
-        <div class="form-group form-inline">
+            <div class="col-md-12 form-inline">
+                @Html.EditorFor(m => m.Socio.DataNasc, new { htmlAttributes = new { @class = "form-control reg1", @placeholder = "Data de Nascimento" } })
+                @Html.EditorFor(m => m.Socio.Telemovel, new { htmlAttributes = new { @class = "form-control reg1", @maxlength = "9", @placeholder = "Telemóvel" } })
+                @Html.EditorFor(m => m.Socio.Morada, new { htmlAttributes = new { @class = "form-control reg1", @maxlength = "80", @placeholder = "Morada" } })
+            </div>
+            <div class="col-md-12 form-inline">
+                @Html.EditorFor(m => m.Socio.CodPostal, new { htmlAttributes = new { @class = "form-control reg1", @maxlength = "50", @placeholder = "Código Postal" } })
+                @Html.DropDownList("CategoriaFK", null, htmlAttributes: new { @class = "form-control reg1" })
+            </div>
             <div class="col-md-12">
-                <input type="submit" class="btn btn-success" value="Criar conta" />
+                @Html.EditorFor(m => m.Socio.Fotografia, new { htmlAttributes = new { @type = "file", @id = "reg2", @maxlength = "30", @placeholder = "Fotografia" } })
+            </div>
+            <div class="col-md-12">
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-12">
+                <input type="submit" class="btn btn-primary" value="Criar conta" />
             </div>
         </div>
-    }
 
+    }
     <script type="text/javascript">
         $('#Socio_DataNasc').datepicker({
             format: "yyyy/mm/dd",
@@ -71,11 +68,11 @@
             startView: 2,
             maxViewMode: 2,
             language: "pt",
-            orientation: "bottom left",
+            orientation: "top left",
             autoclose: true
         });
     </script>
-</body>
+    </body>
 </html>
 
 @section Scripts {

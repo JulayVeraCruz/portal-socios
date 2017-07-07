@@ -1,113 +1,35 @@
 ﻿@model PortalSocios.Models.Socios
 
-@{
-    ViewBag.Title = "Details";
-}
-
-<h3>Detalhes do Sócio</h3>
-
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.NumSocio)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NumSocio)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BI)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BI)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NIF)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NIF)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DataNasc)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DataNasc)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Telemovel)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Telemovel)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Morada)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Morada)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CodPostal)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CodPostal)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Fotografia)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Fotografia)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DataInscr)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DataInscr)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Categoria.Nome)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Categoria.Nome)
-        </dd>
-
-    </dl>
+<div class="titulo"><h3>Detalhes do Sócio</h3></div>
+<hr />
+<div class="container painel">
+    <div class="col-lg-6" style="text-align:right;">@Html.DisplayNameFor(model => model.NumSocio)</div>
+    <div class="col-lg-6" style="text-align:left;">@Html.DisplayFor(model => model.NumSocio)</div>
+    <div class="col-lg-6" style="text-align:right;">@Html.DisplayNameFor(model => model.Nome)</div>
+    <div class="col-lg-6" style="text-align:left;">@Html.DisplayFor(model => model.Nome)</div>
+    <div class="col-lg-6" style="text-align:right;">@Html.DisplayNameFor(model => model.BI)</div>
+    <div class="col-lg-6" style="text-align:left;">@Html.DisplayFor(model => model.BI)</div>
+    <div class="col-lg-6" style="text-align:right;">@Html.DisplayNameFor(model => model.NIF)</div>
+    <div class="col-lg-6" style="text-align:left;">@Html.DisplayFor(model => model.NIF)</div>
+    <div class="col-lg-6" style="text-align:right;">@Html.DisplayNameFor(model => model.DataNasc)</div>
+    <div class="col-lg-6" style="text-align:left;">@Html.DisplayFor(model => model.DataNasc)</div>
+    <div class="col-lg-6" style="text-align:right;">@Html.DisplayNameFor(model => model.Email)</div>
+    <div class="col-lg-6" style="text-align:left;">@Html.DisplayFor(model => model.Email)</div>
+    <div class="col-lg-6" style="text-align:right;">@Html.DisplayNameFor(model => model.Telemovel)</div>
+    <div class="col-lg-6" style="text-align:left;">@Html.DisplayFor(model => model.Telemovel)</div>
+    <div class="col-lg-6" style="text-align:right;">@Html.DisplayNameFor(model => model.Morada)</div>
+    <div class="col-lg-6" style="text-align:left;">@Html.DisplayFor(model => model.Morada)</div>
+    <div class="col-lg-6" style="text-align:right;">@Html.DisplayNameFor(model => model.CodPostal)</div>
+    <div class="col-lg-6" style="text-align:left;">@Html.DisplayFor(model => model.CodPostal)</div>
+    <div class="col-lg-6" style="text-align:right;">@Html.DisplayNameFor(model => model.Fotografia)</div>
+    <div class="col-lg-6" style="text-align:left;">@Html.DisplayFor(model => model.Fotografia)</div>
+    <div class="col-lg-6" style="text-align:right;">@Html.DisplayNameFor(model => model.DataInscr)</div>
+    <div class="col-lg-6" style="text-align:left;">@Html.DisplayFor(model => model.DataInscr)</div>
+    <div class="col-lg-6" style="text-align:right;">@Html.DisplayNameFor(model => model.Categoria.Nome)</div>
+    <div class="col-lg-6" style="text-align:left;">@Html.DisplayFor(model => model.Categoria.Nome)</div>
 </div>
-<p>
+<div class="col-lg-12" style="text-align:center;">
     @Html.ActionLink("Voltar à lista", "Index") |
     @Html.ActionLink("Editar", "Edit", new { id = Model.SocioID })
-</p>
+</div>
+

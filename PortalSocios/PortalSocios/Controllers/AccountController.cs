@@ -187,7 +187,7 @@ namespace PortalSocios.Controllers {
             }
             catch (Exception) {
                 // cria uma mensagem de erro a ser apresentada ao utilizador
-                ModelState.AddModelError("", string.Format("Ocorreu um erro na criação de um novo sócio."));
+                ModelState.AddModelError("", string.Format("Não foi possível criar uma conta nova. Verifique o BI/CC, o NIF e/ou o E-mail."));
             }
             ViewBag.CategoriaFK = new SelectList(db.Categorias, "CategoriaID", "Nome", socio.CategoriaFK);
             // If we got this far, something failed, redisplay form

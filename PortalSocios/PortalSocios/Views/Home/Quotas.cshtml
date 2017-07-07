@@ -5,23 +5,17 @@
 <head>
     <meta charset="utf-8" />
     <title> Quotas | Portal dos Sócios do Clube Desportivo Coxos da Bola</title>
-    <style>
-        .imagem {
-            border: 4px solid #ffffff;
-        }
-    </style>
-    <script>
-    </script>
+    <link rel="stylesheet" href="~/Content/Site.css" />
 </head>
 <body>
-    <h2>Quotas</h2>
+    <div class="titulo"><h3>Quotas</h3></div>
     <hr />
     <div class="container">
-        <div class="row">
+        <div class="row painel">
             @foreach (var item in Model) {
                 <div class="col-lg-4 col-sm-6 text-center">
                     <img class="img-circle img-responsive img-center imagem" src="http://placehold.it/200x200" />
-                        <h4>@Html.DisplayFor(modelItem => item.Nome)</h4>
+                    <h4>@Html.DisplayFor(modelItem => item.Nome)</h4>
                 </div>
             }
         </div>

@@ -318,7 +318,7 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
-  color: #ffffff;
+  color: #000000;
 }
 
 input,
@@ -338,13 +338,14 @@ textarea {
 }
 
 a {
-  color: #428bca;
+  color: #178ce1;
   text-decoration: none;
+  font-weight: bold;
 }
 
 a:hover,
 a:focus {
-  color: #eea236;
+  color: #a47e3c;
   text-decoration: underline;
 }
 
@@ -389,7 +390,7 @@ hr {
   margin-top: 20px;
   margin-bottom: 20px;
   border: 0;
-  border-top: 1px solid #eeeeee;
+  border-top: 1px solid #bababa;
 }
 
 .sr-only {
@@ -569,6 +570,8 @@ ul,
 ol {
   margin-top: 0;
   margin-bottom: 10px;
+  list-style-type: none;
+  margin-left:-50px;
 }
 
 ul ul,
@@ -1413,10 +1416,12 @@ table {
   white-space: nowrap;
   font-size: 14px;
   color: #000000;
+  margin: auto;
 }
 
 th {
   text-align: left;
+  font-size: 15px;
 }
 
 .table {

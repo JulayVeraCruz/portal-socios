@@ -1,80 +1,76 @@
 ﻿@model IEnumerable<PortalSocios.Models.Socios>
 
-@{
-    ViewBag.Title = "Index";
-}
-
-<h3>Lista de Sócios</h3>
-
-<p>
-    @Html.ActionLink("Criar novo sócio", "Create")
-</p>
+<div class="titulo"><h3>Lista de Sócios</h3></div>
+<div class="colunas">@Html.ActionLink("- Criar novo sócio -", "Create")</div>
+<hr />
 <div style="overflow-x: auto;">
     <table class="table">
         <tr>
-            <th>
+            <th class="colunas">
                 @Html.DisplayNameFor(model => model.NumSocio)
             </th>
-            <th>
+            <th class="colunas">
                 @Html.DisplayNameFor(model => model.Nome)
             </th>
-            <th>
+            <th class="colunas">
                 @Html.DisplayNameFor(model => model.BI)
             </th>
-            <th>
+            <th class="colunas">
                 @Html.DisplayNameFor(model => model.NIF)
             </th>
-            <th>
+            <th class="colunas">
                 @Html.DisplayNameFor(model => model.DataNasc)
             </th>
-            <th>
+            <th class="colunas">
                 @Html.DisplayNameFor(model => model.Email)
             </th>
-            <th>
+            <th class="colunas">
                 @Html.DisplayNameFor(model => model.Telemovel)
             </th>
-            <th>
+            <th class="colunas">
                 @Html.DisplayNameFor(model => model.Morada)
             </th>
-            <th>
+            <th class="colunas">
                 @Html.DisplayNameFor(model => model.CodPostal)
             </th>
-            <th>
+            <th class="colunas">
                 @Html.DisplayNameFor(model => model.Fotografia)
             </th>
-            <th>
+            <th class="colunas">
                 @Html.DisplayNameFor(model => model.DataInscr)
             </th>
-            <th>
+            <th class="colunas">
                 Categoria
             </th>
-            <th>
+            <th class="colunas">
                 @Html.DisplayNameFor(model => model.UserName)
             </th>
-            <th></th>
+            @if (User.IsInRole("Funcionario")) {
+                <th></th>
+            }
         </tr>
 
         @foreach (var item in Model) {
             <tr>
-                <td>
+                <td class="colunas">
                     @Html.DisplayFor(modelItem => item.NumSocio)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Nome)
                 </td>
-                <td>
+                <td class="colunas">
                     @Html.DisplayFor(modelItem => item.BI)
                 </td>
-                <td>
+                <td class="colunas">
                     @Html.DisplayFor(modelItem => item.NIF)
                 </td>
-                <td>
+                <td class="colunas">
                     @Html.DisplayFor(modelItem => item.DataNasc)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Email)
                 </td>
-                <td>
+                <td class="colunas">
                     @Html.DisplayFor(modelItem => item.Telemovel)
                 </td>
                 <td>
@@ -86,20 +82,22 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Fotografia)
                 </td>
-                <td>
+                <td class="colunas">
                     @Html.DisplayFor(modelItem => item.DataInscr)
                 </td>
-                <td>
+                <td class="colunas">
                     @Html.DisplayFor(modelItem => item.Categoria.Nome)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.UserName)
                 </td>
-                <td>
-                    @Html.ActionLink("Editar", "Edit", new { id = item.SocioID }) |
-                    @Html.ActionLink("Detalhes", "Details", new { id = item.SocioID }) |
-                    @Html.ActionLink("Eliminar", "Delete", new { id = item.SocioID })
-                </td>
+                @if (User.IsInRole("Funcionario")) {
+                    <td>
+                        @Html.ActionLink("Editar", "Edit", new { id = item.SocioID }) |
+                        @Html.ActionLink("Detalhes", "Details", new { id = item.SocioID }) |
+                        @Html.ActionLink("Eliminar", "Delete", new { id = item.SocioID })
+                    </td>
+                }
             </tr>
         }
     </table>
