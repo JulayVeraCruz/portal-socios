@@ -1,13 +1,10 @@
 ﻿@model PortalSocios.Models.Socios
 
-@{
-    ViewBag.Title = "Create";
-}
-
 <!DOCTYPE html>
 <html lang="pt">
 <head>
     <meta charset="utf-8" />
+    <title>Criar Novo Sócio | Portal dos Sócios do Clube Desportivo Coxos da Bola</title>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>   
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
@@ -22,7 +19,7 @@
     <div class="titulo"><h3>Criar Novo Sócio</h3></div>
     <hr />
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm("Create", "Socios", FormMethod.Post, new { enctype = "multipart/form-data" })) {
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal painel2">            
@@ -102,17 +99,13 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Fotografia, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Fotografia, new { htmlAttributes = new { @type = "file", @maxlength = "30" } })
+                    <input type="file" name="foto2" id="foto2" />
                     @Html.ValidationMessageFor(model => model.Fotografia, "", new { @class = "text-danger" })
                 </div>
             </div>
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    @Html.ActionLink("Voltar à lista", "Index") |
-                    <input type="submit" value="Criar" class="btn btn-primary" />
-                </div>
-            </div>
+        </div>
+        <div class="col-md-12" style="text-align:center; margin-top:20px;">
+            <input type="submit" value="Criar" class="btn btn-primary" />
         </div>
     }
     <script type="text/javascript">

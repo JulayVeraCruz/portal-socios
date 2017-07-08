@@ -3,6 +3,8 @@ using System.Linq;
 using System.Web.Mvc;
 using PortalSocios.Models;
 using System;
+using System.Web;
+using System.IO;
 
 namespace PortalSocios.Controllers {
     public class SociosController : Controller {
@@ -62,38 +64,59 @@ namespace PortalSocios.Controllers {
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Nome,BI,NIF,DataNasc,Email,Telemovel,Morada,CodPostal,Fotografia,DataInscr,CategoriaFK")] Socios socio) {
+        public ActionResult Create([Bind(Include = "Nome,BI,NIF,DataNasc,Email,Telemovel,Morada,CodPostal,Fotografia,DataInscr,CategoriaFK")] Socios socio, HttpPostedFileBase foto2) {
             // caso o utilizador seja funcionário
             if (User.IsInRole("Funcionario")) {
-                // determinar o NumSocio a atribuir ao novo 'Socio'
+
+                // atribui um username, uma categoria e uma data de inscrição a um novo sócio
+                socio.UserName = socio.Email;
+                socio.DataInscr = DateTime.Today;
+
+                // determina o número de sócio a atribuir a um novo sócio
                 int novoNumSocio = 0;
                 try {
                     novoNumSocio = db.Socios.Max(s => s.NumSocio) + 1;
                 }
                 catch (Exception) {
-                    // caso não existam dados na BD (NULL)
+                    // caso não existam dados na BD (null)
                     novoNumSocio = 1;
                 }
-                // atribui um número de sócio 
+                // atribui um número de sócio a um novo sócio
                 socio.NumSocio = novoNumSocio;
-                // atribui a data corrente à data de inscrição
-                socio.DataInscr = DateTime.Today;
-                // atribui o e-mail ao username do sócio
-                socio.UserName = socio.Email;
-                try {                
-                    // caso os dados introduzidos estejam consistentes com o MODEL
+                
+                // tentativa de registar um novo sócio
+                try {
+
+                    // caso não haja um ficheiro selecionado
+                    if (foto2 == null) {
+                        ModelState.AddModelError("Fotografia", "Nenhum ficheiro selecionado!");
+                    }
+
+                    // caso os dados introduzidos estejam consistentes com o model
                     if (ModelState.IsValid) {
+                        // http://haacked.com/archive/2010/07/16/uploading-files-with-aspnetmvc.aspx/
+                        // caso haja um ficheiro selecionado e o tamanho seja superior a 0
+                        if (foto2 != null && foto2.ContentLength > 0) {
+                            // obtém o nome do ficheiro
+                            var fileName = "n" + Convert.ToString(socio.NumSocio) + "_" + Path.GetFileName(foto2.FileName);
+                            // guarda o ficheiro na pasta indicada
+                            var path = Path.Combine(Server.MapPath("~/App_Data/Fotos"), fileName);
+                            foto2.SaveAs(path);
+                            // atribui o nome do ficheiro a um novo sócio
+                            socio.Fotografia = fileName;
+                        }
+
                         // adiciona um novo sócio
                         db.Socios.Add(socio);
-                        // guarda as alterações
+                        // guarda as alterações na BD
                         db.SaveChanges();
                         // redireciona para a lista de sócios
-                        return RedirectToAction("Index");
+                        return RedirectToAction("Index");                        
                     }
                 }
                 catch (Exception) {
                     // cria uma mensagem de erro a ser apresentada ao utilizador
-                    ModelState.AddModelError("", string.Format("Ocorreu um erro na criação de um novo sócio. Verifique o BI/CC e o NIF."));
+                    ModelState.AddModelError("", string.Format("Não foi possível criar um novo sócio. Verifique o BI/CC, o NIF e/ou o E-mail."));
                 }
                 ViewBag.CategoriaFK = new SelectList(db.Categorias, "CategoriaID", "Nome", socio.CategoriaFK);
                 // volta para a VIEW da criação do sócio
@@ -132,26 +155,35 @@ namespace PortalSocios.Controllers {
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SocioID,NumSocio,Nome,BI,NIF,DataNasc,Email,Telemovel,Morada,CodPostal,Fotografia,DataInscr,CategoriaFK,UserName")] Socios socio) {
+        public ActionResult Edit([Bind(Include = "SocioID,NumSocio,Nome,BI,NIF,DataNasc,Email,Telemovel,Morada,CodPostal,Fotografia,DataInscr,CategoriaFK,UserName")] Socios socio, HttpPostedFileBase foto3) {
             // caso o utilizador seja funcionário
             if (User.IsInRole("Funcionario")) {
                 try {
-                    // caso os dados introduzidos estejam consistentes com o MODEL
+
+                    // caso os dados introduzidos estejam consistentes com o model
                     if (ModelState.IsValid) {
-                        // altera os dados do sócio
+                        // http://haacked.com/archive/2010/07/16/uploading-files-with-aspnetmvc.aspx/
+                        // caso haja um ficheiro selecionado e o tamanho seja superior a 0
+                        if (foto3 != null && foto3.ContentLength > 0) {
+                            // obtém o nome do ficheiro
+                            var fileName = "n" + Convert.ToString(socio.NumSocio) + "_" + Path.GetFileName(foto3.FileName);
+                            // guarda o ficheiro na pasta indicada
+                            var path = Path.Combine(Server.MapPath("~/App_Data/Fotos"), fileName);
+                            foto3.SaveAs(path);
+                            // atribui o nome do ficheiro a um novo sócio
+                            socio.Fotografia = fileName;
+                        }
+
                         db.Entry(socio).State = EntityState.Modified;
-                        // guarda as alterações
+                        // guarda as alterações na BD
                         db.SaveChanges();
                         // redireciona para a lista de sócios
                         return RedirectToAction("Index");
                     }
                 }
-                catch (Exception ex) {
-                    // cria uma mensagem de erro a ser apresentada ao utilizador
-                    String innerMessage = (ex.InnerException != null)
-                      ? ex.InnerException.Message
-                      : "";
-                    ModelState.AddModelError("", innerMessage);
+                catch (Exception) {
+                    // casos os dados introduzidos não estejam consistentes com o model, apresenta uma mensagem ao utilizador
+                    ModelState.AddModelError("", string.Format("Não foi possível editar o sócio. Verifique o BI/CC, o NIF e/ou o E-mail."));
                 }
                 ViewBag.CategoriaFK = new SelectList(db.Categorias, "CategoriaID", "Nome", socio.CategoriaFK);
                 // volta para a VIEW da edição do sócio

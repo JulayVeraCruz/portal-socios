@@ -314,6 +314,7 @@ body {
   font-family: "Segoe UI", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.428571429;
+  background-color: #000000;
   background-image: url("/Content/Imagens/socios.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -1417,6 +1418,7 @@ table {
   font-size: 14px;
   color: #000000;
   margin: auto;
+  border-radius: 5px;
 }
 
 th {

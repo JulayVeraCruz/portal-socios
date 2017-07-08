@@ -10,5 +10,9 @@ namespace PortalSocios.Controllers {
         public ActionResult NotFound() {
             return View();
         }
+
+        public ActionResult Indisponivel() {
+            return View();
+        }
     }
 }

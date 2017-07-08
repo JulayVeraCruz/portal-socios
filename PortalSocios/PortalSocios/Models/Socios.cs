@@ -65,8 +65,7 @@ namespace PortalSocios.Models {
         [Display(Name = "Código Postal")]
         public string CodPostal { get; set; }
 
-        [StringLength(30)]
-        [Required(ErrorMessage = "A {0} é obrigatória!")]
+        [StringLength(50)]
         public string Fotografia { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]

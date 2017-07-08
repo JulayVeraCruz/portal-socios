@@ -28,7 +28,7 @@ namespace PortalSocios.Models {
 
         [StringLength(50)]
         [EmailAddress(ErrorMessage = "Introduza um {0} válido!")]
-        [RegularExpression("[a-z]+@cdcb.pt", ErrorMessage = "Introduza o {0} no formato nome@cdcb.pt")]
+        [RegularExpression("[a-z]+@coxos.pt", ErrorMessage = "Introduza o {0} no formato nome@coxos.pt")]
         [Required(ErrorMessage = "O {0} é obrigatório!")]
         [Display(Name = "E-mail")]
         public string Email { get; set; }

@@ -1,105 +1,123 @@
 ﻿@model IEnumerable<PortalSocios.Models.Socios>
 
-<div class="titulo"><h3>Lista de Sócios</h3></div>
-<div class="colunas">@Html.ActionLink("- Criar novo sócio -", "Create")</div>
-<hr />
-<div style="overflow-x: auto;">
-    <table class="table">
-        <tr>
-            <th class="colunas">
-                @Html.DisplayNameFor(model => model.NumSocio)
-            </th>
-            <th class="colunas">
-                @Html.DisplayNameFor(model => model.Nome)
-            </th>
-            <th class="colunas">
-                @Html.DisplayNameFor(model => model.BI)
-            </th>
-            <th class="colunas">
-                @Html.DisplayNameFor(model => model.NIF)
-            </th>
-            <th class="colunas">
-                @Html.DisplayNameFor(model => model.DataNasc)
-            </th>
-            <th class="colunas">
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th class="colunas">
-                @Html.DisplayNameFor(model => model.Telemovel)
-            </th>
-            <th class="colunas">
-                @Html.DisplayNameFor(model => model.Morada)
-            </th>
-            <th class="colunas">
-                @Html.DisplayNameFor(model => model.CodPostal)
-            </th>
-            <th class="colunas">
-                @Html.DisplayNameFor(model => model.Fotografia)
-            </th>
-            <th class="colunas">
-                @Html.DisplayNameFor(model => model.DataInscr)
-            </th>
-            <th class="colunas">
-                Categoria
-            </th>
-            <th class="colunas">
-                @Html.DisplayNameFor(model => model.UserName)
-            </th>
-            @if (User.IsInRole("Funcionario")) {
-                <th></th>
-            }
-        </tr>
-
-        @foreach (var item in Model) {
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8" />
+    <title>Lista de Sócios | Portal dos Sócios do Clube Desportivo Coxos da Bola</title>
+</head>
+<body>
+    <div class="titulo"><h3>Lista de Sócios</h3></div>
+    <div class="colunas">@Html.ActionLink("- Criar novo sócio -", "Create")</div>
+    <hr />
+    <div style="overflow-x: auto;">
+        <table class="table">
             <tr>
-                <td class="colunas">
-                    @Html.DisplayFor(modelItem => item.NumSocio)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nome)
-                </td>
-                <td class="colunas">
-                    @Html.DisplayFor(modelItem => item.BI)
-                </td>
-                <td class="colunas">
-                    @Html.DisplayFor(modelItem => item.NIF)
-                </td>
-                <td class="colunas">
-                    @Html.DisplayFor(modelItem => item.DataNasc)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td class="colunas">
-                    @Html.DisplayFor(modelItem => item.Telemovel)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Morada)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CodPostal)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Fotografia)
-                </td>
-                <td class="colunas">
-                    @Html.DisplayFor(modelItem => item.DataInscr)
-                </td>
-                <td class="colunas">
-                    @Html.DisplayFor(modelItem => item.Categoria.Nome)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UserName)
-                </td>
+                <th class="colunas">
+                    @Html.DisplayNameFor(model => model.NumSocio)
+                </th>
+                <th class="colunas">
+                    @Html.DisplayNameFor(model => model.Nome)
+                </th>
+                <th class="colunas">
+                    @Html.DisplayNameFor(model => model.BI)
+                </th>
+                <th class="colunas">
+                    @Html.DisplayNameFor(model => model.NIF)
+                </th>
+                <th class="colunas">
+                    @Html.DisplayNameFor(model => model.DataNasc)
+                </th>
+                <th class="colunas">
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th class="colunas">
+                    @Html.DisplayNameFor(model => model.Telemovel)
+                </th>
+                <th class="colunas">
+                    @Html.DisplayNameFor(model => model.Morada)
+                </th>
+                <th class="colunas">
+                    @Html.DisplayNameFor(model => model.CodPostal)
+                </th>
+                <th class="colunas">
+                    @Html.DisplayNameFor(model => model.Fotografia)
+                </th>
+                <th class="colunas">
+                    @Html.DisplayNameFor(model => model.DataInscr)
+                </th>
+                <th class="colunas">
+                    Categoria
+                </th>
+                <th class="colunas">
+                    @Html.DisplayNameFor(model => model.UserName)
+                </th>
                 @if (User.IsInRole("Funcionario")) {
-                    <td>
-                        @Html.ActionLink("Editar", "Edit", new { id = item.SocioID }) |
-                        @Html.ActionLink("Detalhes", "Details", new { id = item.SocioID }) |
-                        @Html.ActionLink("Eliminar", "Delete", new { id = item.SocioID })
-                    </td>
+                    <th></th>
                 }
             </tr>
-        }
-    </table>
-</div>
+
+            @foreach (var item in Model) {
+                <tr>
+                    <td class="colunas">
+                        @Html.DisplayFor(modelItem => item.NumSocio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nome)
+                    </td>
+                    <td class="colunas">
+                        @Html.DisplayFor(modelItem => item.BI)
+                    </td>
+                    <td class="colunas">
+                        @Html.DisplayFor(modelItem => item.NIF)
+                    </td>
+                    <td class="colunas">
+                        @Html.DisplayFor(modelItem => item.DataNasc)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td class="colunas">
+                        @Html.DisplayFor(modelItem => item.Telemovel)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Morada)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CodPostal)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Fotografia)
+                    </td>
+                    <td class="colunas">
+                        @Html.DisplayFor(modelItem => item.DataInscr)
+                    </td>
+                    <td class="colunas">
+                        @Html.DisplayFor(modelItem => item.Categoria.Nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserName)
+                    </td>
+                    @if (User.IsInRole("Funcionario")) {
+                        <td>
+                            @Html.ActionLink("Editar", "Edit", new { id = item.SocioID }) |
+                            @Html.ActionLink("Detalhes", "Details", new { id = item.SocioID }) |
+                            @Html.ActionLink("Eliminar", "Delete", new { id = item.SocioID })
+                        </td>
+                    }
+                </tr>
+            }
+        </table>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
 

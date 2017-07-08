@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System;
+using System.IO;
 
 namespace PortalSocios.Controllers {
     [Authorize]
@@ -15,25 +16,20 @@ namespace PortalSocios.Controllers {
         // cria um novo objeto que representa a BD
         private SociosBD db = new SociosBD();
 
-        public AccountController()
-        {
+        public AccountController() {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
-        {
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager ) {
             UserManager = userManager;
             SignInManager = signInManager;
         }
 
         private ApplicationUserManager _userManager;
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
+        public ApplicationUserManager UserManager {
+            get {
                 return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
-            private set
-            {
+            private set {
                 _userManager = value;
             }
         }
@@ -41,18 +37,15 @@ namespace PortalSocios.Controllers {
         //
         // GET: /Account/Login
         [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
-        {
+        public ActionResult Login(string returnUrl) {
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
         private ApplicationSignInManager _signInManager;
 
-        public ApplicationSignInManager SignInManager
-        {
-            get
-            {
+        public ApplicationSignInManager SignInManager {
+            get {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
             private set { _signInManager = value; }
@@ -63,18 +56,15 @@ namespace PortalSocios.Controllers {
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
-        {
-            if (!ModelState.IsValid)
-            {
+        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl) {
+            if (!ModelState.IsValid) {
                 return View(model);
             }
 
             // This doen't count login failures towards lockout only two factor authentication
             // To enable password failures to trigger lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
-            {
+            switch (result) {
                 case SignInStatus.Success:
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
@@ -91,16 +81,13 @@ namespace PortalSocios.Controllers {
         //
         // GET: /Account/VerifyCode
         [AllowAnonymous]
-        public async Task<ActionResult> VerifyCode(string provider, string returnUrl)
-        {
+        public async Task<ActionResult> VerifyCode(string provider, string returnUrl) {
             // Require that the user has already logged in via username/password or external login
-            if (!await SignInManager.HasBeenVerifiedAsync())
-            {
+            if (!await SignInManager.HasBeenVerifiedAsync()) {
                 return View("Error");
             }
             var user = await UserManager.FindByIdAsync(await SignInManager.GetVerifiedUserIdAsync());
-            if (user != null)
-            {
+            if (user != null) {
                 ViewBag.Status = "For DEMO purposes the current " + provider + " code is: " + await UserManager.GenerateTwoFactorTokenAsync(user.Id, provider);
             }
             return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl });
@@ -111,16 +98,13 @@ namespace PortalSocios.Controllers {
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> VerifyCode(VerifyCodeViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
+        public async Task<ActionResult> VerifyCode(VerifyCodeViewModel model) {
+            if (!ModelState.IsValid) {
                 return View(model);
             }
 
             var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: false, rememberBrowser: model.RememberBrowser);
-            switch (result)
-            {
+            switch (result) {
                 case SignInStatus.Success:
                     return RedirectToLocal(model.ReturnUrl);
                 case SignInStatus.LockedOut:
@@ -145,34 +129,54 @@ namespace PortalSocios.Controllers {
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register([Bind(Include = "Nome,BI,NIF,DataNasc,Email,Telemovel,Morada,CodPostal,Fotografia,DataInscr,CategoriaFK")] Socios socio, RegisterViewModel model) {
-            // atribui o e-mail do sócio ao e-mail do registo
+        public async Task<ActionResult> Register([Bind(Include = "Nome,BI,NIF,DataNasc,Email,Telemovel,Morada,CodPostal,Fotografia,DataInscr,CategoriaFK")] Socios socio, RegisterViewModel model, HttpPostedFileBase foto) {
+            
+            // atribui um username, uma categoria e uma data de inscrição a um novo sócio
             model.Email = socio.Email;
-            // atribui o e-mail ao username do sócio
             socio.UserName = socio.Email;
-            // atribui uma categoria ao sócio
             socio.CategoriaFK = Convert.ToInt32(Request.Form["CategoriaFK"]);
-            // determinar o NumSocio a atribuir ao novo 'Socio'
+            socio.DataInscr = DateTime.Today;
+
+            // determina o número de sócio a atribuir a um novo sócio
             int novoNumSocio = 0;
             try {
                 novoNumSocio = db.Socios.Max(s => s.NumSocio) + 1;
             }
             catch (Exception) {
-                // caso não existam dados na BD (NULL)
+                // caso não existam dados na BD (null)
                 novoNumSocio = 1;
             }
-            // atribui o novo número de sócio ao 'Socio'
+            // atribui um número de sócio a um novo sócio
             socio.NumSocio = novoNumSocio;
-            // atribui a data corrente à data de inscrição
-            socio.DataInscr = DateTime.Today;
+            
+            // tentativa de registar um novo sócio
             try {
-                // caso os dados introduzidos estejam consistentes com o MODEL
+                                
+                // caso não haja um ficheiro selecionado
+                if (foto == null) {
+                    ModelState.AddModelError("Fotografia", "Nenhum ficheiro selecionado!");
+                }
+
+                // caso os dados introduzidos estejam consistentes com o model
                 if (ModelState.IsValid) {
+                    // http://haacked.com/archive/2010/07/16/uploading-files-with-aspnetmvc.aspx/
+                    // caso haja um ficheiro selecionado e o tamanho seja superior a 0
+                    if (foto != null && foto.ContentLength > 0) {
+                        // obtém o nome do ficheiro
+                        var fileName = "n" + Convert.ToString(socio.NumSocio) + "_" + Path.GetFileName(foto.FileName);
+                        // guarda o ficheiro na pasta indicada
+                        var path = Path.Combine(Server.MapPath("~/App_Data/Fotos"), fileName);
+                        foto.SaveAs(path);
+                        // atribui o nome do ficheiro a um novo sócio
+                        socio.Fotografia = fileName;
+                    }
+
                     // adiciona um novo sócio
                     db.Socios.Add(socio);
-                    // guarda as alterações
+                    // guarda as alterações na BD
                     db.SaveChanges();
 
+                    // cria a conta de utilizador
                     var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                     var result = await UserManager.CreateAsync(user, model.Password);
                     if (result.Succeeded) {
@@ -186,7 +190,7 @@ namespace PortalSocios.Controllers {
                 }
             }
             catch (Exception) {
-                // cria uma mensagem de erro a ser apresentada ao utilizador
+                // casos os dados introduzidos não estejam consistentes com o model, apresenta uma mensagem ao utilizador
                 ModelState.AddModelError("", string.Format("Não foi possível criar uma conta nova. Verifique o BI/CC, o NIF e/ou o E-mail."));
             }
             ViewBag.CategoriaFK = new SelectList(db.Categorias, "CategoriaID", "Nome", socio.CategoriaFK);
@@ -197,10 +201,8 @@ namespace PortalSocios.Controllers {
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
-        public async Task<ActionResult> ConfirmEmail(string userId, string code)
-        {
-            if (userId == null || code == null)
-            {
+        public async Task<ActionResult> ConfirmEmail(string userId, string code) {
+            if (userId == null || code == null) {
                 return View("Error");
             }
             var result = await UserManager.ConfirmEmailAsync(userId, code);
@@ -210,8 +212,7 @@ namespace PortalSocios.Controllers {
         //
         // GET: /Account/ForgotPassword
         [AllowAnonymous]
-        public ActionResult ForgotPassword()
-        {
+        public ActionResult ForgotPassword() {
             return View();
         }
 
@@ -220,13 +221,10 @@ namespace PortalSocios.Controllers {
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
+        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model) {
+            if (ModelState.IsValid) {
                 var user = await UserManager.FindByNameAsync(model.Email);
-                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
-                {
+                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id))) {
                     // Don't reveal that the user does not exist or is not confirmed
                     return View("ForgotPasswordConfirmation");
                 }
@@ -245,16 +243,14 @@ namespace PortalSocios.Controllers {
         //
         // GET: /Account/ForgotPasswordConfirmation
         [AllowAnonymous]
-        public ActionResult ForgotPasswordConfirmation()
-        {
+        public ActionResult ForgotPasswordConfirmation() {
             return View();
         }
 
         //
         // GET: /Account/ResetPassword
         [AllowAnonymous]
-        public ActionResult ResetPassword(string code)
-        {
+        public ActionResult ResetPassword(string code) {
             return code == null ? View("Error") : View();
         }
 
@@ -263,21 +259,17 @@ namespace PortalSocios.Controllers {
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
+        public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model) {
+            if (!ModelState.IsValid) {
                 return View(model);
             }
             var user = await UserManager.FindByNameAsync(model.Email);
-            if (user == null)
-            {
+            if (user == null) {
                 // Don't reveal that the user does not exist
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
             var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
-            if (result.Succeeded)
-            {
+            if (result.Succeeded) {
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
             AddErrors(result);
@@ -287,8 +279,7 @@ namespace PortalSocios.Controllers {
         //
         // GET: /Account/ResetPasswordConfirmation
         [AllowAnonymous]
-        public ActionResult ResetPasswordConfirmation()
-        {
+        public ActionResult ResetPasswordConfirmation() {
             return View();
         }
 
@@ -297,8 +288,7 @@ namespace PortalSocios.Controllers {
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult ExternalLogin(string provider, string returnUrl)
-        {
+        public ActionResult ExternalLogin(string provider, string returnUrl) {
             // Request a redirect to the external login provider
             return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
         }
@@ -306,11 +296,9 @@ namespace PortalSocios.Controllers {
         //
         // GET: /Account/SendCode
         [AllowAnonymous]
-        public async Task<ActionResult> SendCode(string returnUrl)
-        {
+        public async Task<ActionResult> SendCode(string returnUrl) {
             var userId = await SignInManager.GetVerifiedUserIdAsync();
-            if (userId == null)
-            {
+            if (userId == null) {
                 return View("Error");
             }
             var userFactors = await UserManager.GetValidTwoFactorProvidersAsync(userId);
@@ -323,16 +311,13 @@ namespace PortalSocios.Controllers {
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> SendCode(SendCodeViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
+        public async Task<ActionResult> SendCode(SendCodeViewModel model) {
+            if (!ModelState.IsValid) {
                 return View();
             }
 
             // Generate the token and send it
-            if (!await SignInManager.SendTwoFactorCodeAsync(model.SelectedProvider))
-            {
+            if (!await SignInManager.SendTwoFactorCodeAsync(model.SelectedProvider)) {
                 return View("Error");
             }
             return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl });
@@ -341,18 +326,15 @@ namespace PortalSocios.Controllers {
         //
         // GET: /Account/ExternalLoginCallback
         [AllowAnonymous]
-        public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
-        {
+        public async Task<ActionResult> ExternalLoginCallback(string returnUrl) {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
-            if (loginInfo == null)
-            {
+            if (loginInfo == null) {
                 return RedirectToAction("Login");
             }
 
             // Sign in the user with this external login provider if the user already has a login
             var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
-            switch (result)
-            {
+            switch (result) {
                 case SignInStatus.Success:
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
@@ -373,28 +355,22 @@ namespace PortalSocios.Controllers {
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
-        {
-            if (User.Identity.IsAuthenticated)
-            {
+        public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl) {
+            if (User.Identity.IsAuthenticated) {
                 return RedirectToAction("Index", "Manage");
             }
 
-            if (ModelState.IsValid)
-            {
+            if (ModelState.IsValid) {
                 // Get the information about the user from the external login provider
                 var info = await AuthenticationManager.GetExternalLoginInfoAsync();
-                if (info == null)
-                {
+                if (info == null) {
                     return View("ExternalLoginFailure");
                 }
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user);
-                if (result.Succeeded)
-                {
+                if (result.Succeeded) {
                     result = await UserManager.AddLoginAsync(user.Id, info.Login);
-                    if (result.Succeeded)
-                    {
+                    if (result.Succeeded) {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                         return RedirectToLocal(returnUrl);
                     }
@@ -410,8 +386,7 @@ namespace PortalSocios.Controllers {
         // POST: /Account/LogOff
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult LogOff()
-        {
+        public ActionResult LogOff() {
             AuthenticationManager.SignOut();
             return RedirectToAction("Index", "Home");
         }
@@ -419,8 +394,7 @@ namespace PortalSocios.Controllers {
         //
         // GET: /Account/ExternalLoginFailure
         [AllowAnonymous]
-        public ActionResult ExternalLoginFailure()
-        {
+        public ActionResult ExternalLoginFailure() {
             return View();
         }
 
@@ -428,40 +402,31 @@ namespace PortalSocios.Controllers {
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
+        private IAuthenticationManager AuthenticationManager {
+            get {
                 return HttpContext.GetOwinContext().Authentication;
             }
         }
 
-        private void AddErrors(IdentityResult result)
-        {
-            foreach (var error in result.Errors)
-            {
+        private void AddErrors(IdentityResult result) {
+            foreach (var error in result.Errors) {
                 ModelState.AddModelError("", error);
             }
         }
 
-        private ActionResult RedirectToLocal(string returnUrl)
-        {
-            if (Url.IsLocalUrl(returnUrl))
-            {
+        private ActionResult RedirectToLocal(string returnUrl) {
+            if (Url.IsLocalUrl(returnUrl)) {
                 return Redirect(returnUrl);
             }
             return RedirectToAction("Index", "Home");
         }
 
-        internal class ChallengeResult : HttpUnauthorizedResult
-        {
+        internal class ChallengeResult : HttpUnauthorizedResult {
             public ChallengeResult(string provider, string redirectUri)
-                : this(provider, redirectUri, null)
-            {
+                : this(provider, redirectUri, null) {
             }
 
-            public ChallengeResult(string provider, string redirectUri, string userId)
-            {
+            public ChallengeResult(string provider, string redirectUri, string userId) {
                 LoginProvider = provider;
                 RedirectUri = redirectUri;
                 UserId = userId;
@@ -471,11 +436,9 @@ namespace PortalSocios.Controllers {
             public string RedirectUri { get; set; }
             public string UserId { get; set; }
 
-            public override void ExecuteResult(ControllerContext context)
-            {
+            public override void ExecuteResult(ControllerContext context) {
                 var properties = new AuthenticationProperties { RedirectUri = RedirectUri };
-                if (UserId != null)
-                {
+                if (UserId != null) {
                     properties.Dictionary[XsrfKey] = UserId;
                 }
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);

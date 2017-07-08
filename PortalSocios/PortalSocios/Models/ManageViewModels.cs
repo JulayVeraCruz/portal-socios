@@ -43,18 +43,18 @@ namespace PortalSocios.Models
     {
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Current password")]
+        [Display(Name = "Palavra-passe atual")]
         public string OldPassword { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "New password")]
+        [Display(Name = "Nova palavra-passe")]
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm new password")]
-        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        [Display(Name = "Confirmar a nova palavra-passe")]
+        [Compare("NewPassword", ErrorMessage = "A nova palavra-passe e a palavra-passe de confirmação são diferentes.")]
         public string ConfirmPassword { get; set; }
     }
 

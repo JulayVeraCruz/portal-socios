@@ -54,6 +54,7 @@ input[type="checkbox"].input-validation-error {
 
 #lista {
     overflow-x: auto;
+    border-radius: 5px;
 }
 
 .titulo {
@@ -99,8 +100,34 @@ input[type="checkbox"].input-validation-error {
 .reg1 {
     margin-top: 10px;
 }
- 
-#reg2 {
+
+.reg2 {
     display:block;
     margin: 10px auto;
+}
+
+.leg {
+    height:300px;
+}
+
+.dadosDir {
+    text-align:left;
+    border-left:1px solid #000000;
+}
+
+.dadosEsq {
+    text-align:right;
+    font-weight:bold;
+}
+
+.dadosDirLink {
+    margin-top:20px;
+    text-align:left;
+    border-left:1px solid #000000;
+}
+
+.dadosEsqLink {
+    margin-top:20px;
+    text-align:right;
+    font-weight:bold;
 }

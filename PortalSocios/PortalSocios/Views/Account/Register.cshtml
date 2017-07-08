@@ -21,7 +21,8 @@
 <body>
     <div class="titulo"><h3>Registo / Inscrição</h3></div>
 
-    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" })) {
+    @*@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" })) {*@
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" })) {
         @Html.AntiForgeryToken()
 
         <div class="titulo"><h4>Cria uma conta nova e inscreve-te como sócio.</h4></div>
@@ -50,7 +51,7 @@
                 @Html.DropDownList("CategoriaFK", null, htmlAttributes: new { @class = "form-control reg1" })
             </div>
             <div class="col-md-12">
-                @Html.EditorFor(m => m.Socio.Fotografia, new { htmlAttributes = new { @type = "file", @id = "reg2", @maxlength = "30", @placeholder = "Fotografia" } })
+                <input type="file" name="foto" id="foto" class="reg2" />
             </div>
             <div class="col-md-12">
                 @Html.ValidationSummary("", new { @class = "text-danger" })
@@ -59,7 +60,6 @@
                 <input type="submit" class="btn btn-primary" value="Criar conta" />
             </div>
         </div>
-
     }
     <script type="text/javascript">
         $('#Socio_DataNasc').datepicker({

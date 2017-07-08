@@ -1,117 +1,62 @@
 ﻿@model PortalSocios.Models.Socios
 
-<h3>Eliminar Sócio</h3>
-
-<div>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8" />
+    <title>Eliminar Sócio | Portal dos Sócios do Clube Desportivo Coxos da Bola</title>
+</head>
+<body>
+    <div class="titulo"><h3>Eliminar Sócio</h3></div>
+    <div class="titulo"><h4>Tem a certeza de que pretende eliminar este sócio?</h4></div>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.NumSocio)
-        </dt>
+    <div class="container painel">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <dd>
-            @Html.DisplayFor(model => model.NumSocio)
-        </dd>
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.NumSocio)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.NumSocio)</div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.Nome)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.Nome)</div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.BI)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.BI)</div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.BI)
-        </dt>
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.NIF)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.NIF)</div>
 
-        <dd>
-            @Html.DisplayFor(model => model.BI)
-        </dd>
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.DataNasc)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.DataNasc)</div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.NIF)
-        </dt>
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.Email)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.Email)</div>
 
-        <dd>
-            @Html.DisplayFor(model => model.NIF)
-        </dd>
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.Telemovel)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.Telemovel)</div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DataNasc)
-        </dt>
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.Morada)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.Morada)</div>
 
-        <dd>
-            @Html.DisplayFor(model => model.DataNasc)
-        </dd>
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.CodPostal)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.CodPostal)</div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.Fotografia)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.Fotografia)</div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.DataInscr)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.DataInscr)</div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Telemovel)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Telemovel)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Morada)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Morada)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CodPostal)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CodPostal)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Fotografia)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Fotografia)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DataInscr)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DataInscr)
-        </dd>
-
-        <dt>
-            Categoria
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Categoria.Nome)
-        </dd>
-
-    </dl>
-    
-    <h4>Tem a certeza de que pretende eliminar este sócio?</h4>
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="col-lg-6 dadosEsq">Categoria</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.Categoria.Nome)</div>
+    </div>
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            @Html.ActionLink("Voltar à lista", "Index") |         
+        <div class="col-lg-12 form-actions no-color" style="text-align:center; margin-top:20px;">
             <input type="submit" value="Sim" class="btn btn-primary" />            
         </div>
     }
-</div>
+</body>
+</html>
+

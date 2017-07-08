@@ -5,7 +5,6 @@
 <head>
     <meta charset="utf-8" />
     <title> Vantagens | Portal dos Sócios do Clube Desportivo Coxos da Bola</title>
-    <link rel="stylesheet" href="~/Content/Site.css" />
 </head>
 <body>
     <div class="titulo"><h3>Vantagens</h3></div>
@@ -14,7 +13,7 @@
         <div class="row painel">
             @foreach (var item in Model) {
                 if (item.BeneficioID < 7) {
-                    <div class="col-lg-2 text-center">
+                    <div class="col-lg-4 text-center leg">
                         <!--<img class="img-circle img-responsive img-center imagem" src="~/Content/Imagens/vantagem@(item.BeneficioID).jpg" />-->
                         <img class="img-circle img-responsive img-center imagem" src="http://placehold.it/200x200" />                        
                         <h5>@Html.DisplayFor(modelItem => item.Descricao)</h5>

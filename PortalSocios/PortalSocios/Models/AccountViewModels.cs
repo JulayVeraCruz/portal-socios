@@ -59,8 +59,7 @@ namespace PortalSocios.Models
         public bool RememberMe { get; set; }
     }
 
-    public class RegisterViewModel
-    {
+    public class RegisterViewModel {
         [EmailAddress]
         [Display(Name = "E-mail")]
         public string Email { get; set; }
@@ -73,9 +72,10 @@ namespace PortalSocios.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirmar palavra-chave")]
-        [Compare("Password", ErrorMessage = "A palavra-chave e a confirmação da palavra-chave não correspondem.")]
+        [Compare("Password", ErrorMessage = "A nova palavra-passe e a palavra-passe de confirmação são diferentes.")]
         public string ConfirmPassword { get; set; }
 
+        // integração de um atributo do tipo 'Socios'
         public Socios Socio { get; set; }
     }
 
