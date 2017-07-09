@@ -21,11 +21,10 @@
 <body>
     <div class="titulo"><h3>Registo / Inscrição</h3></div>
 
-    @*@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" })) {*@
     @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" })) {
         @Html.AntiForgeryToken()
 
-        <div class="titulo"><h4>Cria uma conta nova e inscreve-te como sócio.</h4></div>
+        <div class="titulo"><h4>Cria uma conta nova e torna-te sócio.</h4></div>
         <hr />
         <div class="container painel">
             <div class="form-inline">
@@ -56,9 +55,14 @@
             <div class="col-md-12">
                 @Html.ValidationSummary("", new { @class = "text-danger" })
             </div>
-            <div class="col-md-12">
-                <input type="submit" class="btn btn-primary" value="Criar conta" />
+            <div class="form-group">
+                <div class="col-md-12">
+                    <input type="submit" class="btn btn-primary" value="Criar conta" />
+                </div>
             </div>
+            <p class="col-md-12">
+                Já tens uma conta? @Html.ActionLink("Entra.", "login", "Account")
+            </p>
         </div>
     }
     <script type="text/javascript">

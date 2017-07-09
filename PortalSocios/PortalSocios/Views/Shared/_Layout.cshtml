@@ -4,12 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="~/Content/Imagens/relvado.png" />
-    <style>
-        #rodape { color: #bababa }
-    </style>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top ligacoes">
@@ -20,8 +16,8 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Sobre", "Sobre", "Home", null, new { @class = "ligacoes" })</li>
-                    <li>@Html.ActionLink("Vantagens", "Vantagens", "Home", null, new { @class = "ligacoes" })</li>
                     <li>@Html.ActionLink("Quotas", "Quotas", "Home", null, new { @class = "ligacoes" })</li>
+                    <li>@Html.ActionLink("Vantagens", "Vantagens", "Home", null, new { @class = "ligacoes" })</li>                    
 
                     @if (User.IsInRole("Socio")) {
                         <li>@Html.ActionLink("Pagamentos", "Index", "Pagamentos", null, new { @class = "ligacoes" })</li>
@@ -30,7 +26,7 @@
                     @if (User.IsInRole("Funcionario")) {
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle ligacoes" data-toggle="dropdown">Gestão da BD<b class="caret"></b></a>
-                            <ul class="dropdown-menu">
+                            <ul class="dropdown-menu dp">
                                 <li><a href="~/Socios/Index">Sócios</a></li>
                                 <li><a href="~/Quotas/Index">Quotas</a></li>
                                 <li><a href="~/Pagamentos/Index">Pagamentos</a></li>
@@ -51,7 +47,7 @@
         @RenderBody()
         <hr />
         <footer id="rodape">
-            <p>Clube Desportivo Coxos da Bola &copy; @DateTime.Now.Year - Todos os direitos reservados</p>
+            <p>Clube Desportivo Coxos da Bola &copy; @DateTime.Now.Year - Todos os direitos reservados.</p>
         </footer>
     </div>
 

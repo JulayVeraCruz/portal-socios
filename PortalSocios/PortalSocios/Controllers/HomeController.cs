@@ -2,8 +2,7 @@
 using PortalSocios.Models;
 using System.Linq;
 
-namespace PortalSocios.Controllers
-{
+namespace PortalSocios.Controllers {
     public class HomeController : Controller {
 
         private SociosBD db = new SociosBD();
@@ -16,12 +15,12 @@ namespace PortalSocios.Controllers
             return View();
         }
 
-        public ActionResult Vantagens() {
-            return View(db.Beneficios.ToList());
-        }
-
         public ActionResult Quotas() {
             return View(db.Categorias.ToList());
+        }
+
+        public ActionResult Vantagens() {
+            return View(db.Beneficios.ToList());
         }
     }
 }

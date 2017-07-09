@@ -305,8 +305,9 @@
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Home\Vantagens.cshtml" />
     <Content Include="Views\Home\Quotas.cshtml" />
-    <Content Include="Views\Shared\NotFound.cshtml" />
-    <Content Include="Views\Shared\Indisponivel.cshtml" />
+    <Content Include="Views\Erros\NotFound.cshtml" />
+    <Content Include="Views\Erros\Indisponivel.cshtml" />
+    <Content Include="Views\Erros\Restrito.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

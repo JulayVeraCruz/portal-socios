@@ -5,7 +5,7 @@ using PortalSocios.Models;
 using System;
 
 namespace PortalSocios.Controllers {
-    [Authorize]
+    [Authorize(Roles = "Funcionario")]
     public class FuncionariosController : Controller {
         private SociosBD db = new SociosBD();
 
@@ -45,7 +45,7 @@ namespace PortalSocios.Controllers {
                 }
             }
             catch (Exception) {
-                ModelState.AddModelError("", string.Format("Ocorreu um erro na criação de um novo funcionário. Verifique o NIF."));
+                ModelState.AddModelError("", string.Format("Não foi possível criar um novo funcionário. Verifique o NIF..."));
             }
             return View(funcionario);
         }
@@ -76,7 +76,7 @@ namespace PortalSocios.Controllers {
                 }
             }
             catch (Exception) {
-                ModelState.AddModelError("", string.Format("Ocorreu um erro na edição do funcionário. Verifique o NIF."));
+                ModelState.AddModelError("", string.Format("Não foi possível editar este funcionário. Verifique o NIF..."));
             }
             return View(funcionario);
         }
@@ -104,7 +104,7 @@ namespace PortalSocios.Controllers {
                 return RedirectToAction("Index");
             }
             catch (Exception) {
-                ModelState.AddModelError("", string.Format("Não é possível eliminar este funcionário."));
+                ModelState.AddModelError("", string.Format("Não foi possível eliminar este funcionário."));
             }
             return View(funcionario);
         }

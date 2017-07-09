@@ -5,9 +5,10 @@ using PortalSocios.Models;
 using System;
 
 namespace PortalSocios.Controllers {
+    [Authorize(Roles = "Funcionario")]
     public class QuotasController : Controller {
 
-        private SociosBD db = new SociosBD();        
+        private SociosBD db = new SociosBD();
 
         // GET: Quotas
         public ActionResult Index() {
@@ -40,8 +41,8 @@ namespace PortalSocios.Controllers {
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Referencia,AuxMontante,Ano,Periodicidade,CategoriaFK")] Quotas quota) {
             try {
-                // recuperar, converter e atribuir o valor do Montante da Quota
-                quota.Montante = Convert.ToDecimal(quota.AuxMontante);                
+                // recuperar, converter e atribuir o valor do montante da quota
+                quota.Montante = Convert.ToDecimal(quota.AuxMontante);
                 if (ModelState.IsValid) {
                     db.Quotas.Add(quota);
                     db.SaveChanges();
@@ -49,7 +50,7 @@ namespace PortalSocios.Controllers {
                 }
             }
             catch (Exception) {
-                ModelState.AddModelError("", string.Format("Ocorreu um erro na criação de uma nova quota. Verifique a referência."));
+                ModelState.AddModelError("", string.Format("Não foi possível criar uma nova quota. Verifique a referência..."));
             }
             ViewBag.CategoriaFK = new SelectList(db.Categorias, "CategoriaID", "Nome", quota.CategoriaFK);
             return View(quota);
@@ -74,7 +75,7 @@ namespace PortalSocios.Controllers {
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "QuotaID,Referencia,AuxMontante,Ano,Periodicidade,CategoriaFK")] Quotas quota) {
-            // recuperar, converter e atribuir o valor do Montante da Quota
+            // recuperar, converter e atribuir o valor do montante da quota
             quota.Montante = Convert.ToDecimal(quota.AuxMontante);
             try {
                 if (ModelState.IsValid) {
@@ -84,7 +85,7 @@ namespace PortalSocios.Controllers {
                 }
             }
             catch (Exception) {
-                ModelState.AddModelError("", string.Format("Ocorreu um erro na edição da quota. Verifique a referência."));
+                ModelState.AddModelError("", string.Format("Não foi possível editar esta quota. Verifique a referência..."));
             }
             ViewBag.CategoriaFK = new SelectList(db.Categorias, "CategoriaID", "Nome", quota.CategoriaFK);
             return View(quota);
@@ -113,7 +114,7 @@ namespace PortalSocios.Controllers {
                 return RedirectToAction("Index");
             }
             catch (Exception) {
-                ModelState.AddModelError("", string.Format("Não é possível eliminar esta quota."));
+                ModelState.AddModelError("", string.Format("Não foi possível eliminar esta quota."));
             }
             return View(quota);
         }

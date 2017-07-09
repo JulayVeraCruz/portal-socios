@@ -41,6 +41,10 @@ namespace PortalSocios.Models {
         [Display(Name = "Multa")]
         public string AuxMulta { get; set; }
 
+        // criação de um atributo para ligar a tabela 'Pagamentos' à tabela de utilizadores
+        [Display(Name = "Username")]
+        public string UserName { get; set; }
+
         // criação das chaves forasteiras
         [ForeignKey("Quota")]
         public int QuotaFK { get; set; }

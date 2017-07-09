@@ -72,9 +72,9 @@ namespace PortalSocios.Models {
         [Display(Name = "Data de Inscrição")]
         public DateTime DataInscr { get; set; }
 
-        // criação de um atributo para ligar este atributo à BD de autenticação
+        // criação de um atributo para ligar a tabela 'Pagamentos' à tabela de utilizadores
         [Display(Name = "Username")]
-        public string UserName { get; set; } // corresponde ao LOGIN 
+        public string UserName { get; set; }
 
         // um sócio tem uma coleção de pagamentos
         public virtual ICollection<Pagamentos> ListaPagamentos { get; set; }

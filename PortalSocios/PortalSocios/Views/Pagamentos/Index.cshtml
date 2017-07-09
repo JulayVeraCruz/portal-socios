@@ -40,6 +40,9 @@
                     Quota
                 </th>
                 @if (User.IsInRole("Funcionario")) {
+                    <th class="colunas">
+                        @Html.DisplayNameFor(model => model.UserName)
+                    </th>
                     <th class="colCentro">
                         Funcionário
                     </th>
@@ -71,6 +74,9 @@
                         @Html.DisplayFor(modelItem => item.Quota.Referencia)
                     </td>
                     @if (User.IsInRole("Funcionario")) {
+                        <td class="colunas">
+                            @Html.DisplayFor(modelItem => item.UserName)
+                        </td>
                         <td class="colunas">
                             @Html.DisplayFor(modelItem => item.Funcionario.Nome)
                         </td>

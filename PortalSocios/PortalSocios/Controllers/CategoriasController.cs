@@ -5,9 +5,8 @@ using PortalSocios.Models;
 using System;
 
 namespace PortalSocios.Controllers {
-    [Authorize]
-    public class CategoriasController : Controller
-    {
+    [Authorize(Roles = "Funcionario")]
+    public class CategoriasController : Controller {
         private SociosBD db = new SociosBD();
 
         // GET: Categorias
@@ -39,7 +38,7 @@ namespace PortalSocios.Controllers {
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Nome,FaixaEtaria,NumQuotasAnuais,AuxValorMensal")] Categorias categoria) {
             try {
-                // recuperar, converter e atribuir o Valor Mensal da Categoria
+                // recuperar, converter e atribuir o valor mensal da categoria
                 categoria.ValorMensal = Convert.ToDecimal(categoria.AuxValorMensal);
 
                 if (ModelState.IsValid) {
@@ -49,7 +48,7 @@ namespace PortalSocios.Controllers {
                 }
             }
             catch (Exception) {
-                ModelState.AddModelError("", string.Format("Ocorreu um erro na criação de uma nova categoria."));
+                ModelState.AddModelError("", string.Format("Não foi possível criar uma nova categoria."));
             }
             return View(categoria);
         }
@@ -73,7 +72,7 @@ namespace PortalSocios.Controllers {
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "CategoriaID,Nome,FaixaEtaria,NumQuotasAnuais,AuxValorMensal")] Categorias categoria) {
             try {
-                // recuperar, converter e atribuir o Valor Mensal da Categoria
+                // recuperar, converter e atribuir o valor mensal da categoria
                 categoria.ValorMensal = Convert.ToDecimal(categoria.AuxValorMensal);
 
                 if (ModelState.IsValid) {
@@ -83,7 +82,7 @@ namespace PortalSocios.Controllers {
                 }
             }
             catch (Exception) {
-                ModelState.AddModelError("", string.Format("Ocorreu um erro na edição da categoria."));
+                ModelState.AddModelError("", string.Format("Não foi possível editar esta categoria."));
             }
             return View(categoria);
         }
@@ -111,7 +110,7 @@ namespace PortalSocios.Controllers {
                 return RedirectToAction("Index");
             }
             catch (Exception) {
-                ModelState.AddModelError("", string.Format("Não é possível eliminar esta categoria."));
+                ModelState.AddModelError("", string.Format("Não foi possível eliminar esta categoria."));
             }
             return View(categoria);
         }

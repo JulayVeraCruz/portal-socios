@@ -4,10 +4,17 @@
         @Html.AntiForgeryToken()
 
         <ul class="nav navbar-nav navbar-right">
-            <li>
-                @Html.ActionLink("Bem-vindo " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "ligacoes" })
+
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle ligacoes" data-toggle="dropdown">Bem-vindo @User.Identity.GetUserName()!<b class="caret"></b></a>
+                <ul class="dropdown-menu drop">
+                    @if (User.IsInRole("Socio")) {
+                        <li><a href="~/Socios/Index">Ver/Alterar dados pessoais</a></li>
+                    }
+                    <li><a href="~/Manage/ChangePassword">Alterar palavra-passe</a></li>
+                    <li><a href="javascript:document.getElementById('logoutForm').submit()">Sair</a></li>
+                </ul>
             </li>
-            <li><a href="javascript:document.getElementById('logoutForm').submit()" class="ligacoes">Sair</a></li>
         </ul>
     }
 }

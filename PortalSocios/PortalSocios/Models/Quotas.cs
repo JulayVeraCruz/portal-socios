@@ -13,6 +13,7 @@ namespace PortalSocios.Models {
         [Key]
         public int QuotaID { get; set; }
 
+        [RegularExpression("[A-ZÁÂÉÍÓÚ][a-záàâãäèéêëìíîïòóôõöùúûüç]+-[0-9]+-[A-Z][a-z]+", ErrorMessage = "Introduza a {0} no formato Categoria-Ano-Periodicidade.")]
         [Required(ErrorMessage = "A {0} é obrigatória!")]
         [Display(Name = "Referência")]
         public string Referencia { get; set; }
@@ -30,8 +31,6 @@ namespace PortalSocios.Models {
         public int Ano { get; set; }
 
         [StringLength(15)]
-        [RegularExpression("[A-Z][a-z]+", ErrorMessage = "Introduza apenas letras. A {0} começa obrigatoriamente por uma maiúscula.")]
-        [Required(ErrorMessage = "A {0} é obrigatória!")]        
         public string Periodicidade { get; set; }
 
         // uma quota tem uma coleção de pagamentos

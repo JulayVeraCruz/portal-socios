@@ -30,6 +30,7 @@ namespace PortalSocios.Models {
         [Display(Name = "N.º Quotas Anuais")]
         public int NumQuotasAnuais { get; set; }
 
+        [Display(Name = "Valor Mensal")]
         public decimal ValorMensal { get; set; }
 
         // atributo auxiliar

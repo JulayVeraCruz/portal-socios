@@ -7,10 +7,15 @@
     <title>Lista de Sócios | Portal dos Sócios do Clube Desportivo Coxos da Bola</title>
 </head>
 <body>
-    <div class="titulo"><h3>Lista de Sócios</h3></div>
-    <div class="colunas">@Html.ActionLink("- Criar novo sócio -", "Create")</div>
+    @if (User.IsInRole("Funcionario")) {
+        <div class="titulo"><h3>Lista de Sócios</h3></div>
+        <div class="colunas">@Html.ActionLink("- Criar novo sócio -", "Create")</div>
+    }
+    @if (User.IsInRole("Socio")) {
+        <div class="titulo"><h3>Dados Pessoais</h3></div>
+    }
     <hr />
-    <div style="overflow-x: auto;">
+    <div id="lista">
         <table class="table">
             <tr>
                 <th class="colunas">
@@ -49,10 +54,10 @@
                 <th class="colunas">
                     Categoria
                 </th>
-                <th class="colunas">
-                    @Html.DisplayNameFor(model => model.UserName)
-                </th>
                 @if (User.IsInRole("Funcionario")) {
+                    <th class="colunas">
+                        @Html.DisplayNameFor(model => model.UserName)
+                    </th>
                     <th></th>
                 }
             </tr>
@@ -95,14 +100,20 @@
                     <td class="colunas">
                         @Html.DisplayFor(modelItem => item.Categoria.Nome)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UserName)
-                    </td>
                     @if (User.IsInRole("Funcionario")) {
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserName)
+                        </td>
                         <td>
                             @Html.ActionLink("Editar", "Edit", new { id = item.SocioID }) |
                             @Html.ActionLink("Detalhes", "Details", new { id = item.SocioID }) |
                             @Html.ActionLink("Eliminar", "Delete", new { id = item.SocioID })
+                        </td>
+                    }
+                    @if (User.IsInRole("Socio")) {
+                        <td>
+                            @Html.ActionLink("Editar", "Edit", new { id = item.SocioID }) |
+                            @Html.ActionLink("Detalhes", "Details", new { id = item.SocioID })
                         </td>
                     }
                 </tr>

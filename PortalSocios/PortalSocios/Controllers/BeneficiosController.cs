@@ -5,8 +5,8 @@ using PortalSocios.Models;
 using System;
 
 namespace PortalSocios.Controllers {
-    public class BeneficiosController : Controller
-    {
+    [Authorize(Roles = "Funcionario")]
+    public class BeneficiosController : Controller {
         private SociosBD db = new SociosBD();
 
         // GET: Beneficios
@@ -45,7 +45,7 @@ namespace PortalSocios.Controllers {
                 }
             }
             catch (Exception) {
-                ModelState.AddModelError("", string.Format("Ocorreu um erro na criação de um novo benefício."));
+                ModelState.AddModelError("", string.Format("Não foi possível criar um novo benefício."));
             }
             return View(beneficio);
         }
@@ -76,7 +76,7 @@ namespace PortalSocios.Controllers {
                 }
             }
             catch (Exception) {
-                ModelState.AddModelError("", string.Format("Ocorreu um erro na edição do benefício."));
+                ModelState.AddModelError("", string.Format("Não foi possível editar este benefício."));
             }
             return View(beneficio);
         }
@@ -104,7 +104,7 @@ namespace PortalSocios.Controllers {
                 return RedirectToAction("Index");
             }
             catch (Exception) {
-                ModelState.AddModelError("", string.Format("Não é possível eliminar este benefício."));
+                ModelState.AddModelError("", string.Format("Não foi possível eliminar este benefício."));
             }
             return View(beneficio);
         }

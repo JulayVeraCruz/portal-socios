@@ -5,14 +5,17 @@ using PortalSocios.Models;
 using System;
 
 namespace PortalSocios.Controllers {
-    [Authorize]
-    public class PagamentosController : Controller
-    {
+    [Authorize(Roles = "Funcionario, Socio")]
+    public class PagamentosController : Controller {
         private SociosBD db = new SociosBD();
 
         // GET: Pagamentos
         public ActionResult Index() {
             var pagamentos = db.Pagamentos.Include(p => p.Funcionario).Include(p => p.Quota).Include(p => p.Socio);
+            if (User.IsInRole("Socio")) {
+                // lista apenas os pagamentos relativos ao sócio que se autenticou
+                return View(db.Pagamentos.Where(p => p.UserName.Equals(User.Identity.Name)).OrderBy(p => p.DataPrevPagam).ToList());
+            }
             return View(pagamentos.OrderBy(p => p.Socio.Nome).ThenBy(p => p.DataPrevPagam).ToList());
         }
 
@@ -29,6 +32,7 @@ namespace PortalSocios.Controllers {
         }
 
         // GET: Pagamentos/Create
+        [Authorize(Roles = "Funcionario")]
         public ActionResult Create() {
             ViewBag.FuncionarioFK = new SelectList(db.Funcionarios, "FuncionarioID", "Nome");
             ViewBag.QuotaFK = new SelectList(db.Quotas, "QuotaID", "Referencia");
@@ -41,9 +45,10 @@ namespace PortalSocios.Controllers {
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "RefMultibanco,AuxMontante,DataPagam,DataPrevPagam,AuxMulta,QuotaFK,SocioFK,FuncionarioFK")] Pagamentos pagamento) {
+        [Authorize(Roles = "Funcionario")]
+        public ActionResult Create([Bind(Include = "RefMultibanco,AuxMontante,DataPagam,DataPrevPagam,AuxMulta,QuotaFK,SocioFK,UserName,FuncionarioFK")] Pagamentos pagamento) {
             try {
-                // recuperar, converter e atribuir o valor do Montante e da Multa do Pagamento
+                // recuperar, converter e atribuir o valor do montante e da multa do pagamento
                 pagamento.Montante = Convert.ToDecimal(pagamento.AuxMontante);
                 pagamento.Multa = Convert.ToDecimal(pagamento.AuxMulta);
 
@@ -54,7 +59,7 @@ namespace PortalSocios.Controllers {
                 }
             }
             catch (Exception) {
-                ModelState.AddModelError("", string.Format("Ocorreu um erro na criação de um novo pagamento. Verifique a referência multibanco."));
+                ModelState.AddModelError("", string.Format("Não foi possível criar um novo pagamento. Verifique a referência multibanco..."));
             }
             ViewBag.FuncionarioFK = new SelectList(db.Funcionarios, "FuncionarioID", "Nome", pagamento.FuncionarioFK);
             ViewBag.QuotaFK = new SelectList(db.Quotas, "QuotaID", "Referencia", pagamento.QuotaFK);
@@ -63,6 +68,7 @@ namespace PortalSocios.Controllers {
         }
 
         // GET: Pagamentos/Edit/5
+        [Authorize(Roles = "Funcionario")]
         public ActionResult Edit(int? id) {
             if (id == null) {
                 return RedirectToAction("Index");
@@ -82,9 +88,10 @@ namespace PortalSocios.Controllers {
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PagamentoID,RefMultibanco,AuxMontante,DataPagam,DataPrevPagam,AuxMulta,QuotaFK,SocioFK,FuncionarioFK")] Pagamentos pagamento) {
+        [Authorize(Roles = "Funcionario")]
+        public ActionResult Edit([Bind(Include = "PagamentoID,RefMultibanco,AuxMontante,DataPagam,DataPrevPagam,AuxMulta,QuotaFK,SocioFK,UserName,FuncionarioFK")] Pagamentos pagamento) {
             try {
-                // recuperar, converter e atribuir o valor do Montante e da Multa do Pagamento
+                // recuperar, converter e atribuir o valor do montante e da multa do pagamento
                 pagamento.Montante = Convert.ToDecimal(pagamento.AuxMontante);
                 pagamento.Multa = Convert.ToDecimal(pagamento.AuxMulta);
 
@@ -95,7 +102,7 @@ namespace PortalSocios.Controllers {
                 }
             }
             catch (Exception) {
-                ModelState.AddModelError("", string.Format("Ocorreu um erro na edição do pagamento. Verifique a referência multibanco."));
+                ModelState.AddModelError("", string.Format("Não foi possível editar este pagamento. Verifique a referência multibanco..."));
             }
             ViewBag.FuncionarioFK = new SelectList(db.Funcionarios, "FuncionarioID", "Nome", pagamento.FuncionarioFK);
             ViewBag.QuotaFK = new SelectList(db.Quotas, "QuotaID", "Referencia", pagamento.QuotaFK);
@@ -104,6 +111,7 @@ namespace PortalSocios.Controllers {
         }
 
         // GET: Pagamentos/Delete/5
+        [Authorize(Roles = "Funcionario")]
         public ActionResult Delete(int? id) {
             if (id == null) {
                 return RedirectToAction("Index");
@@ -118,6 +126,7 @@ namespace PortalSocios.Controllers {
         // POST: Pagamentos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Funcionario")]
         public ActionResult DeleteConfirmed(int id) {
             Pagamentos pagamento = db.Pagamentos.Find(id);
             try {
@@ -126,7 +135,7 @@ namespace PortalSocios.Controllers {
                 return RedirectToAction("Index");
             }
             catch (Exception) {
-                ModelState.AddModelError("", string.Format("Não é possível eliminar este pagamento."));
+                ModelState.AddModelError("", string.Format("Não foi possível eliminar este pagamento."));
             }
             return View(pagamento);
         }

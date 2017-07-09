@@ -10,7 +10,6 @@ using System;
 using System.IO;
 
 namespace PortalSocios.Controllers {
-    [Authorize]
     public class AccountController : Controller {
 
         // cria um novo objeto que representa a BD
@@ -19,7 +18,7 @@ namespace PortalSocios.Controllers {
         public AccountController() {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager ) {
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager) {
             UserManager = userManager;
             SignInManager = signInManager;
         }
@@ -73,11 +72,11 @@ namespace PortalSocios.Controllers {
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
+                    ModelState.AddModelError("", "Tentativa de login inválida!");
                     return View(model);
             }
         }
-
+                
         //
         // GET: /Account/VerifyCode
         [AllowAnonymous]
@@ -130,7 +129,7 @@ namespace PortalSocios.Controllers {
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register([Bind(Include = "Nome,BI,NIF,DataNasc,Email,Telemovel,Morada,CodPostal,Fotografia,DataInscr,CategoriaFK")] Socios socio, RegisterViewModel model, HttpPostedFileBase foto) {
-            
+
             // atribui um username, uma categoria e uma data de inscrição a um novo sócio
             model.Email = socio.Email;
             socio.UserName = socio.Email;
@@ -148,10 +147,10 @@ namespace PortalSocios.Controllers {
             }
             // atribui um número de sócio a um novo sócio
             socio.NumSocio = novoNumSocio;
-            
+
             // tentativa de registar um novo sócio
             try {
-                                
+
                 // caso não haja um ficheiro selecionado
                 if (foto == null) {
                     ModelState.AddModelError("Fotografia", "Nenhum ficheiro selecionado!");
@@ -180,21 +179,27 @@ namespace PortalSocios.Controllers {
                     var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                     var result = await UserManager.CreateAsync(user, model.Password);
                     if (result.Succeeded) {
+                        // adiciona um utilizador ao role 'Socios'
+                        var RoleResult = await UserManager.AddToRoleAsync(user.Id, "Socio");
+                        if (!RoleResult.Succeeded) {
+                            ModelState.AddModelError("", string.Format("Não foi possível adicionar o utilizador ao role."));
+                            return View();
+                        }
                         var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                         var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                         await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
                         ViewBag.Link = callbackUrl;
-                        return View("DisplayEmail");
+                        ViewBag.Mensagem = "Conta criada com sucesso!";
+                        return View("Login");
                     }
                     AddErrors(result);
                 }
             }
             catch (Exception) {
                 // casos os dados introduzidos não estejam consistentes com o model, apresenta uma mensagem ao utilizador
-                ModelState.AddModelError("", string.Format("Não foi possível criar uma conta nova. Verifique o BI/CC, o NIF e/ou o E-mail."));
+                ModelState.AddModelError("", string.Format("Não foi possível criar uma conta nova. Verifique o E-mail, o BI/CC e/ou o NIF..."));
             }
             ViewBag.CategoriaFK = new SelectList(db.Categorias, "CategoriaID", "Nome", socio.CategoriaFK);
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
 
@@ -208,7 +213,7 @@ namespace PortalSocios.Controllers {
             var result = await UserManager.ConfirmEmailAsync(userId, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
-
+                
         //
         // GET: /Account/ForgotPassword
         [AllowAnonymous]
@@ -235,8 +240,6 @@ namespace PortalSocios.Controllers {
                 ViewBag.Link = callbackUrl;
                 return View("ForgotPasswordConfirmation");
             }
-
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
 
@@ -244,7 +247,8 @@ namespace PortalSocios.Controllers {
         // GET: /Account/ForgotPasswordConfirmation
         [AllowAnonymous]
         public ActionResult ForgotPasswordConfirmation() {
-            return View();
+            //return View();
+            return RedirectToAction("Indisponivel", "Erros");
         }
 
         //
@@ -391,12 +395,16 @@ namespace PortalSocios.Controllers {
             return RedirectToAction("Index", "Home");
         }
 
+        /*
+         * 
         //
         // GET: /Account/ExternalLoginFailure
         [AllowAnonymous]
         public ActionResult ExternalLoginFailure() {
             return View();
         }
+
+        */
 
         #region Helpers
         // Used for XSRF protection when adding external logins

@@ -7,14 +7,14 @@
     <title> Quotas | Portal dos Sócios do Clube Desportivo Coxos da Bola</title>
 </head>
 <body>
-    <div class="titulo"><h3>Quotas</h3></div>
+    <div class="titulo"><h2>Quotas</h2></div>
     <hr />
     <div class="container">
         <div class="row painel">
             @foreach (var item in Model) {
                 <div class="col-lg-4 col-sm-6 text-center">
                     <img class="img-circle img-responsive img-center imagem" src="http://placehold.it/200x200" />
-                    <h4>@Html.DisplayFor(modelItem => item.Nome)</h4>
+                    <h4>Sócio @Html.DisplayFor(modelItem => item.Nome)</h4>
                 </div>
             }
         </div>

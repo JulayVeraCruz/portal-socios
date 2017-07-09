@@ -11,24 +11,21 @@
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" })) {
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                if (ViewBag.Mensagem != null) {
+                    <div class="titulo col-md-12" style="color:forestgreen; font-weight:bold;">@ViewBag.Mensagem</div>
+                }
+
                 <div class="form-group">
                     <div class="col-md-12">
                         @Html.TextBoxFor(m => m.Email, new { @class = "form-control entrada", @placeholder = "E-mail" })
-                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(m => m.Email, "")
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-12">
                         @Html.PasswordFor(m => m.Password, new { @class = "form-control entrada", @placeholder = "Palavra-passe" })
-                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-12">
-                        <div class="checkbox">
-                            @Html.CheckBoxFor(m => m.RememberMe)
-                            @Html.LabelFor(m => m.RememberMe)
-                        </div>
+                        @Html.ValidationMessageFor(m => m.Password, "")
                     </div>
                 </div>
                 <div class="form-group">
@@ -37,7 +34,7 @@
                     </div>
                 </div>
                 <p class="col-md-12">
-                    @Html.ActionLink("Criar uma conta nova?", "Register")
+                    Não tens uma conta? @Html.ActionLink("Regista-te e torna-te sócio!", "Register")
                 </p>
                 <p class="col-md-12">
                     @Html.ActionLink("Esqueceste-te da tua palavra-passe?", "Indisponivel", "Erros")

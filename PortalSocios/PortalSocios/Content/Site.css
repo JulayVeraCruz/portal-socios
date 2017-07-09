@@ -22,7 +22,8 @@ textarea {
 
 /* styles for validation helpers */
 .field-validation-error {
-    color: #b94a48;
+    color: #cb0f0f;
+    font-weight: bold;
 }
 
 .field-validation-valid {
@@ -30,7 +31,7 @@ textarea {
 }
 
 input.input-validation-error {
-    border: 1px solid #b94a48;
+    border: 1px solid #cb0f0f;
 }
 
 input[type="checkbox"].input-validation-error {
@@ -38,7 +39,7 @@ input[type="checkbox"].input-validation-error {
 }
 
 .validation-summary-errors {
-    color: #aa0000;
+    color: #cb0f0f;
     font-weight: bold;
 }
 
@@ -46,7 +47,15 @@ input[type="checkbox"].input-validation-error {
     display: none;
 }
 
+
 /* ########## CSS ADICIONADO ########## */
+
+#rodape {
+    color: #000000;
+    font-weight: bold;
+    font-size: 12px;
+    text-align: center;
+}
 
 #foto {
     margin-top: 25px;
@@ -54,18 +63,17 @@ input[type="checkbox"].input-validation-error {
 
 #lista {
     overflow-x: auto;
-    border-radius: 5px;
+    border-radius: 15px;
 }
 
 .titulo {
     text-align: center;
-    color: #000000;
 }
 
 .painel {
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.5);
     padding: 25px 0px 25px 0px;
-    border-radius: 5px;
+    border-radius: 15px;
     text-align:center;
 }
 
@@ -130,4 +138,8 @@ input[type="checkbox"].input-validation-error {
     margin-top:20px;
     text-align:right;
     font-weight:bold;
+}
+
+.drop {
+    width: 100%;
 }

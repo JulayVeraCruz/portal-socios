@@ -31,7 +31,7 @@ namespace PortalSocios {
                 var user = new ApplicationUser();
                 user.UserName = "dalves@coxos.pt";
                 user.Email = "dalves@coxos.pt";
-                string userPWD = "123qwe#";
+                string userPWD = "123Qwe#";
                 var chkUser = userManager.Create(user, userPWD);
 
                 // adiciona o utilizador à respetiva role 'Funcionario'
@@ -52,7 +52,7 @@ namespace PortalSocios {
                 var user = new ApplicationUser();
                 user.UserName = "smodesto@gmail.com";
                 user.Email = "smodesto@gmail.com";
-                string userPWD = "456qwe#";
+                string userPWD = "456Qwe#";
                 var chkUser = userManager.Create(user, userPWD);
                 
                 // adiciona o utilizador à respetiva role 'Socio'

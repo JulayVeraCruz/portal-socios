@@ -6,61 +6,54 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System;
 
 namespace PortalSocios.Controllers {
-    [Authorize]
-    public class UsersAdminController : Controller
-    {
-        public UsersAdminController()
-        {
+
+    [Authorize(Roles = "Funcionario")]
+    public class UsersAdminController : Controller {
+        public UsersAdminController() {
         }
 
-        public UsersAdminController(ApplicationUserManager userManager, ApplicationRoleManager roleManager)
-        {
+        public UsersAdminController(ApplicationUserManager userManager, ApplicationRoleManager roleManager) {
             UserManager = userManager;
             RoleManager = roleManager;
         }
 
         private ApplicationUserManager _userManager;
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
+        public ApplicationUserManager UserManager {
+            get {
                 return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
-            private set
-            {
+            private set {
                 _userManager = value;
             }
         }
 
         private ApplicationRoleManager _roleManager;
-        public ApplicationRoleManager RoleManager
-        {
-            get
-            {
+        public ApplicationRoleManager RoleManager {
+            get {
                 return _roleManager ?? HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
             }
-            private set
-            {
+            private set {
                 _roleManager = value;
             }
         }
 
+
+        // ##################################################
+
         //
         // GET: /Users/
-        public async Task<ActionResult> Index()
-        {
+        public async Task<ActionResult> Index() {
             return View(await UserManager.Users.ToListAsync());
         }
 
         //
         // GET: /Users/Details/5
-        public async Task<ActionResult> Details(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        public async Task<ActionResult> Details(string id) {
+            if (id == null) {
+                return RedirectToAction("Index");
             }
             var user = await UserManager.FindByIdAsync(id);
 
@@ -71,8 +64,7 @@ namespace PortalSocios.Controllers {
 
         //
         // GET: /Users/Create
-        public async Task<ActionResult> Create()
-        {
+        public async Task<ActionResult> Create() {
             //Get the list of Roles
             ViewBag.RoleId = new SelectList(await RoleManager.Roles.ToListAsync(), "Name", "Name");
             return View();
@@ -81,35 +73,33 @@ namespace PortalSocios.Controllers {
         //
         // POST: /Users/Create
         [HttpPost]
-        public async Task<ActionResult> Create(RegisterViewModel userViewModel, params string[] selectedRoles)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = new ApplicationUser { UserName = userViewModel.Email, Email = userViewModel.Email };
-                var adminresult = await UserManager.CreateAsync(user, userViewModel.Password);
+        public async Task<ActionResult> Create(RegisterViewModel userViewModel, params string[] selectedRoles) {
+            try {
+                if (ModelState.IsValid) {
+                    var user = new ApplicationUser { UserName = userViewModel.Email, Email = userViewModel.Email };
+                    var adminresult = await UserManager.CreateAsync(user, userViewModel.Password);
 
-                //Add User to the selected Roles 
-                if (adminresult.Succeeded)
-                {
-                    if (selectedRoles != null)
-                    {
-                        var result = await UserManager.AddToRolesAsync(user.Id, selectedRoles);
-                        if (!result.Succeeded)
-                        {
-                            ModelState.AddModelError("", result.Errors.First());
-                            ViewBag.RoleId = new SelectList(await RoleManager.Roles.ToListAsync(), "Name", "Name");
-                            return View();
+                    //Add User to the selected Roles 
+                    if (adminresult.Succeeded) {
+                        if (selectedRoles != null) {
+                            var result = await UserManager.AddToRolesAsync(user.Id, selectedRoles);
+                            if (!result.Succeeded) {
+                                ModelState.AddModelError("", result.Errors.First());
+                                ViewBag.RoleId = new SelectList(await RoleManager.Roles.ToListAsync(), "Name", "Name");
+                                return View();
+                            }
                         }
                     }
+                    else {
+                        ModelState.AddModelError("", adminresult.Errors.First());
+                        ViewBag.RoleId = new SelectList(RoleManager.Roles, "Name", "Name");
+                        return View();
+                    }
+                    return RedirectToAction("Index");
                 }
-                else
-                {
-                    ModelState.AddModelError("", adminresult.Errors.First());
-                    ViewBag.RoleId = new SelectList(RoleManager.Roles, "Name", "Name");
-                    return View();
-
-                }
-                return RedirectToAction("Index");
+            }
+            catch (Exception) {
+                ModelState.AddModelError("", string.Format("Não foi possível criar um novo utilizador."));
             }
             ViewBag.RoleId = new SelectList(RoleManager.Roles, "Name", "Name");
             return View();
@@ -117,26 +107,21 @@ namespace PortalSocios.Controllers {
 
         //
         // GET: /Users/Edit/1
-        public async Task<ActionResult> Edit(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        public async Task<ActionResult> Edit(string id) {
+            if (id == null) {
+                return RedirectToAction("Index");
             }
             var user = await UserManager.FindByIdAsync(id);
-            if (user == null)
-            {
-                return HttpNotFound();
+            if (user == null) {
+                return RedirectToAction("Index");
             }
 
             var userRoles = await UserManager.GetRolesAsync(user.Id);
 
-            return View(new EditUserViewModel()
-            {
+            return View(new EditUserViewModel() {
                 Id = user.Id,
                 Email = user.Email,
-                RolesList = RoleManager.Roles.ToList().Select(x => new SelectListItem()
-                {
+                RolesList = RoleManager.Roles.ToList().Select(x => new SelectListItem() {
                     Selected = userRoles.Contains(x.Name),
                     Text = x.Name,
                     Value = x.Name
@@ -148,55 +133,51 @@ namespace PortalSocios.Controllers {
         // POST: /Users/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Email,Id")] EditUserViewModel editUser, params string[] selectedRole)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = await UserManager.FindByIdAsync(editUser.Id);
-                if (user == null)
-                {
-                    return HttpNotFound();
+        public async Task<ActionResult> Edit([Bind(Include = "Email,Id")] EditUserViewModel editUser, params string[] selectedRole) {
+            try {
+                if (ModelState.IsValid) {
+                    var user = await UserManager.FindByIdAsync(editUser.Id);
+                    if (user == null) {
+                        return RedirectToAction("Index");
+                    }
+
+                    user.UserName = editUser.Email;
+                    user.Email = editUser.Email;
+
+                    var userRoles = await UserManager.GetRolesAsync(user.Id);
+
+                    selectedRole = selectedRole ?? new string[] { };
+
+                    var result = await UserManager.AddToRolesAsync(user.Id, selectedRole.Except(userRoles).ToArray<string>());
+
+                    if (!result.Succeeded) {
+                        ModelState.AddModelError("", result.Errors.First());
+                        return View();
+                    }
+                    result = await UserManager.RemoveFromRolesAsync(user.Id, userRoles.Except(selectedRole).ToArray<string>());
+
+                    if (!result.Succeeded) {
+                        ModelState.AddModelError("", result.Errors.First());
+                        return View();
+                    }
+                    return RedirectToAction("Index");
                 }
-
-                user.UserName = editUser.Email;
-                user.Email = editUser.Email;
-
-                var userRoles = await UserManager.GetRolesAsync(user.Id);
-
-                selectedRole = selectedRole ?? new string[] { };
-
-                var result = await UserManager.AddToRolesAsync(user.Id, selectedRole.Except(userRoles).ToArray<string>());
-
-                if (!result.Succeeded)
-                {
-                    ModelState.AddModelError("", result.Errors.First());
-                    return View();
-                }
-                result = await UserManager.RemoveFromRolesAsync(user.Id, userRoles.Except(selectedRole).ToArray<string>());
-
-                if (!result.Succeeded)
-                {
-                    ModelState.AddModelError("", result.Errors.First());
-                    return View();
-                }
-                return RedirectToAction("Index");
             }
-            ModelState.AddModelError("", "Something failed.");
+            catch (Exception) {
+                ModelState.AddModelError("", string.Format("Não foi possível editar este utilizador."));
+            }
             return View();
         }
 
         //
         // GET: /Users/Delete/5
-        public async Task<ActionResult> Delete(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        public async Task<ActionResult> Delete(string id) {
+            if (id == null) {
+                return RedirectToAction("Index");
             }
             var user = await UserManager.FindByIdAsync(id);
-            if (user == null)
-            {
-                return HttpNotFound();
+            if (user == null) {
+                return RedirectToAction("Index");
             }
             return View(user);
         }
@@ -205,27 +186,27 @@ namespace PortalSocios.Controllers {
         // POST: /Users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(string id)
-        {
-            if (ModelState.IsValid)
-            {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
+        public async Task<ActionResult> DeleteConfirmed(string id) {
+            try {
+                if (ModelState.IsValid) {
+                    if (id == null) {
+                        return RedirectToAction("Index");
+                    }
 
-                var user = await UserManager.FindByIdAsync(id);
-                if (user == null)
-                {
-                    return HttpNotFound();
+                    var user = await UserManager.FindByIdAsync(id);
+                    if (user == null) {
+                        return RedirectToAction("Index");
+                    }
+                    var result = await UserManager.DeleteAsync(user);
+                    if (!result.Succeeded) {
+                        ModelState.AddModelError("", result.Errors.First());
+                        return View();
+                    }
+                    return RedirectToAction("Index");
                 }
-                var result = await UserManager.DeleteAsync(user);
-                if (!result.Succeeded)
-                {
-                    ModelState.AddModelError("", result.Errors.First());
-                    return View();
-                }
-                return RedirectToAction("Index");
+            }
+            catch (Exception) {
+                ModelState.AddModelError("", string.Format("Não foi possível eliminar este utilizador."));
             }
             return View();
         }
