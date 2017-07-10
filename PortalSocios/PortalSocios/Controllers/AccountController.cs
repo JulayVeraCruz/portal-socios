@@ -158,23 +158,21 @@ namespace PortalSocios.Controllers {
 
                 // caso os dados introduzidos estejam consistentes com o model
                 if (ModelState.IsValid) {
-                    // http://haacked.com/archive/2010/07/16/uploading-files-with-aspnetmvc.aspx/
+                    // ref: http://haacked.com/archive/2010/07/16/uploading-files-with-aspnetmvc.aspx/
                     // caso haja um ficheiro selecionado e o tamanho seja superior a 0
                     if (foto != null && foto.ContentLength > 0) {
                         // obtém o nome do ficheiro
                         var fileName = "n" + Convert.ToString(socio.NumSocio) + "_" + Path.GetFileName(foto.FileName);
-                        // guarda o ficheiro na pasta indicada
-                        var path = Path.Combine(Server.MapPath("~/App_Data/Fotos"), fileName);
-                        foto.SaveAs(path);
                         // atribui o nome do ficheiro a um novo sócio
                         socio.Fotografia = fileName;
+                        // adiciona um novo sócio
+                        db.Socios.Add(socio);
+                        // guarda as alterações na BD
+                        db.SaveChanges();
+                        // guarda o ficheiro na pasta indicada
+                        var path = Path.Combine(Server.MapPath("~/App_Data/FotosSocios"), fileName);
+                        foto.SaveAs(path);
                     }
-
-                    // adiciona um novo sócio
-                    db.Socios.Add(socio);
-                    // guarda as alterações na BD
-                    db.SaveChanges();
-
                     // cria a conta de utilizador
                     var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                     var result = await UserManager.CreateAsync(user, model.Password);
@@ -183,7 +181,7 @@ namespace PortalSocios.Controllers {
                         var RoleResult = await UserManager.AddToRoleAsync(user.Id, "Socio");
                         if (!RoleResult.Succeeded) {
                             ModelState.AddModelError("", string.Format("Não foi possível adicionar o utilizador ao role."));
-                            return View();
+                            return View(model);
                         }
                         var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                         var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);

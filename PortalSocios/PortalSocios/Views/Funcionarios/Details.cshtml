@@ -1,73 +1,37 @@
 ﻿@model PortalSocios.Models.Funcionarios
 
-@{
-    ViewBag.Title = "Details";
-}
-
-<h3>Detalhes do Funcionário</h3>
-
-<div>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8" />
+    <title>Detalhes do Funcionário | Portal dos Sócios do Clube Desportivo Coxos da Bola</title>
+</head>
+<body>
+    <div class="titulo"><h3>DETALHES DO FUNCIONÁRIO</h3></div>
+    <div class="titulo"><h5>@Html.ActionLink("- Voltar à lista -", "Index")</h5></div>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
+    <div class="container painel2">
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.Nome)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.Nome)</div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.NIF)
-        </dt>
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.NIF)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.NIF)</div>
 
-        <dd>
-            @Html.DisplayFor(model => model.NIF)
-        </dd>
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.Email)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.Email)</div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.Telemovel)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.Telemovel)</div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.Morada)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.Morada)</div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Telemovel)
-        </dt>
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.CodPostal)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.CodPostal)</div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Telemovel)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Morada)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Morada)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CodPostal)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CodPostal)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DataEntrClube)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DataEntrClube)
-        </dd>
-
-    </dl>
-</div>
-<p>    
-    @Html.ActionLink("Voltar à lista", "Index") |
-    @Html.ActionLink("Editar", "Edit", new { id = Model.FuncionarioID })
-</p>
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.DataEntrClube)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.DataEntrClube)</div>
+    </div>
+</body>
+</html>

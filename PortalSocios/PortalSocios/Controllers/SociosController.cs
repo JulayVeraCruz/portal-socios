@@ -8,7 +8,7 @@ using System.IO;
 
 namespace PortalSocios.Controllers {
 
-    [Authorize(Roles = "Funcionario, Socio")]
+    [Authorize(Roles = "Administrador, Funcionario, Socio")]
     public class SociosController : Controller {
 
         // cria um novo objeto que representa a BD
@@ -19,7 +19,7 @@ namespace PortalSocios.Controllers {
             // inclui os dados das categorias na view Socios
             var socios = db.Socios.Include(s => s.Categoria);
             // caso o utilizador seja funcionário
-            if (User.IsInRole("Funcionario")) {
+            if (User.IsInRole("Administrador") || User.IsInRole("Funcionario")) {
 
                 // ref: https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-
                 ViewBag.OrdNum = String.IsNullOrEmpty(ordenar) ? "numDesc" : "";
@@ -76,7 +76,7 @@ namespace PortalSocios.Controllers {
         }
 
         // GET: Socios/Create
-        [Authorize(Roles = "Funcionario")]
+        [Authorize(Roles = "Administrador, Funcionario")]
         public ActionResult Create() {
             ViewBag.CategoriaFK = new SelectList(db.Categorias, "CategoriaID", "Nome");
             return View();
@@ -87,7 +87,7 @@ namespace PortalSocios.Controllers {
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Funcionario")]
+        [Authorize(Roles = "Administrador, Funcionario")]
         public ActionResult Create([Bind(Include = "Nome,BI,NIF,DataNasc,Email,Telemovel,Morada,CodPostal,Fotografia,DataInscr,CategoriaFK")] Socios socio, HttpPostedFileBase foto2) {
             // atribui um username e uma data de inscrição a um novo sócio
             socio.UserName = socio.Email;
@@ -115,22 +115,21 @@ namespace PortalSocios.Controllers {
 
                 // caso os dados introduzidos estejam consistentes com o model
                 if (ModelState.IsValid) {
-                    // http://haacked.com/archive/2010/07/16/uploading-files-with-aspnetmvc.aspx/
+                    // ref: http://haacked.com/archive/2010/07/16/uploading-files-with-aspnetmvc.aspx/
                     // caso haja um ficheiro selecionado e o tamanho seja superior a 0
                     if (foto2 != null && foto2.ContentLength > 0) {
                         // obtém o nome do ficheiro
                         var fileName = "n" + Convert.ToString(socio.NumSocio) + "_" + Path.GetFileName(foto2.FileName);
-                        // guarda o ficheiro na pasta indicada
-                        var path = Path.Combine(Server.MapPath("~/App_Data/Fotos"), fileName);
-                        foto2.SaveAs(path);
                         // atribui o nome do ficheiro a um novo sócio
                         socio.Fotografia = fileName;
+                        // adiciona um novo sócio
+                        db.Socios.Add(socio);
+                        // guarda as alterações na BD
+                        db.SaveChanges();                        
+                        // guarda o ficheiro na pasta indicada
+                        var path = Path.Combine(Server.MapPath("~/App_Data/FotosSocios"), fileName);
+                        foto2.SaveAs(path);                        
                     }
-
-                    // adiciona um novo sócio
-                    db.Socios.Add(socio);
-                    // guarda as alterações na BD
-                    db.SaveChanges();
                     // redireciona para a lista de sócios
                     return RedirectToAction("Index");
                 }
@@ -185,21 +184,20 @@ namespace PortalSocios.Controllers {
 
                 // caso os dados introduzidos estejam consistentes com o model
                 if (ModelState.IsValid) {
-                    // http://haacked.com/archive/2010/07/16/uploading-files-with-aspnetmvc.aspx/
+                    // ref: http://haacked.com/archive/2010/07/16/uploading-files-with-aspnetmvc.aspx/
                     // caso haja um ficheiro selecionado e o tamanho seja superior a 0
                     if (foto3 != null && foto3.ContentLength > 0) {
                         // obtém o nome do ficheiro
                         var fileName = "n" + Convert.ToString(socio.NumSocio) + "_" + Path.GetFileName(foto3.FileName);
-                        // guarda o ficheiro na pasta indicada
-                        var path = Path.Combine(Server.MapPath("~/App_Data/Fotos"), fileName);
-                        foto3.SaveAs(path);
                         // atribui o nome do ficheiro a um novo sócio
                         socio.Fotografia = fileName;
-                    }
-
-                    db.Entry(socio).State = EntityState.Modified;
-                    // guarda as alterações na BD
-                    db.SaveChanges();
+                        db.Entry(socio).State = EntityState.Modified;
+                        // guarda as alterações na BD
+                        db.SaveChanges();
+                        // guarda o ficheiro na pasta indicada
+                        var path = Path.Combine(Server.MapPath("~/App_Data/FotosSocios"), fileName);
+                        foto3.SaveAs(path);
+                    }                    
                     // redireciona para a lista de sócios
                     return RedirectToAction("Index");
                 }
@@ -214,7 +212,7 @@ namespace PortalSocios.Controllers {
         }
 
         // GET: Socios/Delete/5
-        [Authorize(Roles = "Funcionario")]
+        [Authorize(Roles = "Administrador, Funcionario")]
         public ActionResult Delete(int? id) {
             // caso não se indique um id
             if (id == null) {
@@ -234,7 +232,7 @@ namespace PortalSocios.Controllers {
 
         // POST: Socios/Delete/5
         [HttpPost, ActionName("Delete")]
-        [Authorize(Roles = "Funcionario")]
+        [Authorize(Roles = "Administrador, Funcionario")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id) {
             // procura o sócio com o id indicado

@@ -9,21 +9,28 @@
 <body>
     <!-- título -->
     <div class="titulo"><h3>LISTA DE PAGAMENTOS</h3></div>
-    @if (User.IsInRole("Funcionario")) {
-        <div class="titulo"><h5>@Html.ActionLink("- Criar novo pagamento -", "Create")</h5></div>
+
+    @if (User.IsInRole("Administrador") || User.IsInRole("Funcionario")) {
+    <!-- criar novo pagamento -->
+        <div class="col-md-12" style="text-align:center; margin-top: 20px;">
+            <input type="button" class="btn btn-primary" value="Criar Novo Pagamento" onclick="location.href='@Url.Action("Create", "Pagamentos")'" style="font-size: 16px;" />
+        </div>
     }
+    
     <hr />
 
+    @if (User.IsInRole("Administrador") || User.IsInRole("Funcionario")) {
     <!-- interface de pesquisa -->
-    @using (Html.BeginForm()) {
-        <p style="text-align: center;">
-            @Html.TextBox("pesquisar", "", new { @class = "form-control", @maxlength = "9", @placeholder = "Pesquisa por referência", @style = "display: inline; width: 200px" })
-            <input type="submit" class="btn btn-primary" value="Pesquisar" />
-        </p>
+        using (Html.BeginForm()) {
+            <p style="text-align: center;">
+                @Html.TextBox("pesquisar", "", new { @class = "form-control", @maxlength = "9", @placeholder = "Pesquisa por referência", @style = "display: inline; width: 200px" })
+                <input type="submit" class="btn btn-primary" value="Pesquisar" />
+            </p>
+        }
     }
 
     <!-- nota -->
-    <div style="text-align:center;">** Só estão apresentados os atributos mais relevantes. Os restantes podem ser consultados individualmente nos detalhes de cada pagamento. **</div>
+    <div style="text-align:center;">** Só estão apresentados os dados mais relevantes. Os restantes podem ser consultados nos detalhes de cada pagamento. **</div>
 
     <div style="text-align:center;">
         <div style="display: inline-block;">
@@ -31,30 +38,61 @@
             <table class="table">
                 <!-- cabeçalhos -->
                 <tr>
-                    <th class="colCentro">@Html.ActionLink("Sócio", "Index", new { ordenar = ViewBag.OrdSocio })</th>
-                    <th class="colCentro">@Html.ActionLink("Referência Multibanco", "Index", new { ordenar = ViewBag.OrdRef })</th>
+                    @if (User.IsInRole("Administrador") || User.IsInRole("Funcionario")) {
+                        <th class="colCentro">@Html.ActionLink("Sócio", "Index", new { ordenar = ViewBag.OrdSocio })</th>                        
+                    }
+                    <th class="colCentro">@Html.DisplayNameFor(model => model.Quota)</th>
+                    @if (User.IsInRole("Administrador") || User.IsInRole("Funcionario")) {
+                        <th class="colCentro">@Html.ActionLink("Referência Multibanco", "Index", new { ordenar = ViewBag.OrdRef })</th>
+                    }
+                    @if (User.IsInRole("Socio")) {
+                        <th class="colCentro">@Html.DisplayNameFor(model => model.RefMultibanco)</th>
+                    }
                     <th class="colCentro">@Html.DisplayNameFor(model => model.Montante)</th>
                     <th class="colCentro">@Html.DisplayNameFor(model => model.DataPagam)</th>
                     <th class="colCentro">@Html.DisplayNameFor(model => model.DataPrevPagam)</th>
-                    <th class="colCentro">@Html.DisplayNameFor(model => model.Multa)</th>
-                    <th class="colCentro">Quota</th>
-                    <th class="colCentro">Opções de Gestão</th>
+                    <th class="colCentro">@Html.DisplayNameFor(model => model.Multa)</th>                    
+                    @if (User.IsInRole("Administrador") || User.IsInRole("Funcionario")) {
+                        <th class="colCentro">Opções de Gestão</th>
+                    }
+                    @if (User.IsInRole("Socio")) {
+                        <th class="colCentro">Opções de Consulta</th>
+                    }
                 </tr>
                 <!-- dados dos pagamentos -->
                 @foreach (var item in Model) {
                     <tr>
-                        <td class="colEsq">@Html.DisplayFor(modelItem => item.Socio.Nome)</td>
+                        @if (User.IsInRole("Administrador") || User.IsInRole("Funcionario")) {
+                            <td class="colEsq">@Html.DisplayFor(modelItem => item.Socio.Nome)</td>
+                        }
+                        <td class="colEsq">@Html.DisplayFor(modelItem => item.Quota.Referencia)</td>
                         <td class="colCentro">@Html.DisplayFor(modelItem => item.RefMultibanco)</td>
                         <td class="colCentro">@Html.DisplayFor(modelItem => item.Montante) €</td>
-                        <td class="colCentro">@Html.DisplayFor(modelItem => item.DataPagam)</td>
+                        @if (item.DataPagam == null) {
+                            <td class="colCentro">-</td>
+                        }
+                        else {
+                            <td class="colCentro">@Html.DisplayFor(modelItem => item.DataPagam)</td>
+                        }
                         <td class="colCentro">@Html.DisplayFor(modelItem => item.DataPrevPagam)</td>
-                        <td class="colCentro">@Html.DisplayFor(modelItem => item.Multa) €</td>
-                        <td class="colEsq">@Html.DisplayFor(modelItem => item.Quota.Referencia)</td>
-                        @if (User.IsInRole("Funcionario")) {
+                        @if (item.Multa == null) {
+                            <td class="colCentro">-</td>
+                        }
+                        else {
+                            <td class="colCentro">@Html.DisplayFor(modelItem => item.Multa) €</td>
+                        }
+                        <!-- opções de gestão -->
+                        @if (User.IsInRole("Administrador")) {
                             <td class="colCentro">
                                 @Html.ActionLink("Editar", "Edit", new { id = item.PagamentoID }) |
                                 @Html.ActionLink("Detalhes", "Details", new { id = item.PagamentoID }) |
                                 @Html.ActionLink("Eliminar", "Delete", new { id = item.PagamentoID })
+                            </td>
+                        }
+                        @if (User.IsInRole("Funcionario")) {
+                            <td class="colCentro">
+                                @Html.ActionLink("Editar", "Edit", new { id = item.PagamentoID }) |
+                                @Html.ActionLink("Detalhes", "Details", new { id = item.PagamentoID })
                             </td>
                         }
                         @if (User.IsInRole("Socio")) {
@@ -66,5 +104,6 @@
                 }
             </table>
         </div>
+    </div>
 </body>
 </html>

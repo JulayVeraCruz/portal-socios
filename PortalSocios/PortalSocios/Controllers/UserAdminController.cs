@@ -2,7 +2,6 @@
 using Microsoft.AspNet.Identity.Owin;
 using System.Data.Entity;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -10,7 +9,7 @@ using System;
 
 namespace PortalSocios.Controllers {
 
-    [Authorize(Roles = "Funcionario")]
+    [Authorize(Roles = "Administrador")]
     public class UsersAdminController : Controller {
         public UsersAdminController() {
         }

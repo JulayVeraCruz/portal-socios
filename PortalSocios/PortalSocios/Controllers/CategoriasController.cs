@@ -5,13 +5,21 @@ using PortalSocios.Models;
 using System;
 
 namespace PortalSocios.Controllers {
-    [Authorize(Roles = "Funcionario")]
+    [Authorize(Roles = "Administrador, Funcionario")]
     public class CategoriasController : Controller {
         private SociosBD db = new SociosBD();
 
         // GET: Categorias
-        public ActionResult Index() {
-            return View(db.Categorias.OrderBy(c => c.ValorMensal).ToList());
+        public ActionResult Index(string pesquisar) {
+
+            var categorias = db.Categorias;
+
+            // ref: https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-
+            // permite efetuar a pesquisa de uma categoria pelo nome
+            if (!String.IsNullOrEmpty(pesquisar)) {
+                return View(categorias.Where(c => c.Nome.ToUpper().Contains(pesquisar.ToUpper())));
+            }
+            return View(categorias.OrderBy(c => c.Nome).ToList());
         }
 
         // GET: Categorias/Details/5

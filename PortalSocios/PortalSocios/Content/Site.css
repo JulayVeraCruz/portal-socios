@@ -41,6 +41,7 @@ input[type="checkbox"].input-validation-error {
 .validation-summary-errors {
     color: #cb0f0f;
     font-weight: bold;
+    text-align:center;
 }
 
 .validation-summary-valid {
@@ -71,9 +72,9 @@ input[type="checkbox"].input-validation-error {
 
 .painel {
     background-color: rgba(255, 255, 255, 0.5);
-    padding: 25px 0px 25px 0px;
-    border-radius: 15px;
-    text-align:center;
+    padding: 15px 0px 25px 0px;
+    border-radius: 5px;
+    text-align: center;
 }
 
 .painel2 {

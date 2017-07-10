@@ -9,7 +9,11 @@
 <body>
     <!-- título -->
     <div class="titulo"><h3>LISTA DE QUOTAS</h3></div>
-    <div class="titulo"><h5>@Html.ActionLink("- Criar nova quota -", "Create")</h5></div>
+
+    <!-- criar nova quota -->
+    <div class="col-md-12" style="text-align:center; margin-top: 20px;">
+        <input type="button" class="btn btn-primary" value="Criar Nova Quota" onclick="location.href='@Url.Action("Create", "Quotas")'" style="font-size: 16px;" />
+    </div>
     <hr />
 
     <!-- interface de pesquisa -->
@@ -41,6 +45,7 @@
                         <td class="colCentro">@Html.DisplayFor(modelItem => item.Ano)</td>
                         <td class="colCentro">@Html.DisplayFor(modelItem => item.Periodicidade)</td>
                         <td class="colCentro">@Html.DisplayFor(modelItem => item.Categoria.Nome)</td>
+                        <!-- opções de gestão -->
                         <td class="colCentro">
                             @Html.ActionLink("Editar", "Edit", new { id = item.QuotaID }) |
                             @Html.ActionLink("Detalhes", "Details", new { id = item.QuotaID }) |

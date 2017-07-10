@@ -1,13 +1,10 @@
 ﻿@model PortalSocios.Models.Funcionarios
 
-@{
-    ViewBag.Title = "Edit";
-}
-
 <!DOCTYPE html>
 <html lang="pt">
 <head>
     <meta charset="utf-8" />
+    <title>Editar Funcionário | Portal dos Sócios do Clube Desportivo Coxos da Bola</title>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
@@ -19,77 +16,75 @@
     <link rel="stylesheet" href="~/Content/bootstrap-datepicker3.min.css" />
 </head>
 <body>
-    <h3>Editar Funcionário</h3>
+    <div class="titulo"><h3>EDITAR FUNCIONÁRIO</h3></div>
+    <div class="titulo"><h5>@Html.ActionLink("- Voltar à lista -", "Index")</h5></div>
+    <hr />
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
-        <div class="form-horizontal">
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-horizontal painel2">
+            @Html.ValidationSummary(true, "")
             @Html.HiddenFor(model => model.FuncionarioID)
 
             <div class="form-group">
-                @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
                     @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control", @maxlength = "50" } })
-                    @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.Nome, "")
                 </div>
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.NIF, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                @Html.LabelFor(model => model.NIF, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
                     @Html.EditorFor(model => model.NIF, new { htmlAttributes = new { @class = "form-control", @maxlength = "9" } })
-                    @Html.ValidationMessageFor(model => model.NIF, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.NIF, "")
                 </div>
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
                     @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @maxlength = "50" } })
-                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.Email, "")
                 </div>
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.Telemovel, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                @Html.LabelFor(model => model.Telemovel, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
                     @Html.EditorFor(model => model.Telemovel, new { htmlAttributes = new { @class = "form-control", @maxlength = "9" } })
-                    @Html.ValidationMessageFor(model => model.Telemovel, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.Telemovel, "")
                 </div>
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.Morada, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                @Html.LabelFor(model => model.Morada, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
                     @Html.EditorFor(model => model.Morada, new { htmlAttributes = new { @class = "form-control", @maxlength = "80" } })
-                    @Html.ValidationMessageFor(model => model.Morada, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.Morada, "")
                 </div>
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.CodPostal, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                @Html.LabelFor(model => model.CodPostal, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
                     @Html.EditorFor(model => model.CodPostal, new { htmlAttributes = new { @class = "form-control", @maxlength = "50" } })
-                    @Html.ValidationMessageFor(model => model.CodPostal, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.CodPostal, "")
                 </div>
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.DataEntrClube, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                @Html.LabelFor(model => model.DataEntrClube, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
                     @Html.EditorFor(model => model.DataEntrClube, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.DataEntrClube, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.DataEntrClube, "")
                 </div>
             </div>
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Guardar" class="btn btn-primary" />
-                </div>
-            </div>
+        </div>
+        <div class="col-md-12" style="text-align:center; margin-top: 20px;">
+            <input type="submit" value="Guardar" class="btn btn-primary" style="font-size: 16px; margin-right: 10px;" />
         </div>
     }
 

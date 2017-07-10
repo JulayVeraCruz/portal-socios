@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 
 namespace PortalSocios.Controllers {
-    [Authorize(Roles = "Funcionario, Socio")]
+    [Authorize(Roles = "Administrador, Funcionario, Socio")]
     public class ManageController : Controller {
         public ManageController() {
         }

@@ -5,14 +5,14 @@ using PortalSocios.Models;
 using System;
 
 namespace PortalSocios.Controllers {
-    [Authorize(Roles = "Funcionario, Socio")]
+    [Authorize(Roles = "Administrador, Funcionario, Socio")]
     public class PagamentosController : Controller {
         private SociosBD db = new SociosBD();
 
         // GET: Pagamentos
         public ActionResult Index(string ordenar, string pesquisar) {
             var pagamentos = db.Pagamentos.Include(p => p.Funcionario).Include(p => p.Quota).Include(p => p.Socio);
-            if (User.IsInRole("Funcionario")) {
+            if (User.IsInRole("Administrador") || User.IsInRole("Funcionario")) {
 
                 // ref: https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-
                 ViewBag.OrdSocio = String.IsNullOrEmpty(ordenar) ? "socioDesc" : "";
@@ -52,7 +52,7 @@ namespace PortalSocios.Controllers {
         }
 
         // GET: Pagamentos/Create
-        [Authorize(Roles = "Funcionario")]
+        [Authorize(Roles = "Administrador, Funcionario")]
         public ActionResult Create() {
             ViewBag.FuncionarioFK = new SelectList(db.Funcionarios, "FuncionarioID", "Nome");
             ViewBag.QuotaFK = new SelectList(db.Quotas, "QuotaID", "Referencia");
@@ -65,7 +65,7 @@ namespace PortalSocios.Controllers {
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Funcionario")]
+        [Authorize(Roles = "Administrador, Funcionario")]
         public ActionResult Create([Bind(Include = "RefMultibanco,AuxMontante,DataPagam,DataPrevPagam,AuxMulta,QuotaFK,SocioFK,UserName,FuncionarioFK")] Pagamentos pagamento) {
             try {
                 // recuperar, converter e atribuir o valor do montante e da multa do pagamento
@@ -88,7 +88,7 @@ namespace PortalSocios.Controllers {
         }
 
         // GET: Pagamentos/Edit/5
-        [Authorize(Roles = "Funcionario")]
+        [Authorize(Roles = "Administrador, Funcionario")]
         public ActionResult Edit(int? id) {
             if (id == null) {
                 return RedirectToAction("Index");
@@ -108,7 +108,7 @@ namespace PortalSocios.Controllers {
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Funcionario")]
+        [Authorize(Roles = "Administrador, Funcionario")]
         public ActionResult Edit([Bind(Include = "PagamentoID,RefMultibanco,AuxMontante,DataPagam,DataPrevPagam,AuxMulta,QuotaFK,SocioFK,UserName,FuncionarioFK")] Pagamentos pagamento) {
             try {
                 // recuperar, converter e atribuir o valor do montante e da multa do pagamento
@@ -131,7 +131,7 @@ namespace PortalSocios.Controllers {
         }
 
         // GET: Pagamentos/Delete/5
-        [Authorize(Roles = "Funcionario")]
+        [Authorize(Roles = "Administrador, Funcionario")]
         public ActionResult Delete(int? id) {
             if (id == null) {
                 return RedirectToAction("Index");
@@ -146,7 +146,7 @@ namespace PortalSocios.Controllers {
         // POST: Pagamentos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Funcionario")]
+        [Authorize(Roles = "Administrador, Funcionario")]
         public ActionResult DeleteConfirmed(int id) {
             Pagamentos pagamento = db.Pagamentos.Find(id);
             try {

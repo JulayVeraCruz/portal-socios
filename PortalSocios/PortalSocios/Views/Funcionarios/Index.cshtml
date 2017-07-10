@@ -8,67 +8,56 @@
 </head>
 <body>
     <!-- título -->
-    <div class="titulo"><h3>Lista de Funcionários</h3></div>
-    <div class="colunas">@Html.ActionLink("- Criar novo funcionário -", "Create")</div>
+    <div class="titulo"><h3>LISTA DE FUNCIONÁRIOS</h3></div>
+
+    <!-- criar novo funcionário -->
+    <div class="col-md-12" style="text-align:center; margin-top: 20px;">
+        <input type="button" class="btn btn-primary" value="Criar Novo Funcionário" onclick="location.href='@Url.Action("Create", "Funcionarios")'" style="font-size: 16px;" />
+    </div>
     <hr />
 
     <!-- interface de pesquisa -->
     @using (Html.BeginForm()) {
-        <p>
+        <p style="text-align: center;">
             @Html.TextBox("pesquisar", "", new { @class = "form-control", @maxlength = "30", @placeholder = "Pesquisa por nome", @style = "display: inline; width: 200px" })
             <input type="submit" class="btn btn-primary" value="Pesquisar" />
         </p>
     }
 
-    <!-- tabela de funcionários -->
-    <div class="container">
-        <div class="row" style="overflow-y: auto; padding-left: 0px; height: 320px;">
-            <div class="col-lg-10" style="overflow-x: auto; padding-left: 0px;">
-                <table class="table">
-
-                    <!-- cabeçalhos -->
+    <div style="text-align:center;">
+        <div style="display: inline-block;">
+            <!-- tabela de funcionários -->
+            <table class="table">
+                <!-- cabeçalhos -->
+                <tr>
+                    <th class="colCentro">@Html.ActionLink("Nome", "Index", new { ordenar = ViewBag.OrdNome })</th>
+                    <th class="colCentro">@Html.DisplayNameFor(model => model.NIF)</th>
+                    <th class="colCentro">@Html.DisplayNameFor(model => model.Email)</th>
+                    <th class="colCentro">@Html.DisplayNameFor(model => model.Telemovel)</th>
+                    <th class="colCentro">@Html.DisplayNameFor(model => model.Morada)</th>
+                    <th class="colCentro">@Html.DisplayNameFor(model => model.CodPostal)</th>
+                    <th class="colCentro">@Html.ActionLink("Data de Entrada", "Index", new { ordenar = ViewBag.OrdEntr })</th>
+                    <th class="colCentro">Opções de Gestão</th>
+                </tr>
+                <!-- dados dos funcionários -->
+                @foreach (var item in Model) {
                     <tr>
-                        <th class="colunas">@Html.ActionLink("Nome", "Index", new { ordenar = ViewBag.OrdNome })</th>
-                        <th class="colunas">@Html.DisplayNameFor(model => model.NIF)</th>
-                        <th class="colunas">@Html.DisplayNameFor(model => model.Email)</th>
-                        <th class="colunas">@Html.DisplayNameFor(model => model.Telemovel)</th>
-                        <th class="colunas">@Html.DisplayNameFor(model => model.Morada)</th>
-                        <th class="colunas">@Html.DisplayNameFor(model => model.CodPostal)</th>
-                        <th class="colunas">@Html.ActionLink("Data de Entrada", "Index", new { ordenar = ViewBag.OrdEntr })</th>
+                        <td class="colEsq">@Html.DisplayFor(modelItem => item.Nome)</td>
+                        <td class="colCentro">@Html.DisplayFor(modelItem => item.NIF)</td>
+                        <td class="colEsq">@Html.DisplayFor(modelItem => item.Email)</td>
+                        <td class="colCentro">@Html.DisplayFor(modelItem => item.Telemovel)</td>
+                        <td class="colEsq">@Html.DisplayFor(modelItem => item.Morada)</td>
+                        <td class="colEsq">@Html.DisplayFor(modelItem => item.CodPostal)</td>
+                        <td class="colCentro">@Html.DisplayFor(modelItem => item.DataEntrClube)</td>
+                        <!-- opções de gestão -->
+                        <td class="colCentro">
+                            @Html.ActionLink("Editar", "Edit", new { id = item.FuncionarioID }) |
+                            @Html.ActionLink("Detalhes", "Details", new { id = item.FuncionarioID }) |
+                            @Html.ActionLink("Eliminar", "Delete", new { id = item.FuncionarioID })
+                        </td>
                     </tr>
-
-                    <!-- dados dos funcionários -->
-                    @foreach (var item in Model) {
-                        <tr>
-                            <td>@Html.DisplayFor(modelItem => item.Nome)</td>
-                            <td class="colunas">@Html.DisplayFor(modelItem => item.NIF)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Email)</td>
-                            <td class="colunas">@Html.DisplayFor(modelItem => item.Telemovel)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Morada)</td>
-                            <td>@Html.DisplayFor(modelItem => item.CodPostal)</td>
-                            <td class="colunas">@Html.DisplayFor(modelItem => item.DataEntrClube)</td>
-                        </tr>
-                    }
-                </table>
-            </div>
-            <div class="col-lg-2" style="padding-left: 0px;">
-                <table class="table">
-
-                    <!-- cabeçalhos -->
-                    <tr><th class="colunas">Opções de Gestão</th></tr>
-
-                    <!-- opções de gestão -->
-                    @foreach (var item in Model) {
-                        <tr>
-                            <td class="colunas">
-                                @Html.ActionLink("Editar", "Edit", new { id = item.FuncionarioID }) |
-                                @Html.ActionLink("Detalhes", "Details", new { id = item.FuncionarioID }) |
-                                @Html.ActionLink("Eliminar", "Delete", new { id = item.FuncionarioID })
-                            </td>
-                        </tr>
-                    }
-                </table>
-            </div>
+                }
+            </table>
         </div>
     </div>
 </body>

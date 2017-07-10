@@ -1,44 +1,29 @@
 ﻿@model Microsoft.AspNet.Identity.EntityFramework.IdentityRole
 
-@{
-    ViewBag.Title = "Details";
-}
-
-<h3>Detalhes do Role</h3>
-
-<div>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8" />
+    <title>Detalhes da Função | Portal dos Sócios do Clube Desportivo Coxos da Bola</title>
+</head>
+<body>
+    <div class="titulo"><h3>DETALHES DA FUNÇÃO</h3></div>
+    <div class="titulo"><h5>@Html.ActionLink("- Voltar à lista -", "Index")</h5></div>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-    </dl>
-</div>
-<h4>List of users in this role</h4>
-@if (ViewBag.UserCount == 0)
-{
-    <hr />
-    <p>No users found in this role.</p>
-}
 
-<table class="table">
+    <div class="container painel2">
+        <div class="col-lg-6 dadosEsq">Função</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.Name)</div>
 
-    @foreach (var item in ViewBag.Users)
-    {
-        <tr>
-            <td>
-                @item.UserName
-            </td>
-        </tr>
-    }
-</table>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
-
-
-
+        <div class="col-lg-6 dadosEsq">Utilizadores</div>
+        <div class="col-lg-6 dadosDir">
+            @if (ViewBag.UserCount == 0) {
+                <span>Esta função não possui utilizadores.</span>
+            }
+            @foreach (var item in ViewBag.Users) {
+                <span>@item.UserName;</span>
+            }
+        </div>
+    </div>
+</body>
+</html>

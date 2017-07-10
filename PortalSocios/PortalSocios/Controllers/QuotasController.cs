@@ -5,7 +5,7 @@ using PortalSocios.Models;
 using System;
 
 namespace PortalSocios.Controllers {
-    [Authorize(Roles = "Funcionario")]
+    [Authorize(Roles = "Administrador, Funcionario")]
     public class QuotasController : Controller {
 
         private SociosBD db = new SociosBD();

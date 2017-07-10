@@ -8,61 +8,51 @@
 </head>
 <body>
     <!-- título -->
-    <div class="titulo"><h3>Lista de Categorias</h3></div>
-    <div class="colunas">@Html.ActionLink("- Criar nova categoria -", "Create")</div>
+    <div class="titulo"><h3>LISTA DE CATEGORIAS</h3></div>
+
+    <!-- criar nova categoria -->
+    <div class="col-md-12" style="text-align:center; margin-top: 20px;">
+        <input type="button" class="btn btn-primary" value="Criar Nova Categoria" onclick="location.href='@Url.Action("Create", "Categorias")'" style="font-size: 16px;" />
+    </div>
     <hr />
 
     <!-- interface de pesquisa -->
     @using (Html.BeginForm()) {
-        <p>
+        <p style="text-align: center;">
             @Html.TextBox("pesquisar", "", new { @class = "form-control", @maxlength = "30", @placeholder = "Pesquisa por nome", @style = "display: inline; width: 200px" })
             <input type="submit" class="btn btn-primary" value="Pesquisar" />
         </p>
     }
 
-    <!-- tabela de categorias -->
-    <div class="container">
-        <div class="row" style="overflow-y: auto; padding-left: 0px; height: 320px;">
-            <div class="col-lg-5" style="padding-left: 0px;">
-                <table class="table">
 
-                    <!-- cabeçalhos -->
+    <div style="text-align:center;">
+        <div style="display: inline-block;">
+            <!-- tabela de categorias -->
+            <table class="table">
+                <!-- cabeçalhos -->
+                <tr>
+                    <th class="colCentro">@Html.DisplayNameFor(model => model.Nome)</th>
+                    <th class="colCentro">@Html.DisplayNameFor(model => model.FaixaEtaria)</th>
+                    <th class="colCentro">@Html.DisplayNameFor(model => model.NumQuotasAnuais)</th>
+                    <th class="colCentro">@Html.DisplayNameFor(model => model.ValorMensal)</th>
+                    <th class="colCentro">Opções de Gestão</th>
+                </tr>
+                <!-- dados das categorias -->
+                @foreach (var item in Model) {
                     <tr>
-                        <th class="colunas">@Html.DisplayNameFor(model => model.Nome)</th>
-                        <th class="colunas">@Html.DisplayNameFor(model => model.FaixaEtaria)</th>
-                        <th class="colunas">@Html.DisplayNameFor(model => model.NumQuotasAnuais)</th>
-                        <th class="colunas">@Html.DisplayNameFor(model => model.ValorMensal)</th>
+                        <td class="colEsq">@Html.DisplayFor(modelItem => item.Nome)</td>
+                        <td class="colEsq">@Html.DisplayFor(modelItem => item.FaixaEtaria)</td>
+                        <td class="colCentro">@Html.DisplayFor(modelItem => item.NumQuotasAnuais)</td>
+                        <td class="colCentro">@Html.DisplayFor(modelItem => item.ValorMensal) €</td>
+                        <!-- opções de gestão -->
+                        <td class="colCentro">
+                            @Html.ActionLink("Editar", "Edit", new { id = item.CategoriaID }) |
+                            @Html.ActionLink("Detalhes", "Details", new { id = item.CategoriaID }) |
+                            @Html.ActionLink("Eliminar", "Delete", new { id = item.CategoriaID })
+                        </td>
                     </tr>
-
-                    <!-- dados das categorias -->
-                    @foreach (var item in Model) {
-                        <tr>
-                            <td>@Html.DisplayFor(modelItem => item.Nome)</td>
-                            <td>@Html.DisplayFor(modelItem => item.FaixaEtaria)</td>
-                            <td class="colunas">@Html.DisplayFor(modelItem => item.NumQuotasAnuais)</td>
-                            <td class="colunas">@Html.DisplayFor(modelItem => item.ValorMensal) €</td>
-                        </tr>
-                    }
-                </table>
-            </div>
-            <div class="col-lg-3" style="padding-left: 0px;">
-                <table class="table">
-
-                    <!-- cabeçalhos -->
-                    <tr><th class="colunas">Opções de Gestão</th></tr>
-
-                    <!-- opções de gestão -->
-                    @foreach (var item in Model) {
-                        <tr>
-                            <td class="colunas">
-                                @Html.ActionLink("Editar", "Edit", new { id = item.CategoriaID }) |
-                                @Html.ActionLink("Detalhes", "Details", new { id = item.CategoriaID }) |
-                                @Html.ActionLink("Eliminar", "Delete", new { id = item.CategoriaID })
-                            </td>
-                        </tr>
-                    }
-                </table>
-            </div>
+                }
+            </table>
         </div>
     </div>
 </body>

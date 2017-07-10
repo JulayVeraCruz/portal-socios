@@ -54,9 +54,6 @@ namespace PortalSocios.Models {
         [Display(Name = "Data Entrada")]
         public DateTime DataEntrClube { get; set; }
 
-        // criação de um atributo para ligar este atributo à BD de autenticação
-        public string UserName { get; set; } // corresponde ao LOGIN
-
         // um funcionário tem uma coleção de pagamentos
         public virtual ICollection<Pagamentos> ListaPagamentos { get; set; }
     }

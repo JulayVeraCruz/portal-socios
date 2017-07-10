@@ -1,49 +1,28 @@
 ﻿@model PortalSocios.Models.Categorias
 
-@{
-    ViewBag.Title = "Details";
-}
-
-<h3>Detalhes da Categoria</h3>
-
-<div>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8" />
+    <title>Detalhes da Categoria | Portal dos Sócios do Clube Desportivo Coxos da Bola</title>
+</head>
+<body>
+    <div class="titulo"><h3>DETALHES DA CATEGORIA</h3></div>
+    <div class="titulo"><h5>@Html.ActionLink("- Voltar à lista -", "Index")</h5></div>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
+    <div class="container painel2">
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.Nome)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.Nome)</div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.FaixaEtaria)
-        </dt>
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.FaixaEtaria)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.FaixaEtaria)</div>
 
-        <dd>
-            @Html.DisplayFor(model => model.FaixaEtaria)
-        </dd>
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.NumQuotasAnuais)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.NumQuotasAnuais)</div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.NumQuotasAnuais)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NumQuotasAnuais)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ValorMensal)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ValorMensal)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Voltar à lista", "Index") |
-    @Html.ActionLink("Editar", "Edit", new { id = Model.CategoriaID })    
-</p>
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.ValorMensal)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.ValorMensal) €</div>
+    </div>
+</body>
+</html>

@@ -12,14 +12,14 @@
     <div class="titulo"><h5>@Html.ActionLink("- Voltar à lista -", "Index")</h5></div>
     <hr />
 
-    <div class="container painel">
+    <div class="container painel2">
         @Html.ValidationSummary(true, "")
 
         <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.Referencia)</div>
         <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.Referencia)</div>
 
         <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.Montante)</div>
-        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.Montante)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.Montante) €</div>
 
         <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.Ano)</div>
         <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.Ano)</div>
@@ -27,7 +27,7 @@
         <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.Periodicidade)</div>
         <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.Periodicidade)</div>
 
-        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.Categoria.Nome)</div>
+        <div class="col-lg-6 dadosEsq">Categoria</div>
         <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.Categoria.Nome)</div>
     </div>
 

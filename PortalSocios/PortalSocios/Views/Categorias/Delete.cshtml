@@ -1,57 +1,39 @@
 ﻿@model PortalSocios.Models.Categorias
 
-@{
-    ViewBag.Title = "Delete";
-}
-
-<h3>Eliminar Categoria</h3>
-
-<div>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8" />
+    <title>Eliminar Categoria | Portal dos Sócios do Clube Desportivo Coxos da Bola</title>
+</head>
+<body>
+    <div class="titulo"><h3>ELIMINAR CATEGORIA</h3></div>
+    <div class="titulo"><h4>Tem a certeza de que pretende eliminar esta categoria?</h4></div>
+    <div class="titulo"><h5>@Html.ActionLink("- Voltar à lista -", "Index")</h5></div>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
+    <div class="container painel2">
+        @Html.ValidationSummary(true, "")
 
-        <dt>
-            @Html.DisplayNameFor(model => model.FaixaEtaria)
-        </dt>
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.Nome)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.Nome)</div>
 
-        <dd>
-            @Html.DisplayFor(model => model.FaixaEtaria)
-        </dd>
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.FaixaEtaria)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.FaixaEtaria)</div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.NumQuotasAnuais)
-        </dt>
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.NumQuotasAnuais)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.NumQuotasAnuais)</div>
 
-        <dd>
-            @Html.DisplayFor(model => model.NumQuotasAnuais)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ValorMensal)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ValorMensal)
-        </dd>
-
-    </dl>
-
-    <h4>Tem a certeza de que pretende eliminar esta categoria?</h4>
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.ValorMensal)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.ValorMensal) €</div>
+    </div>
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            @Html.ActionLink("Voltar à lista", "Index") |
-            <input type="submit" value="Sim" class="btn btn-primary" />            
+        <div class="col-lg-12 form-actions no-color" style="text-align:center; margin-top:20px;">
+            <input type="submit" value="Sim" class="btn btn-primary" style="font-size: 16px;" />
         </div>
     }
-</div>
+</body>
+</html>

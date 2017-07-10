@@ -1,36 +1,43 @@
 ﻿@model IEnumerable<Microsoft.AspNet.Identity.EntityFramework.IdentityRole>
 
-@{
-    ViewBag.Title = "Index";
-}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8" />
+    <title>Lista de Funções | Portal dos Sócios do Clube Desportivo Coxos da Bola</title>
+</head>
+<body>
+    <!-- título -->
+    <div class="titulo"><h3>LISTA DE FUNÇÕES</h3></div>
 
-<h3>Lista de Roles</h3>
+    <!-- criar novo privilégio -->
+    <div class="col-md-12" style="text-align:center; margin-top: 20px;">
+        <input type="button" class="btn btn-primary" value="Criar Nova Função" onclick="location.href='@Url.Action("Create", "RolesAdmin")'" style="font-size: 16px;" />
+    </div>
+    <hr />
 
-<p>
-    @Html.ActionLink("Criar Novo Role", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-
-        </th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Detalhes", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
-            </td>
-        </tr>
-    }
-
-</table>
+    <div style="text-align:center;">
+        <div style="display: inline-block;">
+            <!-- tabela de privilégios -->
+            <table class="table">
+                <!-- cabeçalhos -->
+                <tr>
+                    <th class="colCentro">Função</th>
+                    <th class="colCentro">Opções de Gestão</th>
+                </tr>
+                <!-- dados dos privilégios -->
+                @foreach (var item in Model) {
+                    <tr>
+                        <td class="colEsq">@Html.DisplayFor(modelItem => item.Name)</td>
+                        <td class="colCentro">
+                            @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+                            @Html.ActionLink("Detalhes", "Details", new { id = item.Id }) |
+                            @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</body>
+</html>

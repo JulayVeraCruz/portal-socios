@@ -12,31 +12,44 @@
     <div class="titulo"><h5>@Html.ActionLink("- Voltar à lista -", "Index")</h5></div>
     <hr />
 
-    <div class="container painel">
+    <div class="container painel2">
         @Html.ValidationSummary(true, "")
 
         <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.Socio.Nome)</div>
         <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.Socio.Nome)</div>
 
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.UserName)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.UserName)</div>
+
         <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.RefMultibanco)</div>
         <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.RefMultibanco)</div>
 
         <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.Montante)</div>
-        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.Montante)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.Montante) €</div>
 
         <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.DataPagam)</div>
-        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.DataPagam)</div>
+        @if (Model.DataPagam == null) {
+            <div class="col-lg-6 dadosDir">-</div>
+        }
+        else {
+            <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.DataPagam)</div>
+        }
 
         <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.DataPrevPagam)</div>
         <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.DataPrevPagam)</div>
 
         <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.Multa)</div>
-        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.Multa)</div>
+        @if (Model.Multa == null) {
+            <div class="col-lg-6 dadosDir">-</div>
+        }
+        else {
+            <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.Multa) €</div>
+        }
 
-        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.Quota.Referencia)</div>
+        <div class="col-lg-6 dadosEsq">Quota</div>
         <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.Quota.Referencia)</div>
 
-        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.Funcionario.Nome)</div>
+        <div class="col-lg-6 dadosEsq">Funcionário</div>
         <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.Funcionario.Nome)</div>        
     </div>
 

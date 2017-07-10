@@ -8,84 +8,48 @@
 </head>
 <body>
     <!-- título -->
-    <div class="titulo"><h3>Lista de Benefícios</h3></div>
-    <div class="colunas">@Html.ActionLink("Criar novo benefício", "Create")</div>
+    <div class="titulo"><h3>LISTA DE BENEFÍCIOS</h3></div>
+
+    <!-- criar novo sócio -->
+    <div class="col-md-12" style="text-align:center; margin-top: 20px;">
+        <input type="button" class="btn btn-primary" value="Criar Novo Benefício" onclick="location.href='@Url.Action("Create", "Beneficios")'" style="font-size: 16px;" />
+    </div>
     <hr />
 
     <!-- interface de pesquisa -->
     @using (Html.BeginForm()) {
-        <p>
-            @Html.TextBox("pesquisar", "", new { @class = "form-control", @maxlength = "30", @placeholder = "Pesquisa por descrição ou entidade", @style = "display: inline; width: 200px" })
+        <p style="text-align: center;">
+            @Html.TextBox("pesquisar", "", new { @class = "form-control", @maxlength = "30", @placeholder = "Pesquisa por descrição ou entidade", @style = "display: inline; width: 250px" })
             <input type="submit" class="btn btn-primary" value="Pesquisar" />
         </p>
     }
 
-    <!-- tabela de benefícios -->
-    <div class="container">
-        <div class="row" style="overflow-y: auto; padding-left: 0px; height: 320px;">
-            <div class="col-lg-7" style="overflow-x: auto; padding-left: 0px;">
-                <table class="table">
 
-                    <!-- cabeçalhos -->
+    <div style="text-align:center;">
+        <div style="display: inline-block;">
+            <!-- tabela de benefícios -->
+            <table class="table">
+                <!-- cabeçalhos -->
+                <tr>
+                    <th class="colCentro">@Html.DisplayNameFor(model => model.Descricao)</th>
+                    <th class="colCentro">@Html.DisplayNameFor(model => model.EntidRespons)</th>
+                    <th class="colCentro">Opções de Gestão</th>
+                </tr>
+                <!-- dados dos benefícios -->
+                @foreach (var item in Model) {
                     <tr>
-                        <th class="colunas">@Html.DisplayNameFor(model => model.Descricao)</th>
-                        <th class="colunas">@Html.DisplayNameFor(model => model.EntidRespons)</th>
+                        <td class="colEsq">@Html.DisplayFor(modelItem => item.Descricao)</td>
+                        <td class="colEsq">@Html.DisplayFor(modelItem => item.EntidRespons)</td>
+                        <!-- opções de gestão -->
+                        <td class="colCentro">
+                            @Html.ActionLink("Editar", "Edit", new { id = item.BeneficioID }) |
+                            @Html.ActionLink("Detalhes", "Details", new { id = item.BeneficioID }) |
+                            @Html.ActionLink("Eliminar", "Delete", new { id = item.BeneficioID })
+                        </td>
                     </tr>
-
-                    <!-- dados dos benefícios -->
-                    @foreach (var item in Model) {
-                        <tr>
-                            <td>@Html.DisplayFor(modelItem => item.Descricao)</td>
-                            <td>@Html.DisplayFor(modelItem => item.EntidRespons)</td>
-                        </tr>
-                    }
-                </table>
-            </div>
-            <div class="col-lg-3" style="padding-left: 0px;">
-                <table class="table">
-
-                    <!-- cabeçalhos -->
-                    <tr><th class="colunas">Opções de Gestão</th></tr>
-
-                    <!-- opções de gestão -->
-                    @foreach (var item in Model) {
-                        <tr>
-                            <td class="colunas">
-                                @Html.ActionLink("Editar", "Edit", new { id = item.BeneficioID }) |
-                                @Html.ActionLink("Detalhes", "Details", new { id = item.BeneficioID }) |
-                                @Html.ActionLink("Eliminar", "Delete", new { id = item.BeneficioID })
-                            </td>
-                        </tr>
-                    }
-                </table>
-            </div>
+                }
+            </table>
         </div>
     </div>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            
-        </td>
-        <td>
-            
-        </td>
-        <td>
-        </td>
-    </tr>
-}
-
-</table>

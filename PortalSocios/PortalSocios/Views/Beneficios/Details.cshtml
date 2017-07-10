@@ -1,33 +1,22 @@
 ﻿@model PortalSocios.Models.Beneficios
 
-@{
-    ViewBag.Title = "Details";
-}
-
-<h3>Detalhes do Benefício</h3>
-
-<div>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8" />
+    <title>Detalhes do Benefício | Portal dos Sócios do Clube Desportivo Coxos da Bola</title>
+</head>
+<body>
+    <div class="titulo"><h3>DETALHES DO BENEFÍCIO</h3></div>
+    <div class="titulo"><h5>@Html.ActionLink("- Voltar à lista -", "Index")</h5></div>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Descricao)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Descricao)
-        </dd>
+    <div class="container painel2">
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.Descricao)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.Descricao)</div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.EntidRespons)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EntidRespons)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Voltar à lista", "Index") |
-    @Html.ActionLink("Editar", "Edit", new { id = Model.BeneficioID })    
-</p>
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.EntidRespons)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.EntidRespons)</div>
+    </div>
+</body>
+</html>

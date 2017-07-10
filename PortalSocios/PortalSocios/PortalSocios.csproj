@@ -171,8 +171,11 @@
     <Content Include="Content\bootstrap-datepicker3.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Imagens\construcao.png" />
+    <Content Include="Content\Imagens\erro.png" />
     <Content Include="Content\Imagens\fotolei.png" />
     <Content Include="Content\Imagens\fotorc.jpg" />
+    <Content Include="Content\Imagens\proibido.png" />
     <Content Include="Content\Imagens\relvado.png" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -316,7 +319,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\Fotos\" />
+    <Folder Include="App_Data\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

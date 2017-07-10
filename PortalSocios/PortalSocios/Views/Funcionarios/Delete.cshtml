@@ -1,81 +1,48 @@
 ﻿@model PortalSocios.Models.Funcionarios
 
-@{
-    ViewBag.Title = "Delete";
-}
-
-<h3>Eliminar Funcionário</h3>
-
-<div>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8" />
+    <title>Eliminar Funcionário | Portal dos Sócios do Clube Desportivo Coxos da Bola</title>
+</head>
+<body>
+    <div class="titulo"><h3>ELIMINAR FUNCIONÁRIO</h3></div>
+    <div class="titulo"><h4>Tem a certeza de que pretende eliminar este funcionário?</h4></div>
+    <div class="titulo"><h5>@Html.ActionLink("- Voltar à lista -", "Index")</h5></div>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
+    <div class="container painel2">
+        @Html.ValidationSummary(true, "")
 
-        <dt>
-            @Html.DisplayNameFor(model => model.NIF)
-        </dt>
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.Nome)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.Nome)</div>
 
-        <dd>
-            @Html.DisplayFor(model => model.NIF)
-        </dd>
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.NIF)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.NIF)</div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.Email)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.Email)</div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.Telemovel)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.Telemovel)</div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Telemovel)
-        </dt>
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.Morada)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.Morada)</div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Telemovel)
-        </dd>
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.CodPostal)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.CodPostal)</div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Morada)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Morada)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CodPostal)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CodPostal)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DataEntrClube)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DataEntrClube)
-        </dd>
-
-    </dl>
-
-    <h4>Tem a certeza de que pretende eliminar este funcionário?</h4>
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.DataEntrClube)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.DataEntrClube)</div>      
+    </div>
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">            
-            @Html.ActionLink("Voltar à lista", "Index") |
-            <input type="submit" value="Delete" class="btn btn-primary" />
+        <div class="col-lg-12 form-actions no-color" style="text-align:center; margin-top:20px;">
+            <input type="submit" value="Sim" class="btn btn-primary" style="font-size: 16px;" />
         </div>
     }
-</div>
+</body>
+</html>

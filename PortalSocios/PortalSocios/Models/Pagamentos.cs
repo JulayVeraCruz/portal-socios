@@ -43,6 +43,7 @@ namespace PortalSocios.Models {
 
         // criação de um atributo para ligar a tabela 'Pagamentos' à tabela de utilizadores
         [Display(Name = "Username")]
+        [EmailAddress(ErrorMessage = "Introduza um {0} válido!")]
         [Required(ErrorMessage = "O {0} é obrigatório!")]
         public string UserName { get; set; }
 
