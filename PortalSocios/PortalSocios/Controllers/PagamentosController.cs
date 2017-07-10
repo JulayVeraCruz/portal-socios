@@ -10,13 +10,33 @@ namespace PortalSocios.Controllers {
         private SociosBD db = new SociosBD();
 
         // GET: Pagamentos
-        public ActionResult Index() {
+        public ActionResult Index(string ordenar, string pesquisar) {
             var pagamentos = db.Pagamentos.Include(p => p.Funcionario).Include(p => p.Quota).Include(p => p.Socio);
-            if (User.IsInRole("Socio")) {
-                // lista apenas os pagamentos relativos ao sócio que se autenticou
-                return View(db.Pagamentos.Where(p => p.UserName.Equals(User.Identity.Name)).OrderBy(p => p.DataPrevPagam).ToList());
+            if (User.IsInRole("Funcionario")) {
+
+                // ref: https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-
+                ViewBag.OrdSocio = String.IsNullOrEmpty(ordenar) ? "socioDesc" : "";
+                ViewBag.OrdRef = ordenar == "refAsc" ? "refDesc" : "refAsc";
+
+                // permite efetuar a pesquisa de um pagamento pela referência multibanco
+                if (!String.IsNullOrEmpty(pesquisar)) {
+                    return View(pagamentos.Where(p => p.RefMultibanco.Contains(pesquisar)));
+                }
+
+                // ordena a lista de pagamentos de forma ascendente ou descendente, pelo atributo escolhido
+                switch (ordenar) {
+                    case "socioDesc":
+                        return View(pagamentos.OrderByDescending(p => p.SocioFK).ToList());
+                    case "refDesc":
+                        return View(pagamentos.OrderByDescending(p => p.RefMultibanco).ToList());
+                    case "refAsc":
+                        return View(pagamentos.OrderBy(p => p.RefMultibanco).ToList());
+                    default:
+                        return View(pagamentos.OrderBy(p => p.SocioFK).ToList());
+                }
             }
-            return View(pagamentos.OrderBy(p => p.Socio.Nome).ThenBy(p => p.DataPrevPagam).ToList());
+            // lista apenas os pagamentos relativos ao sócio que se autenticou
+            return View(db.Pagamentos.Where(p => p.UserName.Equals(User.Identity.Name)).OrderBy(p => p.DataPrevPagam).ToList());
         }
 
         // GET: Pagamentos/Details/5

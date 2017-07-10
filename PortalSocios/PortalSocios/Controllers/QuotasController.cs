@@ -11,9 +11,44 @@ namespace PortalSocios.Controllers {
         private SociosBD db = new SociosBD();
 
         // GET: Quotas
-        public ActionResult Index() {
+        public ActionResult Index(string ordenar, string pesquisar) {
             var quotas = db.Quotas.Include(s => s.Categoria);
-            return View(quotas.OrderBy(q => q.Referencia).ToList());
+
+            // ref: https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-
+            ViewBag.OrdRef = String.IsNullOrEmpty(ordenar) ? "refDesc" : "";
+            ViewBag.OrdMont = ordenar == "montAsc" ? "montDesc" : "montAsc";
+            ViewBag.OrdAno = ordenar == "AnoAsc" ? "AnoDesc" : "AnoAsc";
+            ViewBag.OrdPeriod = ordenar == "PeriodAsc" ? "PeriodDesc" : "PeriodAsc";
+            ViewBag.OrdCateg = ordenar == "categAsc" ? "categDesc" : "categAsc";
+
+            // permite efetuar a pesquisa de uma quota pela referência
+            if (!String.IsNullOrEmpty(pesquisar)) {
+                return View(quotas.Where(q => q.Referencia.ToUpper().Contains(pesquisar.ToUpper())));
+            }
+
+            // ordena a lista de quotas de forma ascendente ou descendente, pelo atributo escolhido
+            switch (ordenar) {
+                case "refDesc":
+                    return View(quotas.OrderByDescending(q => q.Referencia).ToList());
+                case "montDesc":
+                    return View(quotas.OrderByDescending(q => q.Montante).ToList());
+                case "montAsc":
+                    return View(quotas.OrderBy(q => q.Montante).ToList());
+                case "AnoDesc":
+                    return View(quotas.OrderByDescending(q => q.Ano).ToList());
+                case "AnoAsc":
+                    return View(quotas.OrderBy(q => q.Ano).ToList());
+                case "PeriodDesc":
+                    return View(quotas.OrderByDescending(q => q.Periodicidade).ToList());
+                case "PeriodAsc":
+                    return View(quotas.OrderBy(q => q.Periodicidade).ToList());
+                case "categDesc":
+                    return View(quotas.OrderByDescending(q => q.CategoriaFK).ToList());
+                case "categAsc":
+                    return View(quotas.OrderBy(q => q.CategoriaFK).ToList());
+                default:
+                    return View(quotas.OrderBy(q => q.Referencia).ToList());
+            }
         }
 
         // GET: Quotas/Details/5

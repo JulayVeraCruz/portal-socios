@@ -1,89 +1,43 @@
 ﻿@model PortalSocios.Models.Pagamentos
 
-@{
-    ViewBag.Title = "Details";
-}
-
-<h3>Detalhes do Pagamento</h3>
-
-<div>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8" />
+    <title>Detalhes do Pagamento | Portal dos Sócios do Clube Desportivo Coxos da Bola</title>
+</head>
+<body>
+    <div class="titulo"><h3>DETALHES DO PAGAMENTO</h3></div>
+    <div class="titulo"><h5>@Html.ActionLink("- Voltar à lista -", "Index")</h5></div>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Socio.Nome)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Socio.Nome)
-        </dd>
+    <div class="container painel">
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.Socio.Nome)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.Socio.Nome)</div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.RefMultibanco)
-        </dt>
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.RefMultibanco)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.RefMultibanco)</div>
 
-        <dd>
-            @Html.DisplayFor(model => model.RefMultibanco)
-        </dd>
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.Montante)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.Montante)</div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Montante)
-        </dt>
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.DataPagam)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.DataPagam)</div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Montante)
-        </dd>
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.DataPrevPagam)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.DataPrevPagam)</div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DataPagam)
-        </dt>
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.Multa)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.Multa)</div>
 
-        <dd>
-            @Html.DisplayFor(model => model.DataPagam)
-        </dd>
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.Quota.Referencia)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.Quota.Referencia)</div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DataPrevPagam)
-        </dt>
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.UserName)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.UserName)</div>
 
-        <dd>
-            @Html.DisplayFor(model => model.DataPrevPagam)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Multa)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Multa)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Quota.Referencia)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Quota.Referencia)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UserName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UserName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Funcionario.Nome)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Funcionario.Nome)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Voltar à lista", "Index") |
-    @Html.ActionLink("Editar", "Edit", new { id = Model.PagamentoID })    
-</p>
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.Funcionario.Nome)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.Funcionario.Nome)</div>
+    </div>
+</body>
+</html>

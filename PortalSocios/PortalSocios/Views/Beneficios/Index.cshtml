@@ -1,37 +1,89 @@
 ﻿@model IEnumerable<PortalSocios.Models.Beneficios>
 
-@{
-    ViewBag.Title = "Index";
-}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8" />
+    <title>Lista de Benefícios | Portal dos Sócios do Clube Desportivo Coxos da Bola</title>
+</head>
+<body>
+    <!-- título -->
+    <div class="titulo"><h3>Lista de Benefícios</h3></div>
+    <div class="colunas">@Html.ActionLink("Criar novo benefício", "Create")</div>
+    <hr />
 
-<h3>Lista de Benefícios</h3>
+    <!-- interface de pesquisa -->
+    @using (Html.BeginForm()) {
+        <p>
+            @Html.TextBox("pesquisar", "", new { @class = "form-control", @maxlength = "30", @placeholder = "Pesquisa por descrição ou entidade", @style = "display: inline; width: 200px" })
+            <input type="submit" class="btn btn-primary" value="Pesquisar" />
+        </p>
+    }
 
-<p>
-    @Html.ActionLink("Criar novo benefício", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Descricao)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EntidRespons)
-        </th>
-        <th></th>
-    </tr>
+    <!-- tabela de benefícios -->
+    <div class="container">
+        <div class="row" style="overflow-y: auto; padding-left: 0px; height: 320px;">
+            <div class="col-lg-7" style="overflow-x: auto; padding-left: 0px;">
+                <table class="table">
+
+                    <!-- cabeçalhos -->
+                    <tr>
+                        <th class="colunas">@Html.DisplayNameFor(model => model.Descricao)</th>
+                        <th class="colunas">@Html.DisplayNameFor(model => model.EntidRespons)</th>
+                    </tr>
+
+                    <!-- dados dos benefícios -->
+                    @foreach (var item in Model) {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.Descricao)</td>
+                            <td>@Html.DisplayFor(modelItem => item.EntidRespons)</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+            <div class="col-lg-3" style="padding-left: 0px;">
+                <table class="table">
+
+                    <!-- cabeçalhos -->
+                    <tr><th class="colunas">Opções de Gestão</th></tr>
+
+                    <!-- opções de gestão -->
+                    @foreach (var item in Model) {
+                        <tr>
+                            <td class="colunas">
+                                @Html.ActionLink("Editar", "Edit", new { id = item.BeneficioID }) |
+                                @Html.ActionLink("Detalhes", "Details", new { id = item.BeneficioID }) |
+                                @Html.ActionLink("Eliminar", "Delete", new { id = item.BeneficioID })
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Descricao)
+            
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.EntidRespons)
+            
         </td>
         <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.BeneficioID }) |
-            @Html.ActionLink("Detalhes", "Details", new { id=item.BeneficioID }) |
-            @Html.ActionLink("Eliminar", "Delete", new { id=item.BeneficioID })
         </td>
     </tr>
 }

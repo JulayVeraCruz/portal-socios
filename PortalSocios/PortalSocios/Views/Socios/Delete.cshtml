@@ -7,11 +7,13 @@
     <title>Eliminar Sócio | Portal dos Sócios do Clube Desportivo Coxos da Bola</title>
 </head>
 <body>
-    <div class="titulo"><h3>Eliminar Sócio</h3></div>
+    <div class="titulo"><h3>ELIMINAR SÓCIO</h3></div>
     <div class="titulo"><h4>Tem a certeza de que pretende eliminar este sócio?</h4></div>
+    <div class="titulo"><h5>@Html.ActionLink("- Voltar à lista -", "Index")</h5></div>
     <hr />
+
     <div class="container painel">
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.ValidationSummary(true, "")
 
         <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.NumSocio)</div>
         <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.NumSocio)</div>
@@ -54,7 +56,7 @@
         @Html.AntiForgeryToken()
 
         <div class="col-lg-12 form-actions no-color" style="text-align:center; margin-top:20px;">
-            <input type="submit" value="Sim" class="btn btn-primary" />            
+            <input type="submit" value="Sim" class="btn btn-primary"  style="font-size: 16px;" />            
         </div>
     }
 </body>

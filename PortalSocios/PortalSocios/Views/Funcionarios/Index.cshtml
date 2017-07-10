@@ -1,69 +1,75 @@
 ﻿@model IEnumerable<PortalSocios.Models.Funcionarios>
 
-@{
-    ViewBag.Title = "Index";
-}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8" />
+    <title>Lista de Funcionários | Portal dos Sócios do Clube Desportivo Coxos da Bola</title>
+</head>
+<body>
+    <!-- título -->
+    <div class="titulo"><h3>Lista de Funcionários</h3></div>
+    <div class="colunas">@Html.ActionLink("- Criar novo funcionário -", "Create")</div>
+    <hr />
 
-<h3>Lista de Funcionários</h3>
+    <!-- interface de pesquisa -->
+    @using (Html.BeginForm()) {
+        <p>
+            @Html.TextBox("pesquisar", "", new { @class = "form-control", @maxlength = "30", @placeholder = "Pesquisa por nome", @style = "display: inline; width: 200px" })
+            <input type="submit" class="btn btn-primary" value="Pesquisar" />
+        </p>
+    }
 
-<p>
-    @Html.ActionLink("Criar Novo Funcionário", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NIF)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Telemovel)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Morada)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CodPostal)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DataEntrClube)
-        </th>
-        <th></th>
-    </tr>
+    <!-- tabela de funcionários -->
+    <div class="container">
+        <div class="row" style="overflow-y: auto; padding-left: 0px; height: 320px;">
+            <div class="col-lg-10" style="overflow-x: auto; padding-left: 0px;">
+                <table class="table">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NIF)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Telemovel)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Morada)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CodPostal)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DataEntrClube)
-        </td>
-        <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.FuncionarioID }) |
-            @Html.ActionLink("Detalhes", "Details", new { id=item.FuncionarioID }) |
-            @Html.ActionLink("Eliminar", "Delete", new { id=item.FuncionarioID })
-        </td>
-    </tr>
-}
+                    <!-- cabeçalhos -->
+                    <tr>
+                        <th class="colunas">@Html.ActionLink("Nome", "Index", new { ordenar = ViewBag.OrdNome })</th>
+                        <th class="colunas">@Html.DisplayNameFor(model => model.NIF)</th>
+                        <th class="colunas">@Html.DisplayNameFor(model => model.Email)</th>
+                        <th class="colunas">@Html.DisplayNameFor(model => model.Telemovel)</th>
+                        <th class="colunas">@Html.DisplayNameFor(model => model.Morada)</th>
+                        <th class="colunas">@Html.DisplayNameFor(model => model.CodPostal)</th>
+                        <th class="colunas">@Html.ActionLink("Data de Entrada", "Index", new { ordenar = ViewBag.OrdEntr })</th>
+                    </tr>
 
-</table>
+                    <!-- dados dos funcionários -->
+                    @foreach (var item in Model) {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.Nome)</td>
+                            <td class="colunas">@Html.DisplayFor(modelItem => item.NIF)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                            <td class="colunas">@Html.DisplayFor(modelItem => item.Telemovel)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Morada)</td>
+                            <td>@Html.DisplayFor(modelItem => item.CodPostal)</td>
+                            <td class="colunas">@Html.DisplayFor(modelItem => item.DataEntrClube)</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+            <div class="col-lg-2" style="padding-left: 0px;">
+                <table class="table">
+
+                    <!-- cabeçalhos -->
+                    <tr><th class="colunas">Opções de Gestão</th></tr>
+
+                    <!-- opções de gestão -->
+                    @foreach (var item in Model) {
+                        <tr>
+                            <td class="colunas">
+                                @Html.ActionLink("Editar", "Edit", new { id = item.FuncionarioID }) |
+                                @Html.ActionLink("Detalhes", "Details", new { id = item.FuncionarioID }) |
+                                @Html.ActionLink("Eliminar", "Delete", new { id = item.FuncionarioID })
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -15,7 +15,7 @@ namespace PortalSocios.Models {
         public int SocioID { get; set; }
 
         [Index(IsUnique = true)]
-        [Display(Name = "N.º de Sócio")]
+        [Display(Name = "N.º Sócio")]
         public int NumSocio { get; set; }
 
         [StringLength(50)]
@@ -39,7 +39,7 @@ namespace PortalSocios.Models {
 
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "A {0} é obrigatória!")]
-        [Display(Name = "Data de Nascimento")]
+        [Display(Name = "Data Nascimento")]
         public DateTime DataNasc { get; set; }
 
         [StringLength(50)]
@@ -69,7 +69,7 @@ namespace PortalSocios.Models {
         public string Fotografia { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Data de Inscrição")]
+        [Display(Name = "Data Inscrição")]
         public DateTime DataInscr { get; set; }
 
         // criação de um atributo para ligar a tabela 'Pagamentos' à tabela de utilizadores

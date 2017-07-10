@@ -51,7 +51,7 @@ namespace PortalSocios.Models {
 
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "A {0} é obrigatória!")]
-        [Display(Name = "Data de Entrada")]
+        [Display(Name = "Data Entrada")]
         public DateTime DataEntrClube { get; set; }
 
         // criação de um atributo para ligar este atributo à BD de autenticação

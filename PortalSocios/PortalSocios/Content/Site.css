@@ -52,7 +52,6 @@ input[type="checkbox"].input-validation-error {
 
 #rodape {
     color: #000000;
-    font-weight: bold;
     font-size: 12px;
     text-align: center;
 }
@@ -62,8 +61,8 @@ input[type="checkbox"].input-validation-error {
 }
 
 #lista {
-    overflow-x: auto;
-    border-radius: 15px;
+    overflow: auto;
+    max-height:400px;
 }
 
 .titulo {
@@ -88,8 +87,12 @@ input[type="checkbox"].input-validation-error {
     margin-top: 10px;
 }
 
-.colunas {
+.colCentro {
     text-align: center;
+}
+
+.colEsq {
+    text-align: left;
 }
 
 .tipo { 
@@ -118,28 +121,12 @@ input[type="checkbox"].input-validation-error {
     height:300px;
 }
 
-.dadosDir {
-    text-align:left;
-    border-left:1px solid #000000;
-}
-
 .dadosEsq {
     text-align:right;
     font-weight:bold;
 }
 
-.dadosDirLink {
-    margin-top:20px;
+.dadosDir {
     text-align:left;
     border-left:1px solid #000000;
-}
-
-.dadosEsqLink {
-    margin-top:20px;
-    text-align:right;
-    font-weight:bold;
-}
-
-.drop {
-    width: 100%;
 }

@@ -25,12 +25,12 @@ namespace PortalSocios.Models {
         public string AuxMontante { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Data de Pagamento")]
+        [Display(Name = "Data Pagamento")]
         public DateTime? DataPagam { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "A {0} é obrigatória!")]
-        [Display(Name = "Data Prevista de Pagamento")]
+        [Display(Name = "Data Prev. Pagamento")]
         public DateTime DataPrevPagam { get; set; }
 
         public decimal? Multa { get; set; }
@@ -43,6 +43,7 @@ namespace PortalSocios.Models {
 
         // criação de um atributo para ligar a tabela 'Pagamentos' à tabela de utilizadores
         [Display(Name = "Username")]
+        [Required(ErrorMessage = "O {0} é obrigatório!")]
         public string UserName { get; set; }
 
         // criação das chaves forasteiras

@@ -7,128 +7,72 @@
     <title>Lista de Sócios | Portal dos Sócios do Clube Desportivo Coxos da Bola</title>
 </head>
 <body>
+    <!-- título -->
     @if (User.IsInRole("Funcionario")) {
-        <div class="titulo"><h3>Lista de Sócios</h3></div>
-        <div class="colunas">@Html.ActionLink("- Criar novo sócio -", "Create")</div>
+        <div class="titulo"><h3>LISTA DE SÓCIOS</h3></div>
+        <div class="titulo"><h5>@Html.ActionLink("- Criar novo sócio -", "Create")</h5></div>
     }
     @if (User.IsInRole("Socio")) {
         <div class="titulo"><h3>Dados Pessoais</h3></div>
     }
     <hr />
-    <div id="lista">
-        <table class="table">
-            <tr>
-                <th class="colunas">
-                    @Html.DisplayNameFor(model => model.NumSocio)
-                </th>
-                <th class="colunas">
-                    @Html.DisplayNameFor(model => model.Nome)
-                </th>
-                <th class="colunas">
-                    @Html.DisplayNameFor(model => model.BI)
-                </th>
-                <th class="colunas">
-                    @Html.DisplayNameFor(model => model.NIF)
-                </th>
-                <th class="colunas">
-                    @Html.DisplayNameFor(model => model.DataNasc)
-                </th>
-                <th class="colunas">
-                    @Html.DisplayNameFor(model => model.Email)
-                </th>
-                <th class="colunas">
-                    @Html.DisplayNameFor(model => model.Telemovel)
-                </th>
-                <th class="colunas">
-                    @Html.DisplayNameFor(model => model.Morada)
-                </th>
-                <th class="colunas">
-                    @Html.DisplayNameFor(model => model.CodPostal)
-                </th>
-                <th class="colunas">
-                    @Html.DisplayNameFor(model => model.Fotografia)
-                </th>
-                <th class="colunas">
-                    @Html.DisplayNameFor(model => model.DataInscr)
-                </th>
-                <th class="colunas">
-                    Categoria
-                </th>
-                @if (User.IsInRole("Funcionario")) {
-                    <th class="colunas">
-                        @Html.DisplayNameFor(model => model.UserName)
-                    </th>
-                    <th></th>
-                }
-            </tr>
 
-            @foreach (var item in Model) {
+    <!-- interface de pesquisa -->
+    @using (Html.BeginForm()) {
+        <p style="text-align: center;">
+            @Html.TextBox("pesquisar", "", new { @class = "form-control", @maxlength = "30", @placeholder = "Pesquisa por nome", @style = "display:inline; width: 200px;" })
+            <input type="submit" class="btn btn-primary" value="Pesquisar" />
+        </p>
+    }
+
+    <!-- nota -->
+    <div style="text-align:center;">** Só estão apresentados os atributos mais relevantes. Os restantes podem ser consultados individualmente nos detalhes de cada sócio. **</div>
+
+    <div style="text-align:center;">
+        <div style="display: inline-block;">
+            <!-- tabela de sócios -->
+            <table class="table">
+                <!-- cabeçalhos -->
                 <tr>
-                    <td class="colunas">
-                        @Html.DisplayFor(modelItem => item.NumSocio)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Nome)
-                    </td>
-                    <td class="colunas">
-                        @Html.DisplayFor(modelItem => item.BI)
-                    </td>
-                    <td class="colunas">
-                        @Html.DisplayFor(modelItem => item.NIF)
-                    </td>
-                    <td class="colunas">
-                        @Html.DisplayFor(modelItem => item.DataNasc)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Email)
-                    </td>
-                    <td class="colunas">
-                        @Html.DisplayFor(modelItem => item.Telemovel)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Morada)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CodPostal)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Fotografia)
-                    </td>
-                    <td class="colunas">
-                        @Html.DisplayFor(modelItem => item.DataInscr)
-                    </td>
-                    <td class="colunas">
-                        @Html.DisplayFor(modelItem => item.Categoria.Nome)
-                    </td>
-                    @if (User.IsInRole("Funcionario")) {
-                        <td>
-                            @Html.DisplayFor(modelItem => item.UserName)
-                        </td>
-                        <td>
-                            @Html.ActionLink("Editar", "Edit", new { id = item.SocioID }) |
-                            @Html.ActionLink("Detalhes", "Details", new { id = item.SocioID }) |
-                            @Html.ActionLink("Eliminar", "Delete", new { id = item.SocioID })
-                        </td>
-                    }
-                    @if (User.IsInRole("Socio")) {
-                        <td>
-                            @Html.ActionLink("Editar", "Edit", new { id = item.SocioID }) |
-                            @Html.ActionLink("Detalhes", "Details", new { id = item.SocioID })
-                        </td>
-                    }
+                    <th class="colCentro">@Html.ActionLink("N.º Sócio", "Index", new { ordenar = ViewBag.OrdNum })</th>
+                    <th class="colCentro">@Html.ActionLink("Nome", "Index", new { ordenar = ViewBag.OrdNome })</th>
+                    <th class="colCentro">@Html.DisplayNameFor(model => model.NIF)</th>
+                    <th class="colCentro">@Html.DisplayNameFor(model => model.Email)</th>
+                    <th class="colCentro">@Html.DisplayNameFor(model => model.Telemovel)</th>
+                    <th class="colCentro">@Html.DisplayNameFor(model => model.DataInscr)</th>
+                    <th class="colCentro">@Html.ActionLink("Categoria", "Index", new { ordenar = ViewBag.OrdCateg })</th>
+                    <th class="colCentro">Opções de Gestão</th>
                 </tr>
-            }
-        </table>
+                <!-- dados dos sócios -->
+                @foreach (var item in Model) {
+                    <tr>
+                        <td class="colCentro">@Html.DisplayFor(modelItem => item.NumSocio)</td>
+                        <td class="colEsq">@Html.DisplayFor(modelItem => item.Nome)</td>
+                        <td class="colCentro">@Html.DisplayFor(modelItem => item.NIF)</td>
+                        <td class="colEsq">@Html.DisplayFor(modelItem => item.Email)</td>
+                        <td class="colCentro">@Html.DisplayFor(modelItem => item.Telemovel)</td>
+                        <td class="colCentro">@Html.DisplayFor(modelItem => item.DataInscr)</td>
+                        <td class="colCentro">@Html.DisplayFor(modelItem => item.Categoria.Nome)</td>
+                        @if (User.IsInRole("Funcionario")) {
+                            <!-- opções de gestão -->
+                            <td class="colCentro">
+                                @Html.ActionLink("Editar", "Edit", new { id = item.SocioID }) |
+                                @Html.ActionLink("Detalhes", "Details", new { id = item.SocioID }) |
+                                @Html.ActionLink("Eliminar", "Delete", new { id = item.SocioID })
+                            </td>
+                        }
+                        @if (User.IsInRole("Socio")) {
+                            <td class="colCentro">
+                                @Html.ActionLink("Editar", "Edit", new { id = item.SocioID }) |
+                                @Html.ActionLink("Detalhes", "Details", new { id = item.SocioID })
+                            </td>
+                        }
+                    </tr>
+                }
+            </table>
+        </div>
     </div>
+    
 </body>
 </html>
-
-
-
-
-
-
-
-
-
 

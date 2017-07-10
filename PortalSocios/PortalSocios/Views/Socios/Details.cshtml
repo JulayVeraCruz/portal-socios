@@ -7,8 +7,10 @@
     <title>Detalhes do Sócio | Portal dos Sócios do Clube Desportivo Coxos da Bola</title>
 </head>
 <body>
-    <div class="titulo"><h3>Detalhes do Sócio</h3></div>
+    <div class="titulo"><h3>DETALHES DO SÓCIO</h3></div>        
+    <div class="titulo"><h5>@Html.ActionLink("- Voltar à lista -", "Index")</h5></div>
     <hr />
+
     <div class="container painel">
         <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.NumSocio)</div>
         <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.NumSocio)</div>
@@ -44,12 +46,7 @@
         <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.DataInscr)</div>
 
         <div class="col-lg-6 dadosEsq">Categoria</div>
-        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.Categoria.Nome)</div>
-
-        
-    </div>
-    <div class="col-md-12" style="text-align:center; margin-top:20px; font-size:20px;">
-        @Html.ActionLink("Editar", "Edit", new { id = Model.SocioID })
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.Categoria.Nome)</div>        
     </div>
 </body>
 </html>

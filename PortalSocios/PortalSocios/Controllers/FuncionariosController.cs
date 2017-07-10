@@ -10,8 +10,30 @@ namespace PortalSocios.Controllers {
         private SociosBD db = new SociosBD();
 
         // GET: Funcionarios
-        public ActionResult Index() {
-            return View(db.Funcionarios.OrderBy(f => f.Nome).ToList());
+        public ActionResult Index(string ordenar, string pesquisar) {
+
+            var funcionario = db.Funcionarios;
+
+            // ref: https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-
+            ViewBag.OrdNome = String.IsNullOrEmpty(ordenar) ? "nomeDesc" : "";
+            ViewBag.OrdEntr = ordenar == "entrAsc" ? "entrDesc" : "entrAsc";
+
+            // permite efetuar a pesquisa de um funcionário pelo nome
+            if (!String.IsNullOrEmpty(pesquisar)) {
+                return View(funcionario.Where(f => f.Nome.ToUpper().Contains(pesquisar.ToUpper())));
+            }
+
+            // ordena a lista de funcionários de forma ascendente ou descendente, pelo atributo escolhido
+            switch (ordenar) {
+                case "nomeDesc":
+                    return View(funcionario.OrderByDescending(f => f.Nome).ToList());
+                case "entrDesc":
+                    return View(funcionario.OrderByDescending(f => f.DataEntrClube).ToList());
+                case "entrAsc":
+                    return View(funcionario.OrderBy(f => f.DataEntrClube).ToList());
+                default:
+                    return View(funcionario.OrderBy(f => f.Nome).ToList());
+            }
         }
 
         // GET: Funcionarios/Details/5

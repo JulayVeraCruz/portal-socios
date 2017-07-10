@@ -1,57 +1,31 @@
 ﻿@model PortalSocios.Models.Quotas
 
-@{
-    ViewBag.Title = "Details";
-}
-
-<h3>Detalhes da Quota</h3>
-
-<div>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8" />
+    <title>Detalhes da Quota | Portal dos Sócios do Clube Desportivo Coxos da Bola</title>
+</head>
+<body>
+    <div class="titulo"><h3>DETALHES DA QUOTA</h3></div>
+    <div class="titulo"><h5>@Html.ActionLink("- Voltar à lista -", "Index")</h5></div>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Referencia)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Referencia)
-        </dd>
+    <div class="container painel">
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.Referencia)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.Referencia)</div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Montante)
-        </dt>
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.Montante)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.Montante)</div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Montante)
-        </dd>
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.Ano)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.Ano)</div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Ano)
-        </dt>
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.Periodicidade)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.Periodicidade)</div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Ano)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Periodicidade)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Periodicidade)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Categoria.Nome)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Categoria.Nome)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Voltar à lista", "Index") |
-    @Html.ActionLink("Editar", "Edit", new { id = Model.QuotaID })
-</p>
+        <div class="col-lg-6 dadosEsq">@Html.DisplayNameFor(model => model.Categoria.Nome)</div>
+        <div class="col-lg-6 dadosDir">@Html.DisplayFor(model => model.Categoria.Nome)</div>
+    </div>
+</body>
+</html>

@@ -1,51 +1,69 @@
 ﻿@model IEnumerable<PortalSocios.Models.Categorias>
 
-@{
-    ViewBag.Title = "Index";
-}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8" />
+    <title>Lista de Categorias | Portal dos Sócios do Clube Desportivo Coxos da Bola</title>
+</head>
+<body>
+    <!-- título -->
+    <div class="titulo"><h3>Lista de Categorias</h3></div>
+    <div class="colunas">@Html.ActionLink("- Criar nova categoria -", "Create")</div>
+    <hr />
 
-<h3>Lista de Categorias</h3>
+    <!-- interface de pesquisa -->
+    @using (Html.BeginForm()) {
+        <p>
+            @Html.TextBox("pesquisar", "", new { @class = "form-control", @maxlength = "30", @placeholder = "Pesquisa por nome", @style = "display: inline; width: 200px" })
+            <input type="submit" class="btn btn-primary" value="Pesquisar" />
+        </p>
+    }
 
-<p>
-    @Html.ActionLink("Criar nova categoria", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FaixaEtaria)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NumQuotasAnuais)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ValorMensal)
-        </th>
-        <th></th>
-    </tr>
+    <!-- tabela de categorias -->
+    <div class="container">
+        <div class="row" style="overflow-y: auto; padding-left: 0px; height: 320px;">
+            <div class="col-lg-5" style="padding-left: 0px;">
+                <table class="table">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FaixaEtaria)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NumQuotasAnuais)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ValorMensal) €
-        </td>
-        <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.CategoriaID }) |
-            @Html.ActionLink("Detalhes", "Details", new { id=item.CategoriaID }) |
-            @Html.ActionLink("Eliminar", "Delete", new { id=item.CategoriaID })
-        </td>
-    </tr>
-}
+                    <!-- cabeçalhos -->
+                    <tr>
+                        <th class="colunas">@Html.DisplayNameFor(model => model.Nome)</th>
+                        <th class="colunas">@Html.DisplayNameFor(model => model.FaixaEtaria)</th>
+                        <th class="colunas">@Html.DisplayNameFor(model => model.NumQuotasAnuais)</th>
+                        <th class="colunas">@Html.DisplayNameFor(model => model.ValorMensal)</th>
+                    </tr>
 
-</table>
+                    <!-- dados das categorias -->
+                    @foreach (var item in Model) {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.Nome)</td>
+                            <td>@Html.DisplayFor(modelItem => item.FaixaEtaria)</td>
+                            <td class="colunas">@Html.DisplayFor(modelItem => item.NumQuotasAnuais)</td>
+                            <td class="colunas">@Html.DisplayFor(modelItem => item.ValorMensal) €</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+            <div class="col-lg-3" style="padding-left: 0px;">
+                <table class="table">
+
+                    <!-- cabeçalhos -->
+                    <tr><th class="colunas">Opções de Gestão</th></tr>
+
+                    <!-- opções de gestão -->
+                    @foreach (var item in Model) {
+                        <tr>
+                            <td class="colunas">
+                                @Html.ActionLink("Editar", "Edit", new { id = item.CategoriaID }) |
+                                @Html.ActionLink("Detalhes", "Details", new { id = item.CategoriaID }) |
+                                @Html.ActionLink("Eliminar", "Delete", new { id = item.CategoriaID })
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -15,13 +15,38 @@ namespace PortalSocios.Controllers {
         private SociosBD db = new SociosBD();
 
         // GET: Socios
-        public ActionResult Index() {
+        public ActionResult Index(string ordenar, string pesquisar) {
             // inclui os dados das categorias na view Socios
             var socios = db.Socios.Include(s => s.Categoria);
             // caso o utilizador seja funcionário
             if (User.IsInRole("Funcionario")) {
-                // ordena a lista de sócios pelo número de sócio
-                return View(socios.OrderBy(s => s.NumSocio).ToList());
+
+                // ref: https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-
+                ViewBag.OrdNum = String.IsNullOrEmpty(ordenar) ? "numDesc" : "";
+                ViewBag.OrdNome = ordenar == "nomeAsc" ? "nomeDesc" : "nomeAsc";
+                ViewBag.OrdInsc = ordenar == "InscAsc" ? "InscDesc" : "InscAsc";
+                ViewBag.OrdCateg = ordenar == "categAsc" ? "categDesc" : "categAsc";
+
+                // permite efetuar a pesquisa de um sócio pelo nome
+                if (!String.IsNullOrEmpty(pesquisar)) {
+                    return View(socios.Where(s => s.Nome.ToUpper().Contains(pesquisar.ToUpper())));
+                }
+
+                // ordena a lista de sócios de forma ascendente ou descendente, pelo atributo escolhido
+                switch (ordenar) {
+                    case "numDesc":
+                        return View(socios.OrderByDescending(s => s.NumSocio).ToList());
+                    case "nomeDesc":
+                        return View(socios.OrderByDescending(s => s.Nome).ToList());
+                    case "nomeAsc":
+                        return View(socios.OrderBy(s => s.Nome).ToList());
+                    case "categDesc":
+                        return View(socios.OrderByDescending(s => s.CategoriaFK).ToList());
+                    case "categAsc":
+                        return View(socios.OrderBy(s => s.CategoriaFK).ToList());
+                    default:
+                        return View(socios.OrderBy(s => s.NumSocio).ToList());
+                }
             }
             // lista apenas os dados do sócio que se autenticou
             return View(db.Socios.Where(s => s.UserName.Equals(User.Identity.Name)).ToList());
@@ -152,6 +177,11 @@ namespace PortalSocios.Controllers {
             try {
                 // edita o username de um sócio
                 socio.UserName = socio.Email;
+
+                // caso não haja um ficheiro selecionado
+                if (foto3 == null && socio.Fotografia == null) {
+                    ModelState.AddModelError("Fotografia", "Nenhum ficheiro selecionado!");
+                }
 
                 // caso os dados introduzidos estejam consistentes com o model
                 if (ModelState.IsValid) {

@@ -1,57 +1,55 @@
 ﻿@model IEnumerable<PortalSocios.Models.Quotas>
 
-@{
-    ViewBag.Title = "Index";
-}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8" />
+    <title>Lista de Quotas | Portal dos Sócios do Clube Desportivo Coxos da Bola</title>
+</head>
+<body>
+    <!-- título -->
+    <div class="titulo"><h3>LISTA DE QUOTAS</h3></div>
+    <div class="titulo"><h5>@Html.ActionLink("- Criar nova quota -", "Create")</h5></div>
+    <hr />
 
-<h3>Lista de Quotas</h3>
+    <!-- interface de pesquisa -->
+    @using (Html.BeginForm()) {
+        <p style="text-align: center;">
+            @Html.TextBox("pesquisar", "", new { @class = "form-control", @maxlength = "30", @placeholder = "Pesquisa por referência", @style = "display: inline; width: 200px" })
+            <input type="submit" class="btn btn-primary" value="Pesquisar" />
+        </p>
+    }
 
-<p>
-    @Html.ActionLink("Criar Nova Quota", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Referencia)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Montante)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Ano)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Periodicidade)
-        </th>
-        <th>
-            Categoria
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Referencia)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Montante) €
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ano)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Periodicidade)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Categoria.Nome)
-        </td>
-        <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.QuotaID }) |
-            @Html.ActionLink("Detalhes", "Details", new { id=item.QuotaID }) |
-            @Html.ActionLink("Eliminar", "Delete", new { id=item.QuotaID })
-        </td>
-    </tr>
-}
-
-</table>
+    <div style="text-align:center;">
+        <div style="display: inline-block;">
+            <!-- tabela das quotas-->
+            <table class="table">
+                <!-- cabeçalhos -->
+                <tr>
+                    <th class="colCentro">@Html.ActionLink("Referência", "Index", new { ordenar = ViewBag.OrdRef })</th>
+                    <th class="colCentro">@Html.ActionLink("Montante", "Index", new { ordenar = ViewBag.OrdMont })</th>
+                    <th class="colCentro">@Html.ActionLink("Ano", "Index", new { ordenar = ViewBag.OrdAno })</th>
+                    <th class="colCentro">@Html.ActionLink("Periodicidade", "Index", new { ordenar = ViewBag.OrdPeriod })</th>
+                    <th class="colCentro">@Html.ActionLink("Categoria", "Index", new { ordenar = ViewBag.OrdCateg })</th>
+                    <th class="colCentro">Opções de Gestão</th>
+                </tr>
+                <!-- dados das quotas -->
+                @foreach (var item in Model) {
+                    <tr>
+                        <td class="colEsq">@Html.DisplayFor(modelItem => item.Referencia)</td>
+                        <td class="colCentro">@Html.DisplayFor(modelItem => item.Montante) €</td>
+                        <td class="colCentro">@Html.DisplayFor(modelItem => item.Ano)</td>
+                        <td class="colCentro">@Html.DisplayFor(modelItem => item.Periodicidade)</td>
+                        <td class="colCentro">@Html.DisplayFor(modelItem => item.Categoria.Nome)</td>
+                        <td class="colCentro">
+                            @Html.ActionLink("Editar", "Edit", new { id = item.QuotaID }) |
+                            @Html.ActionLink("Detalhes", "Details", new { id = item.QuotaID }) |
+                            @Html.ActionLink("Eliminar", "Delete", new { id = item.QuotaID })
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</body>
+</html>
