@@ -30,7 +30,7 @@
     }
 
     <!-- nota -->
-    <div style="text-align:center;">** Só estão apresentados os dados mais relevantes. Os restantes podem ser consultados nos detalhes de cada pagamento. **</div>
+    <div style="text-align:center;">** Só estão apresentados os dados mais relevantes. Os restantes podem ser consultados nos detalhes. **</div>
 
     <div style="text-align:center;">
         <div style="display: inline-block;">
@@ -39,15 +39,10 @@
                 <!-- cabeçalhos -->
                 <tr>
                     @if (User.IsInRole("Administrador") || User.IsInRole("Funcionario")) {
-                        <th class="colCentro">@Html.ActionLink("Sócio", "Index", new { ordenar = ViewBag.OrdSocio })</th>                        
+                        <th class="colCentro">Sócio</th>                        
                     }
                     <th class="colCentro">@Html.DisplayNameFor(model => model.Quota)</th>
-                    @if (User.IsInRole("Administrador") || User.IsInRole("Funcionario")) {
-                        <th class="colCentro">@Html.ActionLink("Referência Multibanco", "Index", new { ordenar = ViewBag.OrdRef })</th>
-                    }
-                    @if (User.IsInRole("Socio")) {
-                        <th class="colCentro">@Html.DisplayNameFor(model => model.RefMultibanco)</th>
-                    }
+                    <th class="colCentro">@Html.DisplayNameFor(model => model.RefMultibanco)</th>
                     <th class="colCentro">@Html.DisplayNameFor(model => model.Montante)</th>
                     <th class="colCentro">@Html.DisplayNameFor(model => model.DataPagam)</th>
                     <th class="colCentro">@Html.DisplayNameFor(model => model.DataPrevPagam)</th>

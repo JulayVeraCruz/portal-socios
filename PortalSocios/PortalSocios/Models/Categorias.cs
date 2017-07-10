@@ -35,7 +35,7 @@ namespace PortalSocios.Models {
 
         // atributo auxiliar
         [NotMapped]
-        [RegularExpression("[0-9]+(,[0-9]{1,2})?", ErrorMessage = "Introduza um valor inteiro ou decimal, no formato 0,00")]
+        [RegularExpression("[0-9]+(,[0-9]{1,2})?", ErrorMessage = "O {0} deve ser um valor inteiro ou decimal, no formato 0,00")]
         [Required(ErrorMessage = "O {0} é obrigatório!")]
         [Display(Name = "Valor Mensal")]
         public string AuxValorMensal { get; set; }

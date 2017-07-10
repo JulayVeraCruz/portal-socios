@@ -14,23 +14,28 @@
     @if (User.IsInRole("Socio")) {
         <div class="titulo"><h3>DADOS PESSOAIS</h3></div>
     }
+
+    @if (User.IsInRole("Administrador") || User.IsInRole("Funcionario")) {
+        <!-- criar novo sócio -->
+        <div class="col-md-12" style="text-align:center; margin-top: 20px;">
+            <input type="button" class="btn btn-primary" value="Criar Novo Sócio" onclick="location.href='@Url.Action("Create", "Socios")'" style="font-size: 16px;" />
+        </div>
+    }
     
-    <!-- criar novo sócio -->
-    <div class="col-md-12" style="text-align:center; margin-top: 20px;">
-        <input type="button" class="btn btn-primary" value="Criar Novo Sócio" onclick="location.href='@Url.Action("Create", "Socios")'" style="font-size: 16px;" />
-    </div>
     <hr />
 
-    <!-- interface de pesquisa -->
-    @using (Html.BeginForm()) {
-        <p style="text-align: center;">
-            @Html.TextBox("pesquisar", "", new { @class = "form-control", @maxlength = "30", @placeholder = "Pesquisa por nome", @style = "display:inline; width: 200px;" })
-            <input type="submit" class="btn btn-primary" value="Pesquisar" />
-        </p>
+    @if (User.IsInRole("Administrador") || User.IsInRole("Funcionario")) {
+        <!-- interface de pesquisa -->
+        using (Html.BeginForm()) {
+            <p style="text-align: center;">
+                @Html.TextBox("pesquisar", "", new { @class = "form-control", @maxlength = "30", @placeholder = "Pesquisa por nome", @style = "display:inline; width: 200px;" })
+                <input type="submit" class="btn btn-primary" value="Pesquisar" />
+            </p>
+        }
     }
 
     <!-- nota -->
-    <div style="text-align:center;">** Só estão apresentados os dados mais relevantes. Os restantes podem ser consultados nos detalhes de cada sócio. **</div>
+    <div style="text-align:center;">** Só estão apresentados os dados mais relevantes. Os restantes podem ser consultados nos detalhes. **</div>
 
     <div style="text-align:center;">
         <div style="display: inline-block;">
@@ -45,7 +50,12 @@
                     <th class="colCentro">@Html.DisplayNameFor(model => model.Telemovel)</th>
                     <th class="colCentro">@Html.DisplayNameFor(model => model.DataInscr)</th>
                     <th class="colCentro">@Html.ActionLink("Categoria", "Index", new { ordenar = ViewBag.OrdCateg })</th>
-                    <th class="colCentro">Opções de Gestão</th>
+                    @if (User.IsInRole("Administrador") || User.IsInRole("Funcionario")) {
+                        <th class="colCentro">Opções de Gestão</th>
+                    }
+                    @if (User.IsInRole("Socio")) {
+                        <th class="colCentro">Opções de Consulta</th>
+                    }
                 </tr>
                 <!-- dados dos sócios -->
                 @foreach (var item in Model) {

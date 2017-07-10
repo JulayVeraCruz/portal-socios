@@ -67,7 +67,7 @@ namespace PortalSocios.Controllers {
                 }
             }
             catch (Exception) {
-                ModelState.AddModelError("", string.Format("Não foi possível criar um novo funcionário. Verifique o NIF..."));
+                ModelState.AddModelError("", string.Format("Não foi possível criar um novo funcionário...O NIF já poderá existir."));
             }
             return View(funcionario);
         }
@@ -98,7 +98,7 @@ namespace PortalSocios.Controllers {
                 }
             }
             catch (Exception) {
-                ModelState.AddModelError("", string.Format("Não foi possível editar este funcionário. Verifique o NIF..."));
+                ModelState.AddModelError("", string.Format("Não foi possível editar este funcionário...O NIF já poderá existir."));
             }
             return View(funcionario);
         }
@@ -126,7 +126,7 @@ namespace PortalSocios.Controllers {
                 return RedirectToAction("Index");
             }
             catch (Exception) {
-                ModelState.AddModelError("", string.Format("Não foi possível eliminar este funcionário."));
+                ModelState.AddModelError("", string.Format("Não foi possível eliminar este funcionário..."));
             }
             return View(funcionario);
         }

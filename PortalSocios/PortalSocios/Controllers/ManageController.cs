@@ -209,7 +209,8 @@ namespace PortalSocios.Controllers {
                 if (user != null) {
                     await SignInAsync(user, isPersistent: false);
                 }
-                return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
+                ViewBag.a = "Palavra-passe alterada com sucesso!";
+                return View(model);
             }
             AddErrors(result);
             return View(model);

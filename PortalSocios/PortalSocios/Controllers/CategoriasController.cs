@@ -56,7 +56,7 @@ namespace PortalSocios.Controllers {
                 }
             }
             catch (Exception) {
-                ModelState.AddModelError("", string.Format("Não foi possível criar uma nova categoria."));
+                ModelState.AddModelError("", string.Format("Não foi possível criar uma nova categoria..."));
             }
             return View(categoria);
         }
@@ -90,7 +90,7 @@ namespace PortalSocios.Controllers {
                 }
             }
             catch (Exception) {
-                ModelState.AddModelError("", string.Format("Não foi possível editar esta categoria."));
+                ModelState.AddModelError("", string.Format("Não foi possível editar esta categoria..."));
             }
             return View(categoria);
         }
@@ -118,7 +118,7 @@ namespace PortalSocios.Controllers {
                 return RedirectToAction("Index");
             }
             catch (Exception) {
-                ModelState.AddModelError("", string.Format("Não foi possível eliminar esta categoria."));
+                ModelState.AddModelError("", string.Format("Não foi possível eliminar esta categoria..."));
             }
             return View(categoria);
         }

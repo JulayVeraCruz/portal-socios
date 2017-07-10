@@ -70,8 +70,9 @@ namespace PortalSocios.Models
         [Display(Name = "Palavra-chave")]
         public string Password { get; set; }
 
+        [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Confirmar palavra-chave")]
+        [Display(Name = "Confirmar Palavra-chave")]
         [Compare("Password", ErrorMessage = "A nova palavra-passe e a palavra-passe de confirmação são diferentes.")]
         public string ConfirmPassword { get; set; }
 

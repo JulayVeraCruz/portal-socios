@@ -51,6 +51,12 @@ input[type="checkbox"].input-validation-error {
 
 /* ########## CSS ADICIONADO ########## */
 
+#inscr {
+  color: #ff3700;
+  font-weight: bold;
+}
+
+
 #rodape {
     color: #000000;
     font-size: 12px;
@@ -73,7 +79,7 @@ input[type="checkbox"].input-validation-error {
 .painel {
     background-color: rgba(255, 255, 255, 0.5);
     padding: 15px 0px 25px 0px;
-    border-radius: 5px;
+    border-radius: 15px;
     text-align: center;
 }
 

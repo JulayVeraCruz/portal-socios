@@ -93,7 +93,7 @@ namespace PortalSocios.Controllers {
                 }
             }
             catch (Exception) {
-                ModelState.AddModelError("", string.Format("Não foi possível criar um novo role."));
+                ModelState.AddModelError("", string.Format("Não foi possível criar uma nova função..."));
             }
             return View();
         }
@@ -126,7 +126,7 @@ namespace PortalSocios.Controllers {
                 }
             }
             catch (Exception) {
-                ModelState.AddModelError("", string.Format("Não foi possível editar este role."));
+                ModelState.AddModelError("", string.Format("Não foi possível editar esta função..."));
             }
             return View();
         }
@@ -173,7 +173,7 @@ namespace PortalSocios.Controllers {
                 }
             }
             catch (Exception) {
-                ModelState.AddModelError("", string.Format("Não foi possível eliminar este role."));
+                ModelState.AddModelError("", string.Format("Não foi possível eliminar esta função..."));
             }
             return View();
         }

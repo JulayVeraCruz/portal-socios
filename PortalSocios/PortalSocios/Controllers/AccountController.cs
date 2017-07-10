@@ -180,7 +180,7 @@ namespace PortalSocios.Controllers {
                         // adiciona um utilizador ao role 'Socios'
                         var RoleResult = await UserManager.AddToRoleAsync(user.Id, "Socio");
                         if (!RoleResult.Succeeded) {
-                            ModelState.AddModelError("", string.Format("Não foi possível adicionar o utilizador ao role."));
+                            ModelState.AddModelError("", string.Format("Não foi possível adicionar o utilizador à função."));
                             return View(model);
                         }
                         var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -195,7 +195,7 @@ namespace PortalSocios.Controllers {
             }
             catch (Exception) {
                 // casos os dados introduzidos não estejam consistentes com o model, apresenta uma mensagem ao utilizador
-                ModelState.AddModelError("", string.Format("Não foi possível criar uma conta nova. Verifique o E-mail, o BI/CC e/ou o NIF..."));
+                ModelState.AddModelError("", string.Format("Não foi possível criar uma nova conta...O e-mail, o BI/CC e/ou o NIF já poderão existir."));
             }
             ViewBag.CategoriaFK = new SelectList(db.Categorias, "CategoriaID", "Nome", socio.CategoriaFK);
             return View(model);

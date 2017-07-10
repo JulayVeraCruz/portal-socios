@@ -136,7 +136,7 @@ namespace PortalSocios.Controllers {
             }
             catch (Exception) {
                 // cria uma mensagem de erro a ser apresentada ao utilizador
-                ModelState.AddModelError("", string.Format("Não foi possível criar um novo sócio. Verifique o E-mail, o BI/CC e/ou o NIF..."));
+                ModelState.AddModelError("", string.Format("Não foi possível criar um novo sócio...O e-mail, o BI/CC e/ou o NIF já poderão existir."));
             }
             ViewBag.CategoriaFK = new SelectList(db.Categorias, "CategoriaID", "Nome", socio.CategoriaFK);
             // volta para a view da criação do sócio
@@ -197,14 +197,18 @@ namespace PortalSocios.Controllers {
                         // guarda o ficheiro na pasta indicada
                         var path = Path.Combine(Server.MapPath("~/App_Data/FotosSocios"), fileName);
                         foto3.SaveAs(path);
-                    }                    
+                    } else if (socio.Fotografia != null) {
+                        db.Entry(socio).State = EntityState.Modified;
+                        // guarda as alterações na BD
+                        db.SaveChanges();
+                    }
                     // redireciona para a lista de sócios
                     return RedirectToAction("Index");
                 }
             }
             catch (Exception) {
                 // casos os dados introduzidos não estejam consistentes com o model, apresenta uma mensagem ao utilizador
-                ModelState.AddModelError("", string.Format("Não foi possível editar este sócio. Verifique o E-mail, o BI/CC e/ou o NIF..."));
+                ModelState.AddModelError("", string.Format("Não foi possível editar este sócio...O e-mail, o BI/CC e/ou o NIF já poderão existir."));
             }
             ViewBag.CategoriaFK = new SelectList(db.Categorias, "CategoriaID", "Nome", socio.CategoriaFK);
             // volta para a VIEW da edição do sócio
@@ -247,7 +251,7 @@ namespace PortalSocios.Controllers {
             }
             catch (Exception) {
                 // cria uma mensagem de erro a ser apresentada ao utilizador
-                ModelState.AddModelError("", string.Format("Não foi possível eliminar este sócio."));
+                ModelState.AddModelError("", string.Format("Não foi possível eliminar este sócio..."));
             }
             // volta para a view de eliminação do sócio
             return View(socio);

@@ -12,10 +12,13 @@
     <div class="container">
         <div class="row painel">
             @foreach (var item in Model) {
-                <div class="col-lg-4 col-sm-6 text-center">
-                    <img class="img-circle img-responsive img-center imagem" src="http://placehold.it/200x200" />
-                    <h4>Sócio @Html.DisplayFor(modelItem => item.Nome)</h4>
-                </div>
+                if (item.CategoriaID < 4) {
+                    <div class="col-lg-4 text-center leg">
+                        <img class="img-circle img-center imagem" src="~/Content/Imagens/quota@(item.CategoriaID).png" />
+                        <h3>Sócio @Html.DisplayFor(modelItem => item.Nome)</h3>
+                        <p>@Html.DisplayFor(modelItem => item.FaixaEtaria) anos</p>
+                    </div>
+                }
             }
         </div>
     </div>

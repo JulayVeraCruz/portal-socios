@@ -10,30 +10,16 @@ namespace PortalSocios.Controllers {
         private SociosBD db = new SociosBD();
 
         // GET: Pagamentos
-        public ActionResult Index(string ordenar, string pesquisar) {
+        public ActionResult Index(string pesquisar) {
             var pagamentos = db.Pagamentos.Include(p => p.Funcionario).Include(p => p.Quota).Include(p => p.Socio);
+
             if (User.IsInRole("Administrador") || User.IsInRole("Funcionario")) {
-
                 // ref: https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-
-                ViewBag.OrdSocio = String.IsNullOrEmpty(ordenar) ? "socioDesc" : "";
-                ViewBag.OrdRef = ordenar == "refAsc" ? "refDesc" : "refAsc";
-
                 // permite efetuar a pesquisa de um pagamento pela referência multibanco
                 if (!String.IsNullOrEmpty(pesquisar)) {
                     return View(pagamentos.Where(p => p.RefMultibanco.Contains(pesquisar)));
                 }
-
-                // ordena a lista de pagamentos de forma ascendente ou descendente, pelo atributo escolhido
-                switch (ordenar) {
-                    case "socioDesc":
-                        return View(pagamentos.OrderByDescending(p => p.SocioFK).ToList());
-                    case "refDesc":
-                        return View(pagamentos.OrderByDescending(p => p.RefMultibanco).ToList());
-                    case "refAsc":
-                        return View(pagamentos.OrderBy(p => p.RefMultibanco).ToList());
-                    default:
-                        return View(pagamentos.OrderBy(p => p.SocioFK).ToList());
-                }
+                return View(db.Pagamentos.OrderBy(p => p.RefMultibanco).ToList());
             }
             // lista apenas os pagamentos relativos ao sócio que se autenticou
             return View(db.Pagamentos.Where(p => p.UserName.Equals(User.Identity.Name)).OrderBy(p => p.DataPrevPagam).ToList());
@@ -79,7 +65,7 @@ namespace PortalSocios.Controllers {
                 }
             }
             catch (Exception) {
-                ModelState.AddModelError("", string.Format("Não foi possível criar um novo pagamento. Verifique a referência multibanco..."));
+                ModelState.AddModelError("", string.Format("Não foi possível criar um novo pagamento...A referência multibanco já poderá existir."));
             }
             ViewBag.FuncionarioFK = new SelectList(db.Funcionarios, "FuncionarioID", "Nome", pagamento.FuncionarioFK);
             ViewBag.QuotaFK = new SelectList(db.Quotas, "QuotaID", "Referencia", pagamento.QuotaFK);
@@ -122,7 +108,7 @@ namespace PortalSocios.Controllers {
                 }
             }
             catch (Exception) {
-                ModelState.AddModelError("", string.Format("Não foi possível editar este pagamento. Verifique a referência multibanco..."));
+                ModelState.AddModelError("", string.Format("Não foi possível editar este pagamento...A referência multibanco já poderá existir."));
             }
             ViewBag.FuncionarioFK = new SelectList(db.Funcionarios, "FuncionarioID", "Nome", pagamento.FuncionarioFK);
             ViewBag.QuotaFK = new SelectList(db.Quotas, "QuotaID", "Referencia", pagamento.QuotaFK);
@@ -155,7 +141,7 @@ namespace PortalSocios.Controllers {
                 return RedirectToAction("Index");
             }
             catch (Exception) {
-                ModelState.AddModelError("", string.Format("Não foi possível eliminar este pagamento."));
+                ModelState.AddModelError("", string.Format("Não foi possível eliminar este pagamento..."));
             }
             return View(pagamento);
         }

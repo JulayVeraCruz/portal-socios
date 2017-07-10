@@ -14,8 +14,7 @@
             @foreach (var item in Model) {
                 if (item.BeneficioID < 7) {
                     <div class="col-lg-4 text-center leg">
-                        <!--<img class="img-circle img-responsive img-center imagem" src="~/Content/Imagens/vantagem@(item.BeneficioID).jpg" />-->
-                        <img class="img-circle img-responsive img-center imagem" src="http://placehold.it/200x200" />                        
+                        <img class="img-circle img-responsive img-center imagem" src="~/Content/Imagens/vantagem@(item.BeneficioID).png" />                      
                         <h4>@Html.DisplayFor(modelItem => item.Descricao)</h4>
                     </div>
                 }

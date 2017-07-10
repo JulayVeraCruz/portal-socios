@@ -13,7 +13,7 @@ namespace PortalSocios.Models {
         [Key]
         public int QuotaID { get; set; }
 
-        [RegularExpression("[A-ZÁÂÉÍÓÚ][a-záàâãäèéêëìíîïòóôõöùúûüç]+-[0-9]+-[A-Z][a-z]+", ErrorMessage = "Introduza a {0} no formato Categoria-Ano-Periodicidade.")]
+        [RegularExpression("[A-ZÁÂÉÍÓÚ][a-záàâãäèéêëìíîïòóôõöùúûüç]+-[0-9]+-[A-Z][a-z]+", ErrorMessage = "A {0} deve ter o formato Categoria-Ano-Periodicidade.")]
         [Required(ErrorMessage = "A {0} é obrigatória!")]
         [Display(Name = "Referência")]
         public string Referencia { get; set; }
@@ -22,7 +22,7 @@ namespace PortalSocios.Models {
 
         // atributo auxiliar
         [NotMapped]
-        [RegularExpression("[0-9]+(,[0-9]{1,2})?", ErrorMessage = "Introduza um valor inteiro ou decimal, no formato 0,00")]
+        [RegularExpression("[0-9]+(,[0-9]{1,2})?", ErrorMessage = "O {0} deve ser um valor inteiro ou decimal, no formato 0,00")]
         [Required(ErrorMessage = "O {0} é obrigatório!")]
         [Display(Name = "Montante")]
         public string AuxMontante { get; set; }

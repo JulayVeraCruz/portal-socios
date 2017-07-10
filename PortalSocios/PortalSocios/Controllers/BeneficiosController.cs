@@ -53,7 +53,7 @@ namespace PortalSocios.Controllers {
                 }
             }
             catch (Exception) {
-                ModelState.AddModelError("", string.Format("Não foi possível criar um novo benefício."));
+                ModelState.AddModelError("", string.Format("Não foi possível criar um novo benefício..."));
             }
             return View(beneficio);
         }
@@ -84,7 +84,7 @@ namespace PortalSocios.Controllers {
                 }
             }
             catch (Exception) {
-                ModelState.AddModelError("", string.Format("Não foi possível editar este benefício."));
+                ModelState.AddModelError("", string.Format("Não foi possível editar este benefício..."));
             }
             return View(beneficio);
         }
@@ -112,7 +112,7 @@ namespace PortalSocios.Controllers {
                 return RedirectToAction("Index");
             }
             catch (Exception) {
-                ModelState.AddModelError("", string.Format("Não foi possível eliminar este benefício."));
+                ModelState.AddModelError("", string.Format("Não foi possível eliminar este benefício..."));
             }
             return View(beneficio);
         }

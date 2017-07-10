@@ -19,21 +19,21 @@ namespace PortalSocios.Models {
         public int NumSocio { get; set; }
 
         [StringLength(50)]
-        [RegularExpression("[A-ZÁÂÉÍÓÚ][a-záàâãäèéêëìíîïòóôõöùúûüç]+((-| )((da|de|do|das|dos) )?[A-ZÁÂÉÍÓÚ][a-záàâãäèéêëìíîïòóôõöùúûüç]+)+", ErrorMessage = "Introduza apenas letras. O {0} começa obrigatoriamente por uma maiúscula.")]
+        [RegularExpression("[A-ZÁÂÉÍÓÚ][a-záàâãäèéêëìíîïòóôõöùúûüç]+((-| )((da|de|do|das|dos) )?[A-ZÁÂÉÍÓÚ][a-záàâãäèéêëìíîïòóôõöùúûüç]+)+", ErrorMessage = "O {0} começa obrigatoriamente por uma maiúscula e é constituído apenas por letras.")]
         [Required(ErrorMessage = "O {0} é obrigatório!")]
         [Display(Name = "Nome Completo")]
         public string Nome { get; set; }
         
         [StringLength(8)]
         [Index(IsUnique = true)]
-        [RegularExpression("[0-9]{8}", ErrorMessage = "Introduza 8 caracteres numéricos.")]        
+        [RegularExpression("[0-9]{8}", ErrorMessage = "O {0} deve ter 8 caracteres numéricos.")]        
         [Required(ErrorMessage = "O {0} é obrigatório!")]
         [Display(Name = "BI / CC")]
         public string BI { get; set; }
 
         [StringLength(9)]
         [Index(IsUnique = true)]
-        [RegularExpression("[0-9]{9}", ErrorMessage = "Introduza 9 caracteres numéricos.")]        
+        [RegularExpression("[0-9]{9}", ErrorMessage = "O {0} deve ter 9 caracteres numéricos.")]        
         [Required(ErrorMessage = "O {0} é obrigatório!")]
         public string NIF { get; set; }
 
@@ -50,7 +50,7 @@ namespace PortalSocios.Models {
         public string Email { get; set; }
 
         [StringLength(9)]
-        [RegularExpression("[0-9]{9}", ErrorMessage = "Introduza 9 caracteres numéricos.")]
+        [RegularExpression("[0-9]{9}", ErrorMessage = "O {0} deve ter 9 caracteres numéricos.")]
         [Required(ErrorMessage = "O {0} é obrigatório!")]
         [Display(Name = "Telemóvel")]
         public string Telemovel { get; set; }
@@ -60,7 +60,7 @@ namespace PortalSocios.Models {
         public string Morada { get; set; }
 
         [StringLength(50)]
-        [RegularExpression("[0-9]{4}-[0-9]{3}( [A-ZÁÂÃÉÊÍÎÓÔÕÚÛÇ.-]+)+", ErrorMessage = "Introduza o {0} no formato 0000-000 LOCALIDADE.")]
+        [RegularExpression("[0-9]{4}-[0-9]{3}( [A-ZÁÂÃÉÊÍÎÓÔÕÚÛÇ.-]+)+", ErrorMessage = "O {0} deve ter o formato 0000-000 LOCALIDADE.")]
         [Required(ErrorMessage = "O {0} é obrigatório!")]
         [Display(Name = "Código Postal")]
         public string CodPostal { get; set; }

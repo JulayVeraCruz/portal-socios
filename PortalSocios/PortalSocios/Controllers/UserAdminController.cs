@@ -98,7 +98,7 @@ namespace PortalSocios.Controllers {
                 }
             }
             catch (Exception) {
-                ModelState.AddModelError("", string.Format("Não foi possível criar um novo utilizador."));
+                ModelState.AddModelError("", string.Format("Não foi possível criar um novo utilizador..."));
             }
             ViewBag.RoleId = new SelectList(RoleManager.Roles, "Name", "Name");
             return View();
@@ -163,7 +163,7 @@ namespace PortalSocios.Controllers {
                 }
             }
             catch (Exception) {
-                ModelState.AddModelError("", string.Format("Não foi possível editar este utilizador."));
+                ModelState.AddModelError("", string.Format("Não foi possível editar este utilizador..."));
             }
             return View();
         }
@@ -205,7 +205,7 @@ namespace PortalSocios.Controllers {
                 }
             }
             catch (Exception) {
-                ModelState.AddModelError("", string.Format("Não foi possível eliminar este utilizador."));
+                ModelState.AddModelError("", string.Format("Não foi possível eliminar este utilizador..."));
             }
             return View();
         }

@@ -85,7 +85,7 @@ namespace PortalSocios.Controllers {
                 }
             }
             catch (Exception) {
-                ModelState.AddModelError("", string.Format("Não foi possível criar uma nova quota. Verifique a referência..."));
+                ModelState.AddModelError("", string.Format("Não foi possível criar uma nova quota...A referência já poderá existir."));
             }
             ViewBag.CategoriaFK = new SelectList(db.Categorias, "CategoriaID", "Nome", quota.CategoriaFK);
             return View(quota);
@@ -120,7 +120,7 @@ namespace PortalSocios.Controllers {
                 }
             }
             catch (Exception) {
-                ModelState.AddModelError("", string.Format("Não foi possível editar esta quota. Verifique a referência..."));
+                ModelState.AddModelError("", string.Format("Não foi possível editar esta quota...A referência já poderá existir."));
             }
             ViewBag.CategoriaFK = new SelectList(db.Categorias, "CategoriaID", "Nome", quota.CategoriaFK);
             return View(quota);
@@ -149,7 +149,7 @@ namespace PortalSocios.Controllers {
                 return RedirectToAction("Index");
             }
             catch (Exception) {
-                ModelState.AddModelError("", string.Format("Não foi possível eliminar esta quota."));
+                ModelState.AddModelError("", string.Format("Não foi possível eliminar esta quota..."));
             }
             return View(quota);
         }
