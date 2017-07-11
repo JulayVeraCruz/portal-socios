@@ -39,17 +39,19 @@ namespace PortalSocios.Controllers {
             }
         }
 
-
-        // ##################################################
-
-        //
-        // GET: /Users/
+        /// <summary>
+        /// Mostra a VIEW da lista de utilizadores
+        /// GET: /Users/
+        /// </summary>
         public async Task<ActionResult> Index() {
             return View(await UserManager.Users.ToListAsync());
         }
 
-        //
-        // GET: /Users/Details/5
+        /// <summary>
+        /// Mostra a VIEW dos detalhes de um utilizador
+        /// GET - ex.: /Users/Details/5
+        /// </summary>
+        /// <param name="id"></param>
         public async Task<ActionResult> Details(string id) {
             if (id == null) {
                 return RedirectToAction("Index");
@@ -61,16 +63,23 @@ namespace PortalSocios.Controllers {
             return View(user);
         }
 
-        //
-        // GET: /Users/Create
+        /// <summary>
+        /// Mostra a VIEW de criação de um utilizador
+        /// GET: /Users/Create
+        /// </summary>
         public async Task<ActionResult> Create() {
             //Get the list of Roles
             ViewBag.RoleId = new SelectList(await RoleManager.Roles.ToListAsync(), "Name", "Name");
             return View();
         }
 
-        //
-        // POST: /Users/Create
+        /// <summary>
+        /// Verifica se os dados introduzidos para a criação de um utilizador são válidos
+        /// e, se for o caso, cria esse utilizador
+        /// POST: /Users/Create
+        /// </summary>
+        /// <param name="userViewModel"></param>
+        /// <param name="selectedRoles"></param>
         [HttpPost]
         public async Task<ActionResult> Create(RegisterViewModel userViewModel, params string[] selectedRoles) {
             try {
@@ -104,8 +113,11 @@ namespace PortalSocios.Controllers {
             return View();
         }
 
-        //
-        // GET: /Users/Edit/1
+        /// <summary>
+        /// Mostra a VIEW de edição de um utilizador
+        /// GET - ex.: /Users/Edit/1
+        /// </summary>
+        /// <param name="id"></param>
         public async Task<ActionResult> Edit(string id) {
             if (id == null) {
                 return RedirectToAction("Index");
@@ -128,8 +140,13 @@ namespace PortalSocios.Controllers {
             });
         }
 
-        //
-        // POST: /Users/Edit/5
+        /// <summary>
+        /// Verifica se os dados introduzidos para a edição de um utilizador
+        /// são válidos e, se for o caso, edita esse utilizador
+        /// POST - ex.: /Users/Edit/5
+        /// </summary>
+        /// <param name="editUser"></param>
+        /// <param name="selectedRole"></param>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "Email,Id")] EditUserViewModel editUser, params string[] selectedRole) {
@@ -168,8 +185,11 @@ namespace PortalSocios.Controllers {
             return View();
         }
 
-        //
-        // GET: /Users/Delete/5
+        /// <summary>
+        /// Mostra a VIEW de eliminação de um utilizador
+        /// GET - ex.: /Users/Delete/5
+        /// </summary>
+        /// <param name="id"></param>
         public async Task<ActionResult> Delete(string id) {
             if (id == null) {
                 return RedirectToAction("Index");
@@ -181,8 +201,12 @@ namespace PortalSocios.Controllers {
             return View(user);
         }
 
-        //
-        // POST: /Users/Delete/5
+        /// <summary>
+        /// Verifica se é possível a eliminação de um utilizador
+        /// e, se for o caso, elimina esse utilizador
+        /// POST - ex.: /Users/Delete/5
+        /// </summary>
+        /// <param name="id"></param>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(string id) {

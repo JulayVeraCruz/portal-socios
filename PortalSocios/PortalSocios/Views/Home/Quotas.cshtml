@@ -13,8 +13,8 @@
         <div class="row painel">
             @foreach (var item in Model) {
                 if (item.CategoriaID < 4) {
-                    <div class="col-lg-4 text-center leg">
-                        <img class="img-circle img-center imagem" src="~/Content/Imagens/quota@(item.CategoriaID).png" />
+                    <div class="col-lg-4 text-center legendas">
+                        <img class="img-circle img-center imagens" src="~/Content/Imagens/quota@(item.CategoriaID).png" />
                         <h3>Sócio @Html.DisplayFor(modelItem => item.Nome)</h3>
                         <p>@Html.DisplayFor(modelItem => item.FaixaEtaria) anos</p>
                     </div>

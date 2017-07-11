@@ -41,16 +41,19 @@ namespace PortalSocios.Controllers {
             }
         }
 
-        // ##################################################
-
-        //
-        // GET: /Roles/
+        /// <summary>
+        /// Mostra a VIEW da lista de funções
+        /// GET: /Roles/
+        /// </summary>
         public ActionResult Index() {
             return View(RoleManager.Roles);
         }
 
-        //
-        // GET: /Roles/Details/5
+        /// <summary>
+        /// Mostra a VIEW dos detalhes de uma função
+        /// GET - ex.: /Roles/Details/5
+        /// </summary>
+        /// <param name="id"></param>
         public async Task<ActionResult> Details(string id) {
             if (id == null) {
                 return RedirectToAction("Index");
@@ -71,14 +74,20 @@ namespace PortalSocios.Controllers {
             return View(role);
         }
 
-        //
-        // GET: /Roles/Create
+        /// <summary>
+        /// Mostra a VIEW de criação de uma função
+        /// GET: /Roles/Create
+        /// </summary>
         public ActionResult Create() {
             return View();
         }
 
-        //
-        // POST: /Roles/Create
+        /// <summary>
+        /// Verifica se os dados introduzidos para a criação de uma função são válidos
+        /// e, se for o caso, cria essa função
+        /// POST: /Roles/Create
+        /// </summary>
+        /// <param name="roleViewModel"></param>
         [HttpPost]
         public async Task<ActionResult> Create(RoleViewModel roleViewModel) {
             try {
@@ -98,8 +107,11 @@ namespace PortalSocios.Controllers {
             return View();
         }
 
-        //
-        // GET: /Roles/Edit/Admin
+        /// <summary>
+        /// Mostra a VIEW de edição de uma função
+        /// GET: /Roles/Edit/Admin
+        /// </summary>
+        /// <param name="id"></param>
         public async Task<ActionResult> Edit(string id) {
             if (id == null) {
                 return RedirectToAction("Index");
@@ -112,8 +124,12 @@ namespace PortalSocios.Controllers {
             return View(roleModel);
         }
 
-        //
-        // POST: /Roles/Edit/5
+        /// <summary>
+        /// Verifica se os dados introduzidos para a edição de uma função
+        /// são válidos e, se for o caso, edita essa função
+        /// POST - ex.: /Roles/Edit/5
+        /// </summary>
+        /// <param name="roleModel"></param>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "Name,Id")] RoleViewModel roleModel) {
@@ -131,8 +147,11 @@ namespace PortalSocios.Controllers {
             return View();
         }
 
-        //
-        // GET: /Roles/Delete/5
+        /// <summary>
+        /// Mostra a VIEW de eliminação de uma função
+        /// GET - ex.: /Roles/Delete/5
+        /// </summary>
+        /// <param name="id"></param>
         public async Task<ActionResult> Delete(string id) {
             if (id == null) {
                 return RedirectToAction("Index");
@@ -144,8 +163,13 @@ namespace PortalSocios.Controllers {
             return View(role);
         }
 
-        //
-        // POST: /Roles/Delete/5
+        /// <summary>
+        /// Verifica se é possível a eliminação de uma função
+        /// e, se for o caso, elimina essa função
+        /// POST - ex.: /Roles/Delete/5
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="deleteUser"></param>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(string id, string deleteUser) {

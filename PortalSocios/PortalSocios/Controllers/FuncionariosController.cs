@@ -7,9 +7,16 @@ using System;
 namespace PortalSocios.Controllers {
     [Authorize(Roles = "Administrador")]
     public class FuncionariosController : Controller {
+
+        // cria um novo objeto que representa a BD
         private SociosBD db = new SociosBD();
 
-        // GET: Funcionarios
+        /// <summary>
+        /// Mostra a VIEW da lista de funcionários
+        /// GET: Funcionarios
+        /// </summary>
+        /// <param name="ordenar"></param>
+        /// <param name="pesquisar"></param>
         public ActionResult Index(string ordenar, string pesquisar) {
 
             var funcionario = db.Funcionarios;
@@ -23,7 +30,7 @@ namespace PortalSocios.Controllers {
                 return View(funcionario.Where(f => f.Nome.ToUpper().Contains(pesquisar.ToUpper())));
             }
 
-            // ordena a lista de funcionários de forma ascendente ou descendente, pelo atributo escolhido
+            // ordena a lista de funcionários de forma ascendente ou descendente por coluna
             switch (ordenar) {
                 case "nomeDesc":
                     return View(funcionario.OrderByDescending(f => f.Nome).ToList());
@@ -36,7 +43,11 @@ namespace PortalSocios.Controllers {
             }
         }
 
-        // GET: Funcionarios/Details/5
+        /// <summary>
+        /// Mostra a VIEW dos detalhes de um funcionário
+        /// GET - ex.: Funcionarios/Details/5
+        /// </summary>
+        /// <param name="id"></param>
         public ActionResult Details(int? id) {
             if (id == null) {
                 return RedirectToAction("Index");
@@ -48,14 +59,20 @@ namespace PortalSocios.Controllers {
             return View(funcionario);
         }
 
-        // GET: Funcionarios/Create
+        /// <summary>
+        /// Mostra a VIEW de criação de um funcionário
+        /// GET: Funcionarios/Create
+        /// </summary>
         public ActionResult Create() {
             return View();
         }
 
-        // POST: Funcionarios/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Verifica se os dados para a criação de um funcionário são válidos
+        /// e, se for o caso, cria esse funcionário
+        /// POST: Funcionarios/Create
+        /// </summary>
+        /// <param name="funcionario"></param>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Nome,NIF,Email,Telemovel,Morada,CodPostal,DataEntrClube")] Funcionarios funcionario) {
@@ -72,7 +89,11 @@ namespace PortalSocios.Controllers {
             return View(funcionario);
         }
 
-        // GET: Funcionarios/Edit/5
+        /// <summary>
+        /// Mostra a VIEW de edição de um funcionário
+        /// GET - ex.: Funcionarios/Edit/5
+        /// </summary>
+        /// <param name="id"></param>
         public ActionResult Edit(int? id) {
             if (id == null) {
                 return RedirectToAction("Index");
@@ -84,9 +105,12 @@ namespace PortalSocios.Controllers {
             return View(funcionario);
         }
 
-        // POST: Funcionarios/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Verifica se os dados introduzidos para a edição de um funcionário
+        /// são válidos e, se for o caso, edita esse funcionário
+        /// POST - ex.: Funcionarios/Edit/5
+        /// </summary>
+        /// <param name="funcionario"></param>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "FuncionarioID,Nome,NIF,Email,Telemovel,Morada,CodPostal,DataEntrClube")] Funcionarios funcionario) {
@@ -103,7 +127,11 @@ namespace PortalSocios.Controllers {
             return View(funcionario);
         }
 
-        // GET: Funcionarios/Delete/5
+        /// <summary>
+        /// Mostra a VIEW de eliminação de um funcionário
+        /// GET - ex.: Funcionarios/Delete/5
+        /// </summary>
+        /// <param name="id"></param>
         public ActionResult Delete(int? id) {
             if (id == null) {
                 return RedirectToAction("Index");
@@ -115,7 +143,12 @@ namespace PortalSocios.Controllers {
             return View(funcionario);
         }
 
-        // POST: Funcionarios/Delete/5
+        /// <summary>
+        /// Verifica se é possível a eliminação de um funcionário
+        /// e, se for o caso, elimina esse funcionário
+        /// POST: Funcionarios/Delete/5
+        /// </summary>
+        /// <param name="id"></param>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id) {

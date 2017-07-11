@@ -11,22 +11,22 @@
     <div class="titulo"><h3>LISTA DE BENEFÍCIOS</h3></div>
 
     <!-- criar novo sócio -->
-    <div class="col-md-12" style="text-align:center; margin-top: 20px;">
-        <input type="button" class="btn btn-primary" value="Criar Novo Benefício" onclick="location.href='@Url.Action("Create", "Beneficios")'" style="font-size: 16px;" />
+    <div class="col-md-12 divBtnCentro">
+        <input type="button" class="btn btn-primary" value="Criar Novo Benefício" onclick="location.href='@Url.Action("Create", "Beneficios")'" />
     </div>
     <hr />
 
     <!-- interface de pesquisa -->
     @using (Html.BeginForm()) {
-        <p style="text-align: center;">
-            @Html.TextBox("pesquisar", "", new { @class = "form-control", @maxlength = "30", @placeholder = "Pesquisa por descrição ou entidade", @style = "display: inline; width: 250px" })
+        <p class="interfPesq">
+            @Html.TextBox("pesquisar", "", new { @class = "form-control pesq", @maxlength = "30", @placeholder = "Pesquisa por descrição ou entidade" })
             <input type="submit" class="btn btn-primary" value="Pesquisar" />
         </p>
     }
 
 
-    <div style="text-align:center;">
-        <div style="display: inline-block;">
+    <div class="centrarTab">
+        <div class="displayTab">
             <!-- tabela de benefícios -->
             <table class="table">
                 <!-- cabeçalhos -->

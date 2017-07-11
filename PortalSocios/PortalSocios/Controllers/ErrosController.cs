@@ -7,18 +7,26 @@ using System.Web.Mvc;
 namespace PortalSocios.Controllers {
     public class ErrosController : Controller {
 
-        // GET: Erros
-        // erro 404
+        /// <summary>
+        /// Mostra a página de erro, para o erro 404
+        /// GET: Erros
+        /// </summary>
         public ActionResult NotFound() {
             return View();
         }
 
-        // erro de serviço indisponível
+        /// <summary>
+        /// Mostra a página de erro, para serviço indisponível
+        /// GET: Erros
+        /// </summary>
         public ActionResult Indisponivel() {
             return View();
         }
 
-        // erro de acesso restrito
+        /// <summary>
+        /// Mostra a página de erro, para acesso restrito
+        /// GET: Erros
+        /// </summary>
         public ActionResult Restrito() {
             return View();
         }

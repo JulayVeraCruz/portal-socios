@@ -7,9 +7,15 @@ using System;
 namespace PortalSocios.Controllers {
     [Authorize(Roles = "Administrador, Funcionario")]
     public class CategoriasController : Controller {
+
+        // cria um novo objeto que representa a BD
         private SociosBD db = new SociosBD();
 
-        // GET: Categorias
+        /// <summary>
+        /// Mostra a VIEW da lista de categorias
+        /// GET: Categorias
+        /// </summary>
+        /// <param name="pesquisar"></param>
         public ActionResult Index(string pesquisar) {
 
             var categorias = db.Categorias;
@@ -22,7 +28,11 @@ namespace PortalSocios.Controllers {
             return View(categorias.OrderBy(c => c.Nome).ToList());
         }
 
-        // GET: Categorias/Details/5
+        /// <summary>
+        /// Mostra a VIEW dos detalhes de uma categoria
+        /// GET - ex.: Categorias/Details/5
+        /// </summary>
+        /// <param name="id"></param>
         public ActionResult Details(int? id) {
             if (id == null) {
                 return RedirectToAction("Index");
@@ -34,14 +44,20 @@ namespace PortalSocios.Controllers {
             return View(categoria);
         }
 
-        // GET: Categorias/Create
+        /// <summary>
+        /// Mostra a VIEW de criação de uma categoria
+        /// GET: Categorias/Create
+        /// </summary>
         public ActionResult Create() {
             return View();
         }
 
-        // POST: Categorias/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Verifica se os dados para a criação de uma categoria são válidos
+        /// e, se for o caso, cria essa categoria
+        /// POST: Categorias/Create
+        /// </summary>
+        /// <param name="categoria"></param>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Nome,FaixaEtaria,NumQuotasAnuais,AuxValorMensal")] Categorias categoria) {
@@ -61,7 +77,11 @@ namespace PortalSocios.Controllers {
             return View(categoria);
         }
 
-        // GET: Categorias/Edit/5
+        /// <summary>
+        /// Mostra a VIEW de edição de uma categoria
+        /// GET - ex.: Categorias/Edit/5
+        /// </summary>
+        /// <param name="id"></param>
         public ActionResult Edit(int? id) {
             if (id == null) {
                 return RedirectToAction("Index");
@@ -73,9 +93,12 @@ namespace PortalSocios.Controllers {
             return View(categoria);
         }
 
-        // POST: Categorias/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Verifica se os dados introduzidos para a edição de uma categoria
+        /// são válidos e, se for o caso, edita essa categoria
+        /// POST - ex.: Categorias/Edit/5
+        /// </summary>
+        /// <param name="categoria"></param>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "CategoriaID,Nome,FaixaEtaria,NumQuotasAnuais,AuxValorMensal")] Categorias categoria) {
@@ -95,7 +118,11 @@ namespace PortalSocios.Controllers {
             return View(categoria);
         }
 
-        // GET: Categorias/Delete/5
+        /// <summary>
+        /// Mostra a VIEW de eliminação de uma categoria
+        /// GET - ex.: Categorias/Delete/5
+        /// </summary>
+        /// <param name="id"></param>
         public ActionResult Delete(int? id) {
             if (id == null) {
                 return RedirectToAction("Index");
@@ -107,7 +134,12 @@ namespace PortalSocios.Controllers {
             return View(categoria);
         }
 
-        // POST: Categorias/Delete/5
+        /// <summary>
+        /// Verifica se é possível a eliminação de uma categoria
+        /// e, se for o caso, elimina essa categoria
+        /// POST: Categorias/Delete/5
+        /// </summary>
+        /// <param name="id"></param>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id) {

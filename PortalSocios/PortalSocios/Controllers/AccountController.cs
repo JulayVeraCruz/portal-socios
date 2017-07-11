@@ -33,8 +33,11 @@ namespace PortalSocios.Controllers {
             }
         }
 
-        //
-        // GET: /Account/Login
+        /// <summary>
+        /// Mostra a VIEW do login
+        /// GET: /Account/Login
+        /// </summary>
+        /// <param name="returnUrl"></param>
         [AllowAnonymous]
         public ActionResult Login(string returnUrl) {
             ViewBag.ReturnUrl = returnUrl;
@@ -50,8 +53,13 @@ namespace PortalSocios.Controllers {
             private set { _signInManager = value; }
         }
 
-        //
-        // POST: /Account/Login
+        /// <summary>
+        /// Verifica se os dados do login são válidos
+        /// e, se for o caso, efetua o login do utilizador
+        /// POST: /Account/Login
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="returnUrl"></param>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -66,18 +74,20 @@ namespace PortalSocios.Controllers {
             switch (result) {
                 case SignInStatus.Success:
                     return RedirectToLocal(returnUrl);
+                /*
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl });
+                */
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Tentativa de login inválida!");
                     return View(model);
             }
         }
-                
-        //
+        
+        // NÃO IMPLEMENTADO!
         // GET: /Account/VerifyCode
         [AllowAnonymous]
         public async Task<ActionResult> VerifyCode(string provider, string returnUrl) {
@@ -92,7 +102,7 @@ namespace PortalSocios.Controllers {
             return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl });
         }
 
-        //
+        // NÃO IMPLEMENTADO!
         // POST: /Account/VerifyCode
         [HttpPost]
         [AllowAnonymous]
@@ -113,18 +123,26 @@ namespace PortalSocios.Controllers {
                     ModelState.AddModelError("", "Invalid code.");
                     return View(model);
             }
-        }
+        }        
 
-        //
-        // GET: /Account/Register
+        /// <summary>
+        /// Mostra a VIEW para registo de um utilizador
+        /// GET: /Account/Register
+        /// </summary>
         [AllowAnonymous]
         public ActionResult Register() {
             ViewBag.CategoriaFK = new SelectList(db.Categorias, "CategoriaID", "Nome");
             return View();
         }
 
-        //
-        // POST: /Account/Register
+        /// <summary>
+        /// Verifica se os dados de registo são válidos
+        /// e, se for o caso, cria uma conta de utilizador
+        /// POST: /Account/Register
+        /// </summary>
+        /// <param name="socio"></param>
+        /// <param name="model"></param>
+        /// <param name="foto"></param>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -158,6 +176,7 @@ namespace PortalSocios.Controllers {
 
                 // caso os dados introduzidos estejam consistentes com o model
                 if (ModelState.IsValid) {
+
                     // ref: http://haacked.com/archive/2010/07/16/uploading-files-with-aspnetmvc.aspx/
                     // caso haja um ficheiro selecionado e o tamanho seja superior a 0
                     if (foto != null && foto.ContentLength > 0) {
@@ -201,7 +220,7 @@ namespace PortalSocios.Controllers {
             return View(model);
         }
 
-        //
+        // NÃO IMPLEMENTADO!
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string userId, string code) {
@@ -211,15 +230,15 @@ namespace PortalSocios.Controllers {
             var result = await UserManager.ConfirmEmailAsync(userId, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
-                
-        //
+
+        // NÃO IMPLEMENTADO!
         // GET: /Account/ForgotPassword
         [AllowAnonymous]
         public ActionResult ForgotPassword() {
             return View();
         }
 
-        //
+        // NÃO IMPLEMENTADO!
         // POST: /Account/ForgotPassword
         [HttpPost]
         [AllowAnonymous]
@@ -241,7 +260,7 @@ namespace PortalSocios.Controllers {
             return View(model);
         }
 
-        //
+        // NÃO IMPLEMENTADO!
         // GET: /Account/ForgotPasswordConfirmation
         [AllowAnonymous]
         public ActionResult ForgotPasswordConfirmation() {
@@ -249,14 +268,14 @@ namespace PortalSocios.Controllers {
             return RedirectToAction("Indisponivel", "Erros");
         }
 
-        //
+        // NÃO IMPLEMENTADO!
         // GET: /Account/ResetPassword
         [AllowAnonymous]
         public ActionResult ResetPassword(string code) {
             return code == null ? View("Error") : View();
         }
 
-        //
+        // NÃO IMPLEMENTADO!
         // POST: /Account/ResetPassword
         [HttpPost]
         [AllowAnonymous]
@@ -278,14 +297,14 @@ namespace PortalSocios.Controllers {
             return View();
         }
 
-        //
+        // NÃO IMPLEMENTADO!
         // GET: /Account/ResetPasswordConfirmation
         [AllowAnonymous]
         public ActionResult ResetPasswordConfirmation() {
             return View();
         }
 
-        //
+        // NÃO IMPLEMENTADO!
         // POST: /Account/ExternalLogin
         [HttpPost]
         [AllowAnonymous]
@@ -295,7 +314,7 @@ namespace PortalSocios.Controllers {
             return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
         }
 
-        //
+        // NÃO IMPLEMENTADO!
         // GET: /Account/SendCode
         [AllowAnonymous]
         public async Task<ActionResult> SendCode(string returnUrl) {
@@ -308,7 +327,7 @@ namespace PortalSocios.Controllers {
             return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl });
         }
 
-        //
+        // NÃO IMPLEMENTADO!
         // POST: /Account/SendCode
         [HttpPost]
         [AllowAnonymous]
@@ -325,7 +344,7 @@ namespace PortalSocios.Controllers {
             return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl });
         }
 
-        //
+        // NÃO IMPLEMENTADO!
         // GET: /Account/ExternalLoginCallback
         [AllowAnonymous]
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl) {
@@ -352,7 +371,7 @@ namespace PortalSocios.Controllers {
             }
         }
 
-        //
+        // NÃO IMPLEMENTADO!
         // POST: /Account/ExternalLoginConfirmation
         [HttpPost]
         [AllowAnonymous]
@@ -382,10 +401,12 @@ namespace PortalSocios.Controllers {
 
             ViewBag.ReturnUrl = returnUrl;
             return View(model);
-        }
+        }        
 
-        //
-        // POST: /Account/LogOff
+        /// <summary>
+        /// Efetua o logout do utilizador
+        /// POST: /Account/LogOff
+        /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff() {

@@ -11,21 +11,21 @@
     <div class="titulo"><h3>LISTA DE QUOTAS</h3></div>
 
     <!-- criar nova quota -->
-    <div class="col-md-12" style="text-align:center; margin-top: 20px;">
-        <input type="button" class="btn btn-primary" value="Criar Nova Quota" onclick="location.href='@Url.Action("Create", "Quotas")'" style="font-size: 16px;" />
+    <div class="col-md-12 divBtnCentro">
+        <input type="button" class="btn btn-primary" value="Criar Nova Quota" onclick="location.href='@Url.Action("Create", "Quotas")'" />
     </div>
     <hr />
 
     <!-- interface de pesquisa -->
     @using (Html.BeginForm()) {
-        <p style="text-align: center;">
-            @Html.TextBox("pesquisar", "", new { @class = "form-control", @maxlength = "30", @placeholder = "Pesquisa por referência", @style = "display: inline; width: 200px" })
+        <p class="interfPesq">
+            @Html.TextBox("pesquisar", "", new { @class = "form-control pesq", @maxlength = "30", @placeholder = "Pesquisa por referência" })
             <input type="submit" class="btn btn-primary" value="Pesquisar" />
         </p>
     }
 
-    <div style="text-align:center;">
-        <div style="display: inline-block;">
+    <div class="centrarTab">
+        <div class="displayTab">
             <!-- tabela das quotas-->
             <table class="table">
                 <!-- cabeçalhos -->

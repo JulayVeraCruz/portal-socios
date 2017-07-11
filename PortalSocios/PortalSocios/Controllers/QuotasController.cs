@@ -8,9 +8,15 @@ namespace PortalSocios.Controllers {
     [Authorize(Roles = "Administrador, Funcionario")]
     public class QuotasController : Controller {
 
+        // cria um novo objeto que representa a BD
         private SociosBD db = new SociosBD();
 
-        // GET: Quotas
+        /// <summary>
+        /// Mostra a VIEW da lista de quotas
+        /// GET: Quotas
+        /// </summary>
+        /// <param name="ordenar"></param>
+        /// <param name="pesquisar"></param>
         public ActionResult Index(string ordenar, string pesquisar) {
             var quotas = db.Quotas.Include(s => s.Categoria);
 
@@ -26,7 +32,7 @@ namespace PortalSocios.Controllers {
                 return View(quotas.Where(q => q.Referencia.ToUpper().Contains(pesquisar.ToUpper())));
             }
 
-            // ordena a lista de quotas de forma ascendente ou descendente, pelo atributo escolhido
+            // ordena a lista de quotas de forma ascendente ou descendente por coluna
             switch (ordenar) {
                 case "refDesc":
                     return View(quotas.OrderByDescending(q => q.Referencia).ToList());
@@ -51,7 +57,11 @@ namespace PortalSocios.Controllers {
             }
         }
 
-        // GET: Quotas/Details/5
+        /// <summary>
+        /// Mostra a VIEW dos detalhes de uma quota
+        /// GET - ex.: Quotas/Details/5
+        /// </summary>
+        /// <param name="id"></param>
         public ActionResult Details(int? id) {
             if (id == null) {
                 return RedirectToAction("Index");
@@ -63,15 +73,21 @@ namespace PortalSocios.Controllers {
             return View(quota);
         }
 
-        // GET: Quotas/Create
+        /// <summary>
+        /// Mostra a VIEW de criação de uma quota
+        /// GET: Quotas/Create
+        /// </summary>
         public ActionResult Create() {
             ViewBag.CategoriaFK = new SelectList(db.Categorias, "CategoriaID", "Nome");
             return View();
         }
 
-        // POST: Quotas/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Verifica se os dados introduzidos para a criação de uma quota são válidos
+        /// e, se for o caso, cria essa quota
+        /// POST: Quotas/Create
+        /// </summary>
+        /// <param name="quota"></param>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Referencia,AuxMontante,Ano,Periodicidade,CategoriaFK")] Quotas quota) {
@@ -91,7 +107,11 @@ namespace PortalSocios.Controllers {
             return View(quota);
         }
 
-        // GET: Quotas/Edit/5
+        /// <summary>
+        /// Mostra a VIEW de edição de uma quota
+        /// GET - ex.: Quotas/Edit/5
+        /// </summary>
+        /// <param name="id"></param>
         public ActionResult Edit(int? id) {
             if (id == null) {
                 return RedirectToAction("Index");
@@ -104,9 +124,12 @@ namespace PortalSocios.Controllers {
             return View(quota);
         }
 
-        // POST: Quotas/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Verifica se os dados introduzidos para a edição de uma quota
+        /// são válidos e, se for o caso, edita essa quota
+        /// POST - ex.: Quotas/Edit/5
+        /// </summary>
+        /// <param name="quota"></param>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "QuotaID,Referencia,AuxMontante,Ano,Periodicidade,CategoriaFK")] Quotas quota) {
@@ -126,7 +149,11 @@ namespace PortalSocios.Controllers {
             return View(quota);
         }
 
-        // GET: Quotas/Delete/5
+        /// <summary>
+        /// Mostra a VIEW de eliminação de uma quota
+        /// GET - ex.: Quotas/Delete/5
+        /// </summary>
+        /// <param name="id"></param>
         public ActionResult Delete(int? id) {
             if (id == null) {
                 return RedirectToAction("Index");
@@ -138,7 +165,12 @@ namespace PortalSocios.Controllers {
             return View(quota);
         }
 
-        // POST: Quotas/Delete/5
+        /// <summary>
+        /// Verifica se é possível a eliminação de uma quota
+        /// e, se for o caso, elimina essa quota
+        /// POST - ex.: Quotas/Delete/5
+        /// </summary>
+        /// <param name="id"></param>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id) {

@@ -17,8 +17,8 @@
 
     @if (User.IsInRole("Administrador") || User.IsInRole("Funcionario")) {
         <!-- criar novo sócio -->
-        <div class="col-md-12" style="text-align:center; margin-top: 20px;">
-            <input type="button" class="btn btn-primary" value="Criar Novo Sócio" onclick="location.href='@Url.Action("Create", "Socios")'" style="font-size: 16px;" />
+        <div class="col-md-12 divBtnCentro">
+            <input type="button" class="btn btn-primary" value="Criar Novo Sócio" onclick="location.href='@Url.Action("Create", "Socios")'" />
         </div>
     }
     
@@ -27,18 +27,18 @@
     @if (User.IsInRole("Administrador") || User.IsInRole("Funcionario")) {
         <!-- interface de pesquisa -->
         using (Html.BeginForm()) {
-            <p style="text-align: center;">
-                @Html.TextBox("pesquisar", "", new { @class = "form-control", @maxlength = "30", @placeholder = "Pesquisa por nome", @style = "display:inline; width: 200px;" })
+            <p class="interfPesq">
+                @Html.TextBox("pesquisar", "", new { @class = "form-control pesq", @maxlength = "30", @placeholder = "Pesquisa por nome" })
                 <input type="submit" class="btn btn-primary" value="Pesquisar" />
             </p>
         }
     }
 
     <!-- nota -->
-    <div style="text-align:center;">** Só estão apresentados os dados mais relevantes. Os restantes podem ser consultados nos detalhes. **</div>
+    <div class="nota">** Só estão apresentados os dados mais relevantes. Os restantes podem ser consultados nos detalhes. **</div>
 
-    <div style="text-align:center;">
-        <div style="display: inline-block;">
+    <div class="centrarTab">
+        <div class="displayTab">
             <!-- tabela de sócios -->
             <table class="table">
                 <!-- cabeçalhos -->

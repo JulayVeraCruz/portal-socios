@@ -177,7 +177,16 @@
     <Content Include="Content\Imagens\fotolei.png" />
     <Content Include="Content\Imagens\fotorc.jpg" />
     <Content Include="Content\Imagens\proibido.png" />
+    <Content Include="Content\Imagens\quota1.png" />
+    <Content Include="Content\Imagens\quota2.png" />
+    <Content Include="Content\Imagens\quota3.png" />
     <Content Include="Content\Imagens\relvado.png" />
+    <Content Include="Content\Imagens\vantagem1.png" />
+    <Content Include="Content\Imagens\vantagem2.png" />
+    <Content Include="Content\Imagens\vantagem3.png" />
+    <Content Include="Content\Imagens\vantagem4.png" />
+    <Content Include="Content\Imagens\vantagem5.png" />
+    <Content Include="Content\Imagens\vantagem6.png" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

@@ -2,7 +2,6 @@
 
 <title> Entrar | Portal dos Sócios do Clube Desportivo Coxos da Bola</title>
 
-
 <div class="titulo"><h3>Entrar</h3></div>
 <hr />
 <div class="row painel">
@@ -10,10 +9,10 @@
         <section id="loginForm">
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" })) {
                 @Html.AntiForgeryToken()
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.ValidationSummary(true, "")
 
                 if (ViewBag.Mensagem != null) {
-                    <div class="titulo col-md-12" style="color:forestgreen; font-weight:bold;">@ViewBag.Mensagem</div>
+                    <div class="titulo col-md-12 msgSucesso">@ViewBag.Mensagem</div>
                 }
 
                 <div class="form-group">

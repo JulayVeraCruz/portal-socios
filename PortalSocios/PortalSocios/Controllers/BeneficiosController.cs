@@ -7,9 +7,15 @@ using System;
 namespace PortalSocios.Controllers {
     [Authorize(Roles = "Administrador, Funcionario")]
     public class BeneficiosController : Controller {
+
+        // cria um novo objeto que representa a BD
         private SociosBD db = new SociosBD();
 
-        // GET: Beneficios
+        /// <summary>
+        /// Mostra a VIEW da lista de benefícios
+        /// GET: Beneficios
+        /// </summary>
+        /// <param name="pesquisar"></param>
         public ActionResult Index(string pesquisar) {
 
             var beneficio = db.Beneficios;
@@ -22,7 +28,11 @@ namespace PortalSocios.Controllers {
             return View(beneficio.OrderBy(b => b.Descricao).ToList());
         }
 
-        // GET: Beneficios/Details/5
+        /// <summary>
+        /// Mostra a VIEW dos detalhes de um benefício
+        /// GET - ex.: Beneficios/Details/5
+        /// </summary>
+        /// <param name="id"></param>
         public ActionResult Details(int? id) {
             if (id == null) {
                 return RedirectToAction("Index");
@@ -34,14 +44,20 @@ namespace PortalSocios.Controllers {
             return View(beneficio);
         }
 
-        // GET: Beneficios/Create
+        /// <summary>
+        /// Mostra a VIEW de criação de um benefício
+        /// GET: Beneficios/Create
+        /// </summary>
         public ActionResult Create() {
             return View();
         }
 
-        // POST: Beneficios/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Verifica se os dados introduzidos para a criação de um benefício são válidos
+        /// e, se for o caso, cria esse benefício
+        /// POST: Beneficios/Create
+        /// </summary>
+        /// <param name="beneficio"></param>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Descricao,EntidRespons")] Beneficios beneficio) {
@@ -58,7 +74,11 @@ namespace PortalSocios.Controllers {
             return View(beneficio);
         }
 
-        // GET: Beneficios/Edit/5
+        /// <summary>
+        /// Mostra a VIEW de edição de um benefício
+        /// GET - ex.: Beneficios/Edit/5
+        /// </summary>
+        /// <param name="id"></param>
         public ActionResult Edit(int? id) {
             if (id == null) {
                 return RedirectToAction("Index");
@@ -70,9 +90,12 @@ namespace PortalSocios.Controllers {
             return View(beneficio);
         }
 
-        // POST: Beneficios/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Verifica se os dados introduzidos para a edição de um benefício
+        /// são válidos e, se for o caso, edita esse benefício
+        /// POST - ex.: Beneficios/Edit/5
+        /// </summary>
+        /// <param name="beneficio"></param>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "BeneficioID,Descricao,EntidRespons")] Beneficios beneficio) {
@@ -89,7 +112,11 @@ namespace PortalSocios.Controllers {
             return View(beneficio);
         }
 
-        // GET: Beneficios/Delete/5
+        /// <summary>
+        /// Mostra a VIEW de eliminação de um benefício
+        /// GET - ex.: Beneficios/Delete/5
+        /// </summary>
+        /// <param name="id"></param>
         public ActionResult Delete(int? id) {
             if (id == null) {
                 return RedirectToAction("Index");
@@ -101,7 +128,12 @@ namespace PortalSocios.Controllers {
             return View(beneficio);
         }
 
-        // POST: Beneficios/Delete/5
+        /// <summary>
+        /// Verifica se é possível a eliminação de um benefício
+        /// e, se for o caso, elimina esse benefício
+        /// POST - ex.: Beneficios/Delete/5
+        /// </summary>
+        /// <param name="id"></param>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id) {

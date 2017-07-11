@@ -49,7 +49,7 @@ namespace PortalSocios.Controllers {
             return View(model);
         }
 
-        //
+        // NÃO IMPLEMENTADO!
         // GET: /Account/RemoveLogin
         public ActionResult RemoveLogin() {
             var linkedAccounts = UserManager.GetLogins(User.Identity.GetUserId());
@@ -57,7 +57,7 @@ namespace PortalSocios.Controllers {
             return View(linkedAccounts);
         }
 
-        //
+        // NÃO IMPLEMENTADO!
         // POST: /Manage/RemoveLogin
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -77,13 +77,13 @@ namespace PortalSocios.Controllers {
             return RedirectToAction("ManageLogins", new { Message = message });
         }
 
-        //
+        // NÃO IMPLEMENTADO!
         // GET: /Account/AddPhoneNumber
         public ActionResult AddPhoneNumber() {
             return View();
         }
 
-        //
+        // NÃO IMPLEMENTADO!
         // POST: /Account/AddPhoneNumber
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -103,7 +103,7 @@ namespace PortalSocios.Controllers {
             return RedirectToAction("VerifyPhoneNumber", new { PhoneNumber = model.Number });
         }
 
-        //
+        // NÃO IMPLEMENTADO!
         // POST: /Manage/RememberBrowser
         [HttpPost]
         public ActionResult RememberBrowser() {
@@ -112,15 +112,15 @@ namespace PortalSocios.Controllers {
             return RedirectToAction("Index", "Manage");
         }
 
-        //
+        // NÃO IMPLEMENTADO!
         // POST: /Manage/ForgetBrowser
         [HttpPost]
         public ActionResult ForgetBrowser() {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
             return RedirectToAction("Index", "Manage");
         }
-            
-        //
+
+        // NÃO IMPLEMENTADO!
         // POST: /Manage/EnableTFA
         [HttpPost]
         public async Task<ActionResult> EnableTFA() {
@@ -132,7 +132,7 @@ namespace PortalSocios.Controllers {
             return RedirectToAction("Index", "Manage");
         }
 
-        //
+        // NÃO IMPLEMENTADO!
         // POST: /Manage/DisableTFA
         [HttpPost]
         public async Task<ActionResult> DisableTFA() {
@@ -144,7 +144,7 @@ namespace PortalSocios.Controllers {
             return RedirectToAction("Index", "Manage");
         }
 
-        //
+        // NÃO IMPLEMENTADO!
         // GET: /Account/VerifyPhoneNumber
         public async Task<ActionResult> VerifyPhoneNumber(string phoneNumber) {
             // This code allows you exercise the flow without actually sending codes
@@ -154,7 +154,7 @@ namespace PortalSocios.Controllers {
             return phoneNumber == null ? View("Error") : View(new VerifyPhoneNumberViewModel { PhoneNumber = phoneNumber });
         }
 
-        //
+        // NÃO IMPLEMENTADO!
         // POST: /Account/VerifyPhoneNumber
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -175,7 +175,7 @@ namespace PortalSocios.Controllers {
             return View(model);
         }
 
-        //
+        // NÃO IMPLEMENTADO!
         // GET: /Account/RemovePhoneNumber
         public async Task<ActionResult> RemovePhoneNumber() {
             var result = await UserManager.SetPhoneNumberAsync(User.Identity.GetUserId(), null);
@@ -189,14 +189,20 @@ namespace PortalSocios.Controllers {
             return RedirectToAction("Index", new { Message = ManageMessageId.RemovePhoneSuccess });
         }
 
-        //
-        // GET: /Manage/ChangePassword
+        /// <summary>
+        /// Mostra a VIEW de alteração da palavra-chave
+        /// GET: /Manage/ChangePassword
+        /// </summary>
         public ActionResult ChangePassword() {
             return View();
         }
 
-        //
-        // POST: /Account/Manage
+        /// <summary>
+        /// Verifica se os dados introduzidos para a alteração da palavra-chave são válidos
+        /// e, se for o caso, altera essa palavra-chave
+        /// POST: /Account/Manag
+        /// </summary>
+        /// <param name="model"></param>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model) {
@@ -216,13 +222,14 @@ namespace PortalSocios.Controllers {
             return View(model);
         }
 
-        //
+        /*
+        // NÃO IMPLEMENTADO!
         // GET: /Manage/SetPassword
         public ActionResult SetPassword() {
             return View();
         }
 
-        //
+        // NÃO IMPLEMENTADO!
         // POST: /Manage/SetPassword
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -242,8 +249,9 @@ namespace PortalSocios.Controllers {
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+        */
 
-        //
+        // NÃO IMPLEMENTADO!
         // GET: /Account/Manage
         public async Task<ActionResult> ManageLogins(ManageMessageId? message) {
             ViewBag.StatusMessage =
@@ -263,7 +271,7 @@ namespace PortalSocios.Controllers {
             });
         }
 
-        //
+        // NÃO IMPLEMENTADO!
         // POST: /Manage/LinkLogin
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -272,7 +280,8 @@ namespace PortalSocios.Controllers {
             return new AccountController.ChallengeResult(provider, Url.Action("LinkLoginCallback", "Manage"), User.Identity.GetUserId());
         }
 
-        //
+        /*
+        // NÃO IMPLEMENTADO!
         // GET: /Manage/LinkLoginCallback
         public async Task<ActionResult> LinkLoginCallback() {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync(XsrfKey, User.Identity.GetUserId());
@@ -282,6 +291,7 @@ namespace PortalSocios.Controllers {
             var result = await UserManager.AddLoginAsync(User.Identity.GetUserId(), loginInfo.Login);
             return result.Succeeded ? RedirectToAction("ManageLogins") : RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
         }
+        */
 
         #region Helpers
         // Used for XSRF protection when adding external logins

@@ -14,8 +14,14 @@ namespace PortalSocios.Controllers {
         // cria um novo objeto que representa a BD
         private SociosBD db = new SociosBD();
 
-        // GET: Socios
+        /// <summary>
+        /// Mostra a VIEW da lista de sócios
+        /// GET: Socios
+        /// </summary>
+        /// <param name="ordenar"></param>
+        /// <param name="pesquisar"></param>
         public ActionResult Index(string ordenar, string pesquisar) {
+
             // inclui os dados das categorias na view Socios
             var socios = db.Socios.Include(s => s.Categoria);
             // caso o utilizador seja funcionário
@@ -32,7 +38,7 @@ namespace PortalSocios.Controllers {
                     return View(socios.Where(s => s.Nome.ToUpper().Contains(pesquisar.ToUpper())));
                 }
 
-                // ordena a lista de sócios de forma ascendente ou descendente, pelo atributo escolhido
+                // ordena a lista de sócios de forma ascendente ou descendente, por coluna
                 switch (ordenar) {
                     case "numDesc":
                         return View(socios.OrderByDescending(s => s.NumSocio).ToList());
@@ -51,8 +57,12 @@ namespace PortalSocios.Controllers {
             // lista apenas os dados do sócio que se autenticou
             return View(db.Socios.Where(s => s.UserName.Equals(User.Identity.Name)).ToList());
         }
-        
-        // GET: Socios/Details/5
+
+        /// <summary>
+        /// Mostra a VIEW dos detalhes de um sócio
+        /// GET - ex.: Socios/Details/5
+        /// </summary>
+        /// <param name="id"></param>
         public ActionResult Details(int? id) {
             // caso não se indique um id
             if (id == null) {
@@ -75,16 +85,23 @@ namespace PortalSocios.Controllers {
             return View(socio);
         }
 
-        // GET: Socios/Create
+        /// <summary>
+        /// Mostra a VIEW de criação de um sócio
+        /// GET: Socios/Create
+        /// </summary>
         [Authorize(Roles = "Administrador, Funcionario")]
         public ActionResult Create() {
             ViewBag.CategoriaFK = new SelectList(db.Categorias, "CategoriaID", "Nome");
             return View();
         }
 
-        // POST: Socios/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Verifica se os dados introduzidos para a criação de um sócio são válidos
+        /// e, se for o caso, cria esse sócio
+        /// POST: Socios/Create
+        /// </summary>
+        /// <param name="socio"></param>
+        /// <param name="foto2"></param>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador, Funcionario")]
@@ -143,7 +160,11 @@ namespace PortalSocios.Controllers {
             return View(socio);
         }
 
-        // GET: Socios/Edit/5
+        /// <summary>
+        /// Mostra a VIEW de edição de um sócio
+        /// GET - ex.: Socios/Edit/5
+        /// </summary>
+        /// <param name="id"></param>
         public ActionResult Edit(int? id) {
             // caso não se indique um id
             if (id == null) {
@@ -167,9 +188,13 @@ namespace PortalSocios.Controllers {
             return View(socio);
         }
 
-        // POST: Socios/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Verifica se os dados introduzidos para a edição de um sócio
+        /// são válidos e, se for o caso, edita esse sócio
+        /// POST - ex.: Socios/Edit/5
+        /// </summary>
+        /// <param name="socio"></param>
+        /// <param name="foto3"></param>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "SocioID,NumSocio,Nome,BI,NIF,DataNasc,Email,Telemovel,Morada,CodPostal,Fotografia,DataInscr,CategoriaFK,UserName")] Socios socio, HttpPostedFileBase foto3) {
@@ -215,7 +240,11 @@ namespace PortalSocios.Controllers {
             return View(socio);
         }
 
-        // GET: Socios/Delete/5
+        /// <summary>
+        /// Mostra a VIEW de eliminação de um sócio
+        /// GET: Socios/Delete/5
+        /// </summary>
+        /// <param name="id"></param>
         [Authorize(Roles = "Administrador, Funcionario")]
         public ActionResult Delete(int? id) {
             // caso não se indique um id
@@ -234,7 +263,12 @@ namespace PortalSocios.Controllers {
             return View(socio);
         }
 
-        // POST: Socios/Delete/5
+        /// <summary>
+        /// Verifica se é possível a eliminação de um sócio
+        /// e, se for o caso, elimina esse sócio
+        /// POST - ex.: Socios/Delete/5
+        /// </summary>
+        /// <param name="id"></param>
         [HttpPost, ActionName("Delete")]
         [Authorize(Roles = "Administrador, Funcionario")]
         [ValidateAntiForgeryToken]

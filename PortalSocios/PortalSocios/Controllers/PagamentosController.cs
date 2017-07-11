@@ -7,9 +7,15 @@ using System;
 namespace PortalSocios.Controllers {
     [Authorize(Roles = "Administrador, Funcionario, Socio")]
     public class PagamentosController : Controller {
+
+        // cria um novo objeto que representa a BD
         private SociosBD db = new SociosBD();
 
-        // GET: Pagamentos
+        /// <summary>
+        /// Mostra a VIEW da lista de pagamentos
+        /// GET: Pagamentos
+        /// </summary>
+        /// <param name="pesquisar"></param>
         public ActionResult Index(string pesquisar) {
             var pagamentos = db.Pagamentos.Include(p => p.Funcionario).Include(p => p.Quota).Include(p => p.Socio);
 
@@ -25,7 +31,11 @@ namespace PortalSocios.Controllers {
             return View(db.Pagamentos.Where(p => p.UserName.Equals(User.Identity.Name)).OrderBy(p => p.DataPrevPagam).ToList());
         }
 
-        // GET: Pagamentos/Details/5
+        /// <summary>
+        /// Mostra a VIEW dos detalhes de um pagamento
+        /// GET - ex.: Pagamentos/Details/5
+        /// </summary>
+        /// <param name="id"></param>
         public ActionResult Details(int? id) {
             if (id == null) {
                 return RedirectToAction("Index");
@@ -37,7 +47,10 @@ namespace PortalSocios.Controllers {
             return View(pagamento);
         }
 
-        // GET: Pagamentos/Create
+        /// <summary>
+        /// Mostra a VIEW de criação de um pagamento
+        /// GET: Pagamentos/Create
+        /// </summary>
         [Authorize(Roles = "Administrador, Funcionario")]
         public ActionResult Create() {
             ViewBag.FuncionarioFK = new SelectList(db.Funcionarios, "FuncionarioID", "Nome");
@@ -46,9 +59,12 @@ namespace PortalSocios.Controllers {
             return View();
         }
 
-        // POST: Pagamentos/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Verifica se os dados introduzidos para a criação de um pagamento são válidos
+        /// e, se for o caso, cria esse pagamento
+        /// POST: Pagamentos/Create
+        /// </summary>
+        /// <param name="pagamento"></param>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador, Funcionario")]
@@ -73,7 +89,11 @@ namespace PortalSocios.Controllers {
             return View(pagamento);
         }
 
-        // GET: Pagamentos/Edit/5
+        /// <summary>
+        /// Mostra a VIEW de edição de um pagamento
+        /// GET - ex.: Pagamentos/Edit/5
+        /// </summary>
+        /// <param name="id"></param>
         [Authorize(Roles = "Administrador, Funcionario")]
         public ActionResult Edit(int? id) {
             if (id == null) {
@@ -89,9 +109,12 @@ namespace PortalSocios.Controllers {
             return View(pagamento);
         }
 
-        // POST: Pagamentos/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Verifica se os dados introduzidos para a edição de um pagamento
+        /// são válidos e, se for o caso, edita esse pagamento
+        /// POST: Pagamentos/Edit/5
+        /// </summary>
+        /// <param name="pagamento"></param>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador, Funcionario")]
@@ -116,7 +139,11 @@ namespace PortalSocios.Controllers {
             return View(pagamento);
         }
 
-        // GET: Pagamentos/Delete/5
+        /// <summary>
+        /// Mostra a VIEW de eliminação de um pagamento
+        /// GET - ex.: Pagamentos/Delete/5
+        /// </summary>
+        /// <param name="id"></param>
         [Authorize(Roles = "Administrador, Funcionario")]
         public ActionResult Delete(int? id) {
             if (id == null) {
@@ -129,7 +156,12 @@ namespace PortalSocios.Controllers {
             return View(pagamento);
         }
 
-        // POST: Pagamentos/Delete/5
+        /// <summary>
+        /// Verifica se é possível a eliminação de um pagamento
+        /// e, se for o caso, elimina esse pagamento
+        /// POST: Pagamentos/Delete/5
+        /// </summary>
+        /// <param name="id"></param>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador, Funcionario")]

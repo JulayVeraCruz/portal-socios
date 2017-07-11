@@ -49,13 +49,21 @@ input[type="checkbox"].input-validation-error {
 }
 
 
+
+/* #################################### */
 /* ########## CSS ADICIONADO ########## */
+/* #################################### */
+
+/* ids */
+
+#listaTopicos {
+    text-align:left;
+}
 
 #inscr {
   color: #ff3700;
   font-weight: bold;
 }
-
 
 #rodape {
     color: #000000;
@@ -63,18 +71,7 @@ input[type="checkbox"].input-validation-error {
     text-align: center;
 }
 
-#foto {
-    margin-top: 25px;
-}
-
-#lista {
-    overflow: auto;
-    max-height:400px;
-}
-
-.titulo {
-    text-align: center;
-}
+/* classes */
 
 .painel {
     background-color: rgba(255, 255, 255, 0.5);
@@ -83,15 +80,69 @@ input[type="checkbox"].input-validation-error {
     text-align: center;
 }
 
-.painel2 {
-    background-color: rgba(255, 255, 255, 0.3);
-    padding: 25px 0px 25px 0px;
-    border-radius: 5px;
+.topicos {
+    margin-left: 200px;
 }
 
-.imagem {
+.figuras {
+    margin-top: 25px;
+}
+
+.titulo {
+    text-align: center;
+}
+
+.info { 
+    font-weight: bold;
+} 
+
+.imagens {
     border: 3px solid #000000;
     margin-top: 10px;
+}
+
+.legendas {
+    height:300px;
+}
+
+.btnBarra {
+    font-weight: normal;
+}
+
+.margemTopo {
+    margin-top: 10px;
+}
+
+.margemTopo2 {
+    display:block;
+    margin: 10px auto;
+}
+
+.msgSucesso {
+    color:forestgreen;
+    font-weight:bold;
+}
+
+.divBtnCentro {
+    text-align:center;
+    margin-top: 20px;
+}
+
+.interfPesq {
+    text-align: center;
+}
+
+.pesq {
+    display:inline;
+    width: 200px;
+}
+
+.centrarTab {
+    text-align:center;
+}
+
+.displayTab {
+    display: inline-block;
 }
 
 .colCentro {
@@ -102,30 +153,14 @@ input[type="checkbox"].input-validation-error {
     text-align: left;
 }
 
-.tipo { 
-    font-weight: bold;
-} 
-
-.entrada {
-    display:block;
-    margin: 0 auto;
+.nota {
+    text-align:center;
 }
 
-.ligacoes {
-    font-weight: normal;
-}
-
-.reg1 {
-    margin-top: 10px;
-}
-
-.reg2 {
-    display:block;
-    margin: 10px auto;
-}
-
-.leg {
-    height:300px;
+.painel2 {
+    background-color: rgba(255, 255, 255, 0.3);
+    padding: 25px 0px 25px 0px;
+    border-radius: 5px;
 }
 
 .dadosEsq {
@@ -136,4 +171,9 @@ input[type="checkbox"].input-validation-error {
 .dadosDir {
     text-align:left;
     border-left:1px solid #000000;
+}
+
+.entrada {
+    display:block;
+    margin: 0 auto;
 }

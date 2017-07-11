@@ -11,21 +11,21 @@
     <div class="titulo"><h3>LISTA DE FUNCIONÁRIOS</h3></div>
 
     <!-- criar novo funcionário -->
-    <div class="col-md-12" style="text-align:center; margin-top: 20px;">
-        <input type="button" class="btn btn-primary" value="Criar Novo Funcionário" onclick="location.href='@Url.Action("Create", "Funcionarios")'" style="font-size: 16px;" />
+    <div class="col-md-12 divBtnCentro">
+        <input type="button" class="btn btn-primary" value="Criar Novo Funcionário" onclick="location.href='@Url.Action("Create", "Funcionarios")'" />
     </div>
     <hr />
 
     <!-- interface de pesquisa -->
     @using (Html.BeginForm()) {
-        <p style="text-align: center;">
-            @Html.TextBox("pesquisar", "", new { @class = "form-control", @maxlength = "30", @placeholder = "Pesquisa por nome", @style = "display: inline; width: 200px" })
+        <p class="interfPesq">
+            @Html.TextBox("pesquisar", "", new { @class = "form-control pesq", @maxlength = "30", @placeholder = "Pesquisa por nome" })
             <input type="submit" class="btn btn-primary" value="Pesquisar" />
         </p>
     }
 
-    <div style="text-align:center;">
-        <div style="display: inline-block;">
+    <div class="centrarTab">
+        <div class="displayTab">
             <!-- tabela de funcionários -->
             <table class="table">
                 <!-- cabeçalhos -->
