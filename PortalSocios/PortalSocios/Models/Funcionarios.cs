@@ -15,7 +15,7 @@ namespace PortalSocios.Models {
         public int FuncionarioID { get; set; }
 
         [StringLength(50)]
-        [RegularExpression("[A-ZÁÂÉÍÓÚ][a-záàâãäèéêëìíîïòóôõöùúûüç]+(-| )((da|de|do|das|dos) )?[A-ZÁÂÉÍÓÚ][a-záàâãäèéêëìíîïòóôõöùúûüç]+", ErrorMessage = "Introduza apenas letras. O {0} começa obrigatoriamente por uma maiúscula.")]
+        [RegularExpression("[A-ZÁÂÉÍÓÚ][a-záàâãäèéêëìíîïòóôõöùúûüç]+(-| )((da|de|do|das|dos) )?[A-ZÁÂÉÍÓÚ][a-záàâãäèéêëìíîïòóôõöùúûüç]+", ErrorMessage = "O {0} é constituído apenas por letras e começa obrigatoriamente por uma maiúscula.")]
         [Required(ErrorMessage = "O {0} é obrigatório!")]
         [Display(Name = "Nome")]
         public string Nome { get; set; }

@@ -19,7 +19,7 @@
     <!-- interface de pesquisa -->
     @using (Html.BeginForm()) {
         <p class="interfPesq">
-            @Html.TextBox("pesquisar", "", new { @class = "form-control pesq", @maxlength = "30", @placeholder = "Pesquisa por descrição ou entidade" })
+            @Html.TextBox("pesquisar", "", new { @class = "form-control pesq", @maxlength = "30", @placeholder = "Pesquisa por descrição" })
             <input type="submit" class="btn btn-primary" value="Pesquisar" />
         </p>
     }

@@ -70,7 +70,7 @@
                             <td class="colCentro">@Html.DisplayFor(modelItem => item.DataPagam)</td>
                         }
                         <td class="colCentro">@Html.DisplayFor(modelItem => item.DataPrevPagam)</td>
-                        @if (item.Multa == null) {
+                        @if (item.Multa == null || item.Multa == 0) {
                             <td class="colCentro">-</td>
                         }
                         else {

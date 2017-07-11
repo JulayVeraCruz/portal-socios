@@ -5,6 +5,7 @@ using PortalSocios.Models;
 using System;
 using System.Web;
 using System.IO;
+using System.Collections.Generic;
 
 namespace PortalSocios.Controllers {
 
@@ -183,6 +184,11 @@ namespace PortalSocios.Controllers {
             if (!socio.UserName.Equals(User.Identity.Name) && User.IsInRole("Socio")) {
                 return RedirectToAction("Restrito", "Erros");
             }
+
+            // armazena temporariamente o e-mail antigo
+            TempData["socioUsername"] = socio.UserName;
+            TempData.Keep("socioUsername");
+
             ViewBag.CategoriaFK = new SelectList(db.Categorias, "CategoriaID", "Nome", socio.CategoriaFK);
             // vai para a view da edição do sócio
             return View(socio);
@@ -199,7 +205,20 @@ namespace PortalSocios.Controllers {
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "SocioID,NumSocio,Nome,BI,NIF,DataNasc,Email,Telemovel,Morada,CodPostal,Fotografia,DataInscr,CategoriaFK,UserName")] Socios socio, HttpPostedFileBase foto3) {
             try {
-                // edita o username de um sócio
+
+                // atribui o e-mail antigo a uma string
+                string endEmail = TempData["socioUsername"].ToString();
+                
+                // procura o registo com o e-mail antigo                
+                ApplicationUser app = db.Users.Where(x => x.UserName.Equals(endEmail)).SingleOrDefault();
+
+                // caso o registo exista
+                if (app != null) {
+                    // atualiza o novo username de um sócio na tabela dos dados da conta
+                    app.UserName = socio.Email;
+                }                
+
+                // edita o username de um sócio na tabela dos sócios
                 socio.UserName = socio.Email;
 
                 // caso não haja um ficheiro selecionado

@@ -23,7 +23,7 @@
     @using (Html.BeginForm("Edit", "Socios", FormMethod.Post, new { enctype = "multipart/form-data" })) {
         @Html.AntiForgeryToken()
 
-        <div class="form-horizontal painel2">            
+        <div class="form-horizontal painel2">
             @Html.ValidationSummary(true, "")
             @Html.HiddenFor(model => model.SocioID)
             @Html.HiddenFor(model => model.NumSocio)
@@ -112,7 +112,7 @@
             </div>
 
             @Html.HiddenFor(model => model.UserName)
-                
+
         </div>
         <div class="col-md-12 divBtnCentro">
             <input type="submit" value="Guardar" class="btn btn-primary" />

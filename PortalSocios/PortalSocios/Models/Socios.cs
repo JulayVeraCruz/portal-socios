@@ -19,7 +19,7 @@ namespace PortalSocios.Models {
         public int NumSocio { get; set; }
 
         [StringLength(50)]
-        [RegularExpression("[A-ZÁÂÉÍÓÚ][a-záàâãäèéêëìíîïòóôõöùúûüç]+((-| )((da|de|do|das|dos) )?[A-ZÁÂÉÍÓÚ][a-záàâãäèéêëìíîïòóôõöùúûüç]+)+", ErrorMessage = "O {0} começa obrigatoriamente por uma maiúscula e é constituído apenas por letras.")]
+        [RegularExpression("[A-ZÁÂÉÍÓÚ][a-záàâãäèéêëìíîïòóôõöùúûüç]+((-| )((da|de|do|das|dos) )?[A-ZÁÂÉÍÓÚ][a-záàâãäèéêëìíîïòóôõöùúûüç]+)+", ErrorMessage = "O {0} é constituído apenas por letras e começa obrigatoriamente por uma maiúscula.")]
         [Required(ErrorMessage = "O {0} é obrigatório!")]
         [Display(Name = "Nome Completo")]
         public string Nome { get; set; }

@@ -23,7 +23,7 @@ namespace PortalSocios.Controllers {
             // ref: https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-
             // permite efetuar a pesquisa de um benefício pela descrição ou pela entidade responsável
             if (!String.IsNullOrEmpty(pesquisar)) {
-                return View(beneficio.Where(b => b.Descricao.ToUpper().Contains(pesquisar.ToUpper()) || b.EntidRespons.ToUpper().Contains(pesquisar.ToUpper())));
+                return View(beneficio.Where(b => b.Descricao.ToUpper().Contains(pesquisar.ToUpper())));
             }
             return View(beneficio.OrderBy(b => b.Descricao).ToList());
         }
